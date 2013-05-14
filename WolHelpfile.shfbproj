@@ -39,8 +39,8 @@
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <FeedbackEMailLinkText>Feedback</FeedbackEMailLinkText>
     <FeedbackEMailAddress>nikeee%40holz.nu</FeedbackEMailAddress>
-    <CopyrightText>WakeOnLan Library von nikeee13 steht unter einer Creative Commons Namensnennung-Keine Bearbeitung 3.0 Unported Lizenz.</CopyrightText>
-    <CopyrightHref>http://creativecommons.org/licenses/by-nd/3.0/deed.de</CopyrightHref>
+    <CopyrightText>WakeOnLan Library von nikeee13 steht unter der GNU General Public License v3</CopyrightText>
+    <CopyrightHref>http://www.gnu.org/licenses/gpl.html</CopyrightHref>
     <VisibleItems>Attributes, InheritedMembers, InheritedFrameworkMembers, Protected, SealedProtected</VisibleItems>
     <ComponentConfigurations>
       <ComponentConfig id="Cached MSDN URL References" enabled="True" xmlns="">
