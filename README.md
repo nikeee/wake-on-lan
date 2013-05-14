@@ -26,7 +26,7 @@ http://www.vb-paradise.de/user/4876-
 Die Librarys und Dokumentationen stehen unter dieser Lizenz:
 GNU Lesser General Public License v3 (siehe LICENSE-Datei)
 
-Ich mache auch lizenztechnische Ausnahmen, dazu können Sie kontakt mit mir aufnehmen.
+Ich mache auch lizenztechnische Ausnahmen, dazu können Sie Kontakt mit mir aufnehmen.
 
 vG,
 
