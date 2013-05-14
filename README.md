@@ -20,7 +20,7 @@ http://www.vb-paradise.de/user/4876-
 (oder auf Github)
 
 Die Librarys und Dokumentationen stehen unter dieser Lizenz:
-GNU General Public License v3 (siehe LICENSE-Datei)
+GNU Lesser General Public License v3 (siehe LICENSE-Datei)
 
 Ich mache auch lizenztechnische Ausnahmen, dazu können Sie kontakt mit mir aufnehmen.
 
