@@ -15,7 +15,9 @@ ReleaseFW20:
 Die XML-Datei enthält jeweils die Dokumentation für Visual Studio.
 
 Falls Fragen aufkommen oder Fehler gefunden werden, stehe ich hier als Ansprechpartner bereit:
-http://www.vb-paradise.de/sonstiges/showroom-testcenter/libraries-controls/76008-
+
+http://www.vb-paradise.de/*/76008-
+(oder via Github)
 
 Ansonsten findet man meine Kontaktdaten auf meinem Forumsprofil:
 http://www.vb-paradise.de/user/4876-
