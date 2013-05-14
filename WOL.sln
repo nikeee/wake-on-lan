@@ -10,24 +10,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan40", "WOL\WakeOnLan40.csproj", "{1212CE39-7229-4758-9F03-ED6F25C8F501}"
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://holz.tfspreview.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = WOL\\WakeOnLan.csproj
-		SccProjectName1 = WOL
-		SccLocalPath1 = WOL
-		SccProjectUniqueName2 = WOL\\WakeOnLan35.csproj
-		SccProjectName2 = WOL
-		SccLocalPath2 = WOL
-		SccProjectUniqueName3 = WOL\\WakeOnLan20.csproj
-		SccProjectName3 = WOL
-		SccLocalPath3 = WOL
-		SccProjectUniqueName4 = WOL\\WakeOnLan40.csproj
-		SccProjectName4 = WOL
-		SccLocalPath4 = WOL
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x86 = Debug|x86
