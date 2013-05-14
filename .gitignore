@@ -92,3 +92,6 @@ Thumbs.db
 
 # only typescript files!
 *.js
+
+# evil sandcastle
+*.shfbproj_*
