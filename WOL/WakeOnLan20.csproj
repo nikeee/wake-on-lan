@@ -116,6 +116,7 @@
   <ItemGroup>
     <Compile Include="ArpRequest.cs" />
     <Compile Include="ArpRequestResult.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IPAddressExtensions.cs" />
     <Compile Include="IPEndPointExtensions.cs" />
     <Compile Include="Localization.cs" />
