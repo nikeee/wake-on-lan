@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,49 +9,77 @@ namespace System.Net.Topology
 {
     public static class IPAddressExtensions
     {
-        private const string NotAnIPv4Address = "Not an IPv4 address";
-        public static int GetIPv4SiblingCount(this IPAddress address, NetMaskv4 mask)
+        private const string OnlyIPv4Supported = "Only IPv4 is currently supported";
+        public static int GetSiblingCount(this IPAddress address, NetMaskv4 mask)
         {
-            return GetIPv4SiblingCount(address, mask, SiblingOptions.IncludeNothing);
+            return GetSiblingCount(address, mask, SiblingOptions.ExcludeAll);
         }
 
-        public static int GetIPv4SiblingCount(this IPAddress address, NetMaskv4 mask, SiblingOptions options)
+        public static int GetSiblingCount(this IPAddress address, NetMaskv4 mask, SiblingOptions options)
         {
             if (address == null)
                 throw new ArgumentNullException("address");
+            if (mask == null)
+                throw new ArgumentNullException("mask");
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
-                throw new ArgumentNullException();
-
-            bool includeSelf = (options & SiblingOptions.IncludeSelf) == SiblingOptions.IncludeSelf;
-
-            throw new NotImplementedException(NotAnIPv4Address);
-        }
-
-        public static IEnumerable<IPAddress> GetIPv4Siblings(this IPAddress address, NetMaskv4 mask)
-        {
-            return GetIPv4Siblings(address, mask, SiblingOptions.IncludeNothing);
-        }
-
-        public static IEnumerable<IPAddress> GetIPv4Siblings(this IPAddress address, NetMaskv4 mask, SiblingOptions options)
-        {
-            if (address == null)
-                throw new ArgumentNullException("address");
-            if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
-                throw new ArgumentNullException(NotAnIPv4Address);
+                throw new NotSupportedException(OnlyIPv4Supported);
 
             bool includeSelf = (options & SiblingOptions.IncludeSelf) == SiblingOptions.IncludeSelf;
 
             throw new NotImplementedException();
         }
 
-        [Flags]
-        public enum SiblingOptions
+        public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMaskv4 mask)
         {
-            IncludeNothing = 0,
-            IncludeSelf = 1,
-            IncludeBroadcast = 2,
-            IncludeNet = 4, 
-            IncludeAll = IncludeSelf | IncludeBroadcast | IncludeNet
+            return GetSiblings(address, mask, SiblingOptions.ExcludeAll);
+        }
+
+        public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMaskv4 mask, SiblingOptions options)
+        {
+            if (address == null)
+                throw new ArgumentNullException("address");
+            if (mask == null)
+                throw new ArgumentNullException("mask");
+            if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
+                throw new NotSupportedException(OnlyIPv4Supported);
+
+            bool includeSelf = (options & SiblingOptions.IncludeSelf) == SiblingOptions.IncludeSelf;
+
+            throw new NotImplementedException();
+        }
+
+        public static IPAddress GetNetworkPrefix(this IPAddress address, NetMaskv4 mask)
+        {
+            if (address == null)
+                throw new ArgumentNullException("address");
+            if (mask == null)
+                throw new ArgumentNullException("mask");
+            if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
+                throw new NotSupportedException(OnlyIPv4Supported);
+
+            return mask & address;
+        }
+
+        public static IPAddress GetHostIdentifier(this IPAddress address, NetMaskv4 mask)
+        {
+            if (address == null)
+                throw new ArgumentNullException("address");
+            if (mask == null)
+                throw new ArgumentNullException("mask");
+            if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
+                throw new NotSupportedException(OnlyIPv4Supported);
+
+            var maskBits = mask.GetBits();
+            var ipBits = new BitArray(address.GetAddressBytes());
+
+            // TODO: Testing!
+
+            // !Mask & IP
+            var retVal = maskBits.Not().And(ipBits); // why does BitArray has no operators?
+            var bytes = new byte[4];
+            retVal.CopyTo(bytes, 0);
+
+            return new IPAddress(bytes);
         }
     }
 }

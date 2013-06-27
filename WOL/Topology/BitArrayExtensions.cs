@@ -44,6 +44,9 @@ namespace System.Net.Topology
 
         internal static string ToBinaryString(this BitArray bits, char separator, int separationDistance)
         {
+            if (bits == null)
+                throw new ArgumentNullException("bits");
+
             var sb = new StringBuilder();
             for (int i = 0; i < bits.Length; ++i)
             {
@@ -55,10 +58,29 @@ namespace System.Net.Topology
         }
         internal static string ToBinaryString(this BitArray bits)
         {
+            if (bits == null)
+                throw new ArgumentNullException("bits");
+
             var sb = new StringBuilder();
             for (int i = 0; i < bits.Length; ++i)
                 sb.Append(bits[i] ? '1' : '0');
             return sb.ToString();
+        }
+
+        internal static bool RepresentsValidNetMask(this BitArray bits)
+        {
+            if (bits == null)
+                throw new ArgumentNullException("bits");
+
+            bool shouldBeZerosNow = false;
+            for(int i = 0; i < bits.Length; ++i)
+            {
+                if (!bits[i] && !shouldBeZerosNow)
+                    shouldBeZerosNow = true;
+                if (bits[i] && shouldBeZerosNow)
+                    return false;
+            }
+            return true;
         }
     }
 }

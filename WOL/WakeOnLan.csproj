@@ -131,6 +131,7 @@
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
     <Compile Include="Topology\NetMaskv4.cs" />
+    <Compile Include="Topology\SiblingOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

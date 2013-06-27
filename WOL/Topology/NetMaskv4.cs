@@ -7,13 +7,18 @@ using System.Collections;
 
 namespace System.Net.Topology
 {
-    public sealed class NetMaskv4 : INetMask
+    /// <summary>Represents an IPv4 net mask.</summary>
+    public sealed class NetMaskv4 : INetMask, IEquatable<NetMaskv4>
     {
         private BitArray _bits;
 
+        /// <summary>Represents an empty IPv4 NetMask (all bits set to 0).</summary>
         public static readonly NetMaskv4 Empty = new NetMaskv4();
 
+        /// <summary>Gets the length of the net mask in bits.</summary>
         public int AddressLength { get { return 32; } }
+
+        /// <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
         public int Cidr
         {
             get
@@ -70,6 +75,8 @@ namespace System.Net.Topology
 
         #endregion
 
+        /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
+        /// <returns>The bits of the net mask instance as an BitArray object instance</returns>
         public BitArray GetBits()
         {
             return _bits;
@@ -111,6 +118,16 @@ namespace System.Net.Topology
             if (a == null || b == null)
                 return NetMaskv4.Empty;
             return new NetMaskv4(a._bits.And(b._bits));
+        }
+
+        #endregion
+        #region Or
+
+        public static NetMaskv4 operator |(NetMaskv4 a, NetMaskv4 b)
+        {
+            if (a == null || b == null)
+                return NetMaskv4.Empty;
+            return new NetMaskv4(a._bits.Or(b._bits));
         }
 
         #endregion
