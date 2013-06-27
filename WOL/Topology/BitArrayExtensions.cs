@@ -15,10 +15,9 @@ namespace System.Net.Topology
                 throw new ArgumentNullException("bits");
 
             int counter = 0;
-
             for (int i = 0; i < bits.Length; ++i)
             {
-                if (bits.Get(i) == value)
+                if (bits[i] == value)
                     ++counter;
                 else
                     break;
@@ -33,10 +32,9 @@ namespace System.Net.Topology
                 throw new ArgumentNullException("bits");
 
             int counter = 0;
-
             for (int i = bits.Length; i >= 0; --i)
             {
-                if (bits.Get(i) == value)
+                if (bits[i] == value)
                     ++counter;
                 else
                     break;
@@ -51,7 +49,7 @@ namespace System.Net.Topology
             {
                 if (i != 0 && i % separationDistance == 0)
                     sb.Append(separator);
-                sb.Append(bits.Get(i) ? '1' : '0');
+                sb.Append(bits[i] ? '1' : '0');
             }
             return sb.ToString();
         }
@@ -59,7 +57,7 @@ namespace System.Net.Topology
         {
             var sb = new StringBuilder();
             for (int i = 0; i < bits.Length; ++i)
-                sb.Append(bits.Get(i) ? '1' : '0');
+                sb.Append(bits[i] ? '1' : '0');
             return sb.ToString();
         }
     }

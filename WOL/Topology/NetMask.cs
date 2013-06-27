@@ -11,6 +11,7 @@ namespace System.Net.Topology
     {
         int AddressLength { get; }
         int Cidr { get; }
-        BitArray Bits { get; }
+
+        BitArray GetBits();
     }
 }
