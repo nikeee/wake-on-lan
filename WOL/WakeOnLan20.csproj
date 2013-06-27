@@ -62,7 +62,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\DebugFW20\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET20;</DefineConstants>
     <DocumentationFile>bin\DebugFW20\WakeOnLan.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>

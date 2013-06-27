@@ -61,9 +61,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <DocumentationFile>bin\Debug\WakeOnLan.xml</DocumentationFile>
+    <OutputPath>bin\DebugFW45\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET20;NET35;NET40;NET45;</DefineConstants>
+    <DocumentationFile>bin\DebugFW45\WakeOnLan.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -79,7 +79,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\ReleaseTAP\</OutputPath>
+    <OutputPath>bin\ReleaseFW45\</OutputPath>
     <DefineConstants>TRACE;NET20;NET35;NET40;NET45;</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
@@ -93,7 +93,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <DocumentationFile>bin\ReleaseTAP\WakeOnLan.XML</DocumentationFile>
+    <DocumentationFile>bin\ReleaseFW45\WakeOnLan.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
