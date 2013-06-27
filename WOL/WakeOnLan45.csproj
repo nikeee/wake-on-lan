@@ -116,13 +116,14 @@
   <ItemGroup>
     <Compile Include="ArpRequest.cs" />
     <Compile Include="ArpRequestResult.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IPAddressExtensions.cs" />
     <Compile Include="IPEndPointExtensions.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Topology\BitArrayExtensions.cs" />
     <Compile Include="Topology\IPAddressExtensions.cs" />
-    <Compile Include="Topology\NetMask.cs" />
+    <Compile Include="Topology\INetMask.cs" />
     <Compile Include="PhysicalAddressExtensions.cs" />
     <Compile Include="MacAddress.cs" />
     <Compile Include="MacAddressExtensions.cs" />
@@ -130,7 +131,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
-    <Compile Include="Topology\NetMaskv4.cs" />
+    <Compile Include="Topology\NetMask.cs" />
     <Compile Include="Topology\SiblingOptions.cs" />
   </ItemGroup>
   <ItemGroup>

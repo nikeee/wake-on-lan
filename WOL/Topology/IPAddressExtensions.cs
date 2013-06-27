@@ -14,7 +14,7 @@ namespace System.Net.Topology
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
         /// <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
-        public static int GetSiblingCount(this IPAddress address, NetMaskv4 mask)
+        public static int GetSiblingCount(this IPAddress address, NetMask mask)
         {
             return GetSiblingCount(address, mask, SiblingOptions.ExcludeAll);
         }
@@ -24,7 +24,7 @@ namespace System.Net.Topology
         /// <param name="mask">The net mask of the network</param>
         /// <param name="options">Options which addresses to include an which not</param>
         /// <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
-        public static int GetSiblingCount(this IPAddress address, NetMaskv4 mask, SiblingOptions options)
+        public static int GetSiblingCount(this IPAddress address, NetMask mask, SiblingOptions options)
         {
             if (address == null)
                 throw new ArgumentNullException("address");
@@ -51,7 +51,7 @@ namespace System.Net.Topology
         /// <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network.</summary>
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
-        public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMaskv4 mask)
+        public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMask mask)
         {
             return GetSiblings(address, mask, SiblingOptions.ExcludeAll);
         }
@@ -60,7 +60,7 @@ namespace System.Net.Topology
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
         /// <param name="options">Options which addresses to include an which not</param>
-        public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMaskv4 mask, SiblingOptions options)
+        public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMask mask, SiblingOptions options)
         {
             if (address == null)
                 throw new ArgumentNullException("address");
@@ -80,7 +80,7 @@ namespace System.Net.Topology
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
         /// <returns>The network prefix of an <see cref="T:System.Net.IPAddress"/></returns>
-        public static IPAddress GetNetworkPrefix(this IPAddress address, NetMaskv4 mask)
+        public static IPAddress GetNetworkPrefix(this IPAddress address, NetMask mask)
         {
             if (address == null)
                 throw new ArgumentNullException("address");
@@ -96,7 +96,7 @@ namespace System.Net.Topology
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
         /// <returns>The host identifier (rest) an <see cref="T:System.Net.IPAddress"/></returns>
-        public static IPAddress GetHostIdentifier(this IPAddress address, NetMaskv4 mask)
+        public static IPAddress GetHostIdentifier(this IPAddress address, NetMask mask)
         {
             if (address == null)
                 throw new ArgumentNullException("address");

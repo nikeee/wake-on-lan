@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace System.Net
 {
     /// <summary>Stellt Methoden für das Senden von Anfragen über das ARP-Protokoll bereit.</summary>
-    public class ArpRequest
+    public static class ArpRequest
     {
         /// <summary>
         /// Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
@@ -18,6 +18,9 @@ namespace System.Net
         /// <returns>Eine <see cref="T:System.Net.ArpRequestResult">ArpRequestResult</see>-Instanz, welche die Ergebnisse der Anfrage enthält.</returns>
         public static ArpRequestResult Send(IPAddress destination)
         {
+            if (destination == null)
+                throw new ArgumentNullException("destination");
+
             int destIp = BitConverter.ToInt32(destination.GetAddressBytes(), 0);
 
             var addr = new byte[6];

@@ -6,9 +6,7 @@
     [Serializable]
     public class SecureOnPassword
     {
-        /// <summary>
-        /// Die Passwortdaten des SecureOn-Passworts.
-        /// </summary>
+        /// <summary>Die Passwortdaten des SecureOn-Passworts.</summary>
         public byte[] Password { get; private set; }
 
         /// <summary>

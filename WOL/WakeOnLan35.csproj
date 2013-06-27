@@ -128,9 +128,9 @@
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
     <Compile Include="Topology\BitArrayExtensions.cs" />
+    <Compile Include="Topology\INetMask.cs" />
     <Compile Include="Topology\IPAddressExtensions.cs" />
     <Compile Include="Topology\NetMask.cs" />
-    <Compile Include="Topology\NetMaskv4.cs" />
     <Compile Include="Topology\SiblingOptions.cs" />
   </ItemGroup>
   <ItemGroup>
