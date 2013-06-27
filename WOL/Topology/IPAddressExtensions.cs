@@ -1,9 +1,7 @@
-﻿using System;
+﻿#if NET35
+
 using System.Collections.Generic;
 using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace System.Net.Topology
 {
@@ -24,7 +22,7 @@ namespace System.Net.Topology
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
-            bool includeSelf = (options & SiblingOptions.IncludeSelf) == SiblingOptions.IncludeSelf;
+            bool includeSelf = BitHelper.IsOptionSet(options, SiblingOptions.IncludeSelf);
 
             throw new NotImplementedException();
         }
@@ -43,7 +41,9 @@ namespace System.Net.Topology
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
-            bool includeSelf = (options & SiblingOptions.IncludeSelf) == SiblingOptions.IncludeSelf;
+            bool includeSelf = BitHelper.IsOptionSet(options, SiblingOptions.IncludeSelf);
+            bool includeBroadcast = BitHelper.IsOptionSet(options,SiblingOptions.IncludeBroadcast);
+            bool includeNetworkIdentifier = BitHelper.IsOptionSet(options, SiblingOptions.IncludeNetworkIdentifier);
 
             throw new NotImplementedException();
         }
@@ -83,3 +83,4 @@ namespace System.Net.Topology
         }
     }
 }
+#endif

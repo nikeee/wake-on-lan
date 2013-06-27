@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\ReleaseFW40\</OutputPath>
-    <DefineConstants>TRACE;EXTENSIONS</DefineConstants>
+    <DefineConstants>TRACE;NET20;NET35;NET40</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -127,6 +127,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
+    <Compile Include="Topology\BitArrayExtensions.cs" />
+    <Compile Include="Topology\IPAddressExtensions.cs" />
+    <Compile Include="Topology\NetMask.cs" />
+    <Compile Include="Topology\NetMaskv4.cs" />
+    <Compile Include="Topology\SiblingOptions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

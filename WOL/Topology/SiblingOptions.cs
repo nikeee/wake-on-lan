@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace System.Net.Topology
+﻿namespace System.Net.Topology
 {
     /// <summary>Provides options for doing network sibling calculations using a net mask.</summary>
     [Flags]
@@ -17,8 +11,22 @@ namespace System.Net.Topology
         /// <summary>Include the broadcast address.</summary>
         IncludeBroadcast = 2,
         /// <summary>Include the net address.</summary>
-        IncludeNet = 4,
+        IncludeNetworkIdentifier = 4,
         /// <summary>Include all addresses possible.</summary>
-        IncludeAll = IncludeSelf | IncludeBroadcast | IncludeNet
+        IncludeAll = IncludeSelf | IncludeBroadcast | IncludeNetworkIdentifier
+    }
+    internal static class BitHelper
+    {
+#if NET40
+
+#endif
+#if NET45
+        [System.Runtime.CompilerServices.MethodImpl(Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#endif
+
+        internal static bool IsOptionSet(SiblingOptions value, SiblingOptions testValue)
+        {
+            return (value & testValue) == testValue;
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿#if EXTENSIONS
+﻿#if NET35
 
-#if TAP
+#if NET45
 using System.Threading.Tasks;
 #endif
 
@@ -81,7 +81,7 @@ namespace System.Net
         #endregion
         #region TAP
 
-#if TAP
+#if NET45
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.

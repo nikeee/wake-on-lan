@@ -1,6 +1,6 @@
-﻿#if EXTENSIONS
+﻿#if NET35
 
-#if TAP
+#if NET45
 using System.Threading.Tasks;
 #endif
 
@@ -157,9 +157,9 @@ namespace System.Net
         #endregion
         #region TAP
 
-#if TAP
+#if NET45
         #region Wol
-        
+
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>

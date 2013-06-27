@@ -1,4 +1,4 @@
-﻿#if TAP
+﻿#if NET45
 using System.Threading.Tasks;
 #endif
 
@@ -85,7 +85,7 @@ namespace System.Net
             SendPacket(target, packet);
         }
 
-#if EXTENSIONS
+#if NET35
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -156,7 +156,7 @@ namespace System.Net
 
         #endregion
         #region TAP
-#if TAP
+#if NET45
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -261,8 +261,8 @@ namespace System.Net
             using (var cl = new UdpClient())
                 return Task.Factory.FromAsync<byte[], int, int>(cl.BeginSend, cl.EndSend, packet, packet.Length, target);
         }
-        
-#if EXTENSIONS
+
+#if NET35
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>

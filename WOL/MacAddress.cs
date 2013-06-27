@@ -1,4 +1,4 @@
-﻿#if EXTENSIONS
+﻿#if NET35
 
 using System.Linq;
 using System.Net.NetworkInformation;
