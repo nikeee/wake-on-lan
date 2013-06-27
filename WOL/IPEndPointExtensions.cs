@@ -39,6 +39,7 @@ namespace System.Net
             Net.SendWol.Send(target, macAddress);
         }
 
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -50,6 +51,7 @@ namespace System.Net
         {
             Net.SendWol.Send(target, macAddress);
         }
+#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -76,6 +78,7 @@ namespace System.Net
             Net.SendWol.Send(target, macAddress, password);
         }
 
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -89,6 +92,7 @@ namespace System.Net
         {
             Net.SendWol.Send(target, macAddress, password);
         }
+#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -136,6 +140,7 @@ namespace System.Net
             return Net.SendWol.SendAsync(target, macAddress);
         }
 
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -148,6 +153,7 @@ namespace System.Net
         {
             return Net.SendWol.SendAsync(target, macAddress);
         }
+#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -176,6 +182,7 @@ namespace System.Net
             return Net.SendWol.SendAsync(target, macAddress, password);
         }
 
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -190,6 +197,7 @@ namespace System.Net
         {
             return Net.SendWol.SendAsync(target, macAddress, password);
         }
+#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.

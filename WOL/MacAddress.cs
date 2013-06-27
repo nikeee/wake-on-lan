@@ -1,4 +1,4 @@
-﻿#if NET35
+﻿#if NET35 && INCLUDEOBSOLETE
 
 using System.Linq;
 using System.Net.NetworkInformation;

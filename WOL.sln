@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan40", "WOL\WakeOnLa
 		{E875CB92-FA9B-43CD-B415-57A1DC12C4C9} = {E875CB92-FA9B-43CD-B415-57A1DC12C4C9}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan.Testing", "WakeOnLan.Testing\WakeOnLan.Testing.csproj", "{3AEC412E-3F49-4632-8DCA-2B929AE33438}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -82,6 +84,15 @@ Global
 		{1212CE39-7229-4758-9F03-ED6F25C8F501}.ReleaseFW2.0|Any CPU.Build.0 = Release|Any CPU
 		{1212CE39-7229-4758-9F03-ED6F25C8F501}.ReleaseFW2.0|x86.ActiveCfg = Release|x86
 		{1212CE39-7229-4758-9F03-ED6F25C8F501}.ReleaseFW2.0|x86.Build.0 = Release|x86
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.Release|x86.ActiveCfg = Release|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.ReleaseFW2.0|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.ReleaseFW2.0|Any CPU.Build.0 = Release|Any CPU
+		{3AEC412E-3F49-4632-8DCA-2B929AE33438}.ReleaseFW2.0|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

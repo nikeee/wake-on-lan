@@ -34,8 +34,18 @@ namespace System.Net.Topology
                 throw new NotSupportedException(OnlyIPv4Supported);
 
             bool includeSelf = BitHelper.IsOptionSet(options, SiblingOptions.IncludeSelf);
+            bool includeBroadcast = BitHelper.IsOptionSet(options, SiblingOptions.IncludeBroadcast);
+            bool includeNetworkIdentifier = BitHelper.IsOptionSet(options, SiblingOptions.IncludeNetworkIdentifier);
 
-            throw new NotImplementedException();
+            var hostPartBits = mask.GetBits().CountFromRight(false);
+            var total = 1 << hostPartBits;
+            total -= includeSelf ? 1 : 0;
+            total -= includeBroadcast ? 1 : 0;
+            total -= includeNetworkIdentifier ? 1 : 0;
+
+            // TODO: Testing
+
+            return total;
         }
 
         /// <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network.</summary>

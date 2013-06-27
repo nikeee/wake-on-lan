@@ -86,7 +86,7 @@ namespace System.Net
         }
 
 #if NET35
-
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -103,7 +103,8 @@ namespace System.Net
             byte[] packet = GetWolPacket(macAddress.Address);
             SendPacket(target, packet);
         }
-        
+#endif
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -125,6 +126,7 @@ namespace System.Net
             byte[] packet = GetWolPacket(macAddress.Address, password.Password);
             SendPacket(target, packet);
         }
+#endif
 #endif
 
         /// <summary>
@@ -263,6 +265,7 @@ namespace System.Net
         }
 
 #if NET35
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -284,6 +287,8 @@ namespace System.Net
             byte[] packet = GetWolPacket(macAddress.Address, password.Password);
             return SendPacketAsync(target, packet);
         }
+#endif
+#if INCLUDEOBSOLETE
         
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -300,6 +305,7 @@ namespace System.Net
             var p = GetWolPacket(macAddress.Address);
             return SendPacketAsync(target, p);
         }
+#endif
 #endif
 
 #endif
