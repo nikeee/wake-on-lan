@@ -120,6 +120,7 @@
     <Compile Include="IPEndPointExtensions.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Topology\BitArrayExtensions.cs" />
     <Compile Include="Topology\IPAddressExtensions.cs" />
     <Compile Include="Topology\NetMask.cs" />
     <Compile Include="PhysicalAddressExtensions.cs" />
