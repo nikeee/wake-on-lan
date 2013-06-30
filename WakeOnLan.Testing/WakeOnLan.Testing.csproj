@@ -50,8 +50,15 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="NetMaskv4Tests.cs" />
+    <Compile Include="BitArrayTests.cs" />
+    <Compile Include="NetMaskTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WOL\WakeOnLan45.csproj">
+      <Project>{3bc8e839-0028-484b-8d91-21ef31fa3d98}</Project>
+      <Name>WakeOnLan45</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

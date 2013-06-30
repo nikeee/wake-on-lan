@@ -99,6 +99,7 @@
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <RunCodeAnalysis>false</RunCodeAnalysis>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -133,6 +134,7 @@
     <Compile Include="Topology\IPAddressExtensions.cs" />
     <Compile Include="Topology\NetMask.cs" />
     <Compile Include="Topology\SiblingOptions.cs" />
+    <Compile Include="Topology\StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

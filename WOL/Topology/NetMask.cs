@@ -47,7 +47,7 @@ namespace System.Net.Topology
             if (value.Length != 4)
                 throw new ArgumentException("Invalid mask length.");
 
-            _bits = new BitArray(value);
+            _bits = new BitArray(value); // The BitArray screws things up, need to change to byte[4].
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -69,7 +69,8 @@ namespace System.Net.Topology
         /// <param name="mask">The mask represented by a 32-Bit integer.</param>
         public NetMask(int mask) // uint is not CLS-compliant, so int will do the job.
         {
-            _bits = new BitArray(mask);
+            var bytes = BitConverter.GetBytes(mask);
+            _bits = new BitArray(new byte[] { bytes[3], bytes[2], bytes[1], bytes[0] }); // TODO: Testing
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> using a <see cref="T:System.Collections.BitArray"/>.</summary>
@@ -90,7 +91,7 @@ namespace System.Net.Topology
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
         public BitArray GetBits()
         {
-            return _bits;
+            return new BitArray(_bits);
         }
 
         #region Operators
@@ -206,9 +207,9 @@ namespace System.Net.Topology
 
             var arr = new byte[4];
             _bits.CopyTo(arr, 0);
-            var asString = _bits.ToBinaryString('.', 4);
+            var asString = _bits.ToBinaryString('.', 8);
 
-            sb.Append(arr[0]).Append('.').Append(arr[1]).Append('.').Append(arr[2]).Append('.').Append(arr[3]).Append("( ");
+            sb.Append(arr[0]).Append('.').Append(arr[1]).Append('.').Append(arr[2]).Append('.').Append(arr[3]).Append(" (");
             sb.Append(asString).Append(')');
 
             return sb.ToString();
