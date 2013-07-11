@@ -24,7 +24,7 @@ namespace System.Net.Topology
             {
                 for (int i = bytes.Length-1; i >= 0; --i)
                 {
-                    byte tmp = bytes[i].ReverseBits();
+                    byte tmp = bytes[i];
                     for (int j = 0; j < 8; ++j)
                     {
                         yield return (tmp & 1) == 1;
