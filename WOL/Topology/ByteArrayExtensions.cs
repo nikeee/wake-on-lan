@@ -10,7 +10,23 @@ namespace System.Net.Topology
             if (bits == null)
                 throw new ArgumentNullException("bits");
 
-            throw new NotImplementedException();
+            // TODO: Testing
+
+            if (bits.Length == 4)
+            {
+                int target = BitConverter.ToInt32(bits, 0);
+                int counter = 0;
+                for (int i = 3; i >= 0; i--)
+                {
+                    if ((target & (1 << i)) > 0)
+                        ++counter;
+                    else
+                        break;
+                }
+                return counter;
+            }
+            else
+                throw new NotImplementedException();
 
             /*int counter = 0;
             for (int i = 0; i < bits.Length; ++i)
@@ -84,7 +100,7 @@ namespace System.Net.Topology
 
             int fromLeft = bits.CountFromLeft(true);
             int fromRight = bits.CountFromLeft(false);
-            return (fromLeft + fromRight) == (8 * NetMask.MaskLength);
+            return (fromLeft + fromRight) == (8 * NetMask.MaskLength); // Sum of all counted indexes schloud be equal the whole length
         }
 
         internal static byte[] And(this byte[] b1, byte[] b2)
