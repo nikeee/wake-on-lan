@@ -112,7 +112,7 @@ namespace System.Net.Topology
 
             // !Mask & IP
             var retVal = maskBits.Not().And(ipBits); // why does BitArray has no operators?
-            var bytes = new byte[4];
+            var bytes = new byte[NetMask.MaskLength];
             retVal.CopyTo(bytes, 0);
 
             return new IPAddress(bytes);

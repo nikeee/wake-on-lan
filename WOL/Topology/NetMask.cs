@@ -7,7 +7,7 @@ namespace System.Net.Topology
     public sealed class NetMask : INetMask, IEquatable<NetMask>
     {
         private byte[] _bits;
-        private const int MaskLength = 4;
+        internal const int MaskLength = 4;
 
         private static readonly NetMask _empty = new NetMask();
 
