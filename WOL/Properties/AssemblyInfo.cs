@@ -34,3 +34,4 @@ using System;
 // übernehmen, indem Sie "*" eingeben:
 [assembly: AssemblyVersion("1.5.*")]
 [assembly: AssemblyFileVersion("1.5.0.0")]
+[assembly: InternalsVisibleTo("WakeOnLan.Testing")]
