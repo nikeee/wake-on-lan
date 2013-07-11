@@ -49,7 +49,6 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(9, bitsTrueFromLeft);
         }
 
-
         [TestMethod]
         public void CountFromRight()
         {
