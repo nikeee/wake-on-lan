@@ -46,16 +46,16 @@ namespace System.Net.Topology
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
+            
+            const int radix = 2;
+            const int padding = 8;
+            const char paddingChar = '0';
 
             var sb = new StringBuilder();
-
-            sb.Append(Convert.ToString(bits[0], 2).PadLeft(8, '0'));
-            sb.Append(separator);
-            sb.Append(Convert.ToString(bits[1], 2).PadLeft(8, '0'));
-            sb.Append(separator);
-            sb.Append(Convert.ToString(bits[2], 2).PadLeft(8, '0'));
-            sb.Append(separator);
-            sb.Append(Convert.ToString(bits[3], 2).PadLeft(8, '0'));
+            sb.Append(Convert.ToString(bits[0], radix).PadLeft(padding, paddingChar)).Append(separator);
+            sb.Append(Convert.ToString(bits[1], radix).PadLeft(padding, paddingChar)).Append(separator);
+            sb.Append(Convert.ToString(bits[2], radix).PadLeft(padding, paddingChar)).Append(separator);
+            sb.Append(Convert.ToString(bits[3], radix).PadLeft(padding, paddingChar));
             return sb.ToString();
         }
         internal static string ToBinaryString(this byte[] bits)
@@ -63,12 +63,16 @@ namespace System.Net.Topology
             if (bits == null)
                 throw new ArgumentNullException("bits");
 
-            throw new NotImplementedException();
+            const int radix = 2;
+            const int padding = 8;
+            const char paddingChar = '0';
 
-            /*var sb = new StringBuilder();
-            for (int i = bits.Length - 1; i >= 0; --i)
-                sb.Append(bits[i] ? '1' : '0');
-            return sb.ToString().Reverse();*/
+            var sb = new StringBuilder();
+            sb.Append(Convert.ToString(bits[0], radix).PadLeft(padding, paddingChar));
+            sb.Append(Convert.ToString(bits[1], radix).PadLeft(padding, paddingChar));
+            sb.Append(Convert.ToString(bits[2], radix).PadLeft(padding, paddingChar));
+            sb.Append(Convert.ToString(bits[3], radix).PadLeft(padding, paddingChar));
+            return sb.ToString();
         }
 
         internal static bool RepresentsValidNetMask(this byte[] bits)
@@ -76,18 +80,11 @@ namespace System.Net.Topology
             if (bits == null)
                 throw new ArgumentNullException("bits");
 
-            throw new NotImplementedException();
-            /*
-            bool shouldBeZerosNow = false;
-            for(int i = 0; i < bits.Length; ++i)
-            {
-                if (!bits[i] && !shouldBeZerosNow)
-                    shouldBeZerosNow = true;
-                if (bits[i] && shouldBeZerosNow)
-                    return false;
-            }
-            return true;
-             * */
+            // TODO: Testing?
+
+            int fromLeft = bits.CountFromLeft(true);
+            int fromRight = bits.CountFromLeft(false);
+            return (fromLeft + fromRight) == (8 * NetMask.MaskLength);
         }
 
         internal static byte[] And(this byte[] b1, byte[] b2)
