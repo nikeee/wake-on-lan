@@ -6,7 +6,8 @@ namespace System.Net.Topology
     /// <summary>Represents an IPv4 net mask.</summary>
     public sealed class NetMask : INetMask, IEquatable<NetMask>
     {
-        private BitArray _bits;
+        private byte[] _bits;
+        private const int MaskLength = 4;
 
         private static readonly NetMask _empty = new NetMask();
 
@@ -21,7 +22,7 @@ namespace System.Net.Topology
         {
             get
             {
-                System.Diagnostics.Debug.Assert(_bits.Count == 32);
+                System.Diagnostics.Debug.Assert(_bits.Length == 32);
                 return _bits.CountFromLeft(true);
             }
         }
@@ -31,7 +32,7 @@ namespace System.Net.Topology
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> with all bits set to 0.</summary>
         public NetMask()
         {
-            _bits = new BitArray(32);
+            _bits = new byte[MaskLength];
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from an array of <see cref="System.Byte"/>.</summary>
@@ -40,14 +41,14 @@ namespace System.Net.Topology
             if (value == null || value.Length == 0)
             {
                 // maybe throw ArgumentNullException?
-                _bits = new BitArray(32);
+                _bits = new byte[MaskLength];
                 return;
             }
 
-            if (value.Length != 4)
+            if (value.Length != MaskLength)
                 throw new ArgumentException("Invalid mask length.");
 
-            _bits = new BitArray(value); // The BitArray screws things up, need to change to byte[4].
+            _bits = new byte[] { value[0], value[1], value[2], value[3] }; //new BitArray(value); // The BitArray screws things up, need to change to byte[4].
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -62,7 +63,7 @@ namespace System.Net.Topology
         /// <param name="m3">The third byte.</param>
         /// <param name="m4">The fourth byte.</param>
         public NetMask(byte m1, byte m2, byte m3, byte m4)
-            : this(new byte[4] { m1,m2,m3,m4 })
+            : this(new byte[MaskLength] { m1, m2, m3, m4 })
         { }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
@@ -70,9 +71,11 @@ namespace System.Net.Topology
         public NetMask(int mask) // uint is not CLS-compliant, so int will do the job.
         {
             var bytes = BitConverter.GetBytes(mask);
-            _bits = new BitArray(new byte[] { bytes[3], bytes[2], bytes[1], bytes[0] }); // TODO: Testing
+            _bits = new byte[] { bytes[3], bytes[2], bytes[1], bytes[0] }; // TODO: Testing
         }
 
+        /*
+         * TODO: Reimplement this constructor
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> using a <see cref="T:System.Collections.BitArray"/>.</summary>
         /// <param name="mask">The mask represented by a <see cref="T:System.Collections.BitArray"/>.</param>
         public NetMask(BitArray mask)
@@ -84,14 +87,15 @@ namespace System.Net.Topology
 
             _bits = new BitArray(mask);
         }
+        */
 
         #endregion
 
         /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
-        public BitArray GetBits()
+        public byte[] GetBits()
         {
-            return new BitArray(_bits);
+            return new byte[] { _bits[0], _bits[1], _bits[2], _bits[3] };
         }
 
         #region Operators
@@ -240,12 +244,12 @@ namespace System.Net.Topology
             if (other == null)
                 return false;
 
-            if (other._bits.Count != 32)
+            if (other._bits.Length != 32)
                 return false;
-            if (other._bits.Count != _bits.Count)
+            if (other._bits.Length != _bits.Length)
                 return false;
 
-            for (int i = 0; i < _bits.Count; ++i)
+            for (int i = 0; i < _bits.Length; ++i)
                 if (_bits[i] != other._bits[i])
                     return false;
 

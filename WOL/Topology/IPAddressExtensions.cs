@@ -106,7 +106,7 @@ namespace System.Net.Topology
                 throw new NotSupportedException(OnlyIPv4Supported);
 
             var maskBits = mask.GetBits();
-            var ipBits = new BitArray(address.GetAddressBytes());
+            var ipBits = address.GetAddressBytes();
 
             // TODO: Testing!
 

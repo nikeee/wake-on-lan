@@ -12,7 +12,7 @@ namespace WakeOnLan.Testing
     public class BitArrayTests
     {
         [TestMethod]
-        public void ToString()
+        public void ToStringTest()
         {
             var i = -2048;
 
