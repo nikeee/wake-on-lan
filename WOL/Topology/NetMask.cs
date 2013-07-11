@@ -22,7 +22,7 @@ namespace System.Net.Topology
         {
             get
             {
-                System.Diagnostics.Debug.Assert(_bits.Length == 32);
+                System.Diagnostics.Debug.Assert(_bits.Length == MaskLength);
                 return _bits.CountFromLeft(true);
             }
         }
@@ -211,7 +211,7 @@ namespace System.Net.Topology
 
             var arr = new byte[4];
             _bits.CopyTo(arr, 0);
-            var asString = _bits.ToBinaryString('.', 8);
+            var asString = _bits.ToBinaryString('.');
 
             sb.Append(arr[0]).Append('.').Append(arr[1]).Append('.').Append(arr[2]).Append('.').Append(arr[3]).Append(" (");
             sb.Append(asString).Append(')');
@@ -244,16 +244,24 @@ namespace System.Net.Topology
             if (other == null)
                 return false;
 
-            if (other._bits.Length != 32)
+            if (other._bits.Length != MaskLength)
                 return false;
             if (other._bits.Length != _bits.Length)
                 return false;
 
+            /*
+            // More universal approach:
             for (int i = 0; i < _bits.Length; ++i)
                 if (_bits[i] != other._bits[i])
                     return false;
-
             return true;
+            */
+            
+            // faster approach:
+            return _bits[0] == other._bits[0]
+                && _bits[1] == other._bits[1]
+                && _bits[2] == other._bits[2]
+                && _bits[3] == other._bits[3];
         }
 
         /// <summary>Returns the hash code for this instance.</summary>

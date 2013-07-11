@@ -42,21 +42,21 @@ namespace System.Net.Topology
             return counter;*/
         }
 
-        internal static string ToBinaryString(this byte[] bits, char separator, int separationDistance)
+        internal static string ToBinaryString(this byte[] bits, char separator)
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
 
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
 
-            /*var sb = new StringBuilder();
-            for (int i = bits.Length - 1; i >= 0; --i)
-            {
-                if (i != 0 && i % separationDistance == 0)
-                    sb.Append(separator);
-                sb.Append(bits[i] ? '1' : '0');
-            }
-            return sb.ToString().Reverse();*/
+            sb.Append(Convert.ToString(bits[0], 2).PadLeft(8, '0'));
+            sb.Append(separator);
+            sb.Append(Convert.ToString(bits[1], 2).PadLeft(8, '0'));
+            sb.Append(separator);
+            sb.Append(Convert.ToString(bits[2], 2).PadLeft(8, '0'));
+            sb.Append(separator);
+            sb.Append(Convert.ToString(bits[3], 2).PadLeft(8, '0'));
+            return sb.ToString();
         }
         internal static string ToBinaryString(this byte[] bits)
         {

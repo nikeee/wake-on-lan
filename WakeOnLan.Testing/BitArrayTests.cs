@@ -11,17 +11,6 @@ namespace WakeOnLan.Testing
     [TestClass]
     public class BitArrayTests
     {
-        [TestMethod]
-        public void ToStringTest()
-        {
-            var i = -2048;
-
-            var bytes = BitConverter.GetBytes(i);
-            var b = new BitArray(new byte[] { ReverseBits(bytes[3]), ReverseBits(bytes[2]), ReverseBits(bytes[1]), ReverseBits(bytes[0]) });
-            //var b = new BitArray(BitConverter.GetBytes(-2048).Reverse().ToArray()); //(new byte[]{255,255,248,0});
-
-           Assert.IsTrue(b[17]);
-        }
         internal static string ToBinaryString(BitArray bits, char separator, int separationDistance)
         {
             if (bits == null)
