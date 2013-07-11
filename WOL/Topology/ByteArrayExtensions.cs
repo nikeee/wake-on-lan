@@ -105,7 +105,7 @@ namespace System.Net.Topology
             // TODO: Testing?
 
             int fromLeft = bits.CountFromLeft(true);
-            int fromRight = bits.CountFromLeft(false);
+            int fromRight = bits.CountFromRight(false);
             return (fromLeft + fromRight) == (8 * NetMask.MaskLength); // Sum of all counted indexes schloud be equal the whole length
         }
 
