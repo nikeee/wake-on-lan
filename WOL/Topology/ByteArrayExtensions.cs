@@ -94,8 +94,18 @@ namespace System.Net.Topology
             if (b2 == null)
                 throw new ArgumentNullException("b2");
 
-            throw new NotImplementedException();
+            // TODO: Testing
+
+            if (b1.Length == 4 && b2.Length == 4)
+            {
+                var ib1 = BitConverter.ToInt32(b1, 0);
+                var ib2 = BitConverter.ToInt32(b2, 0);
+                return BitConverter.GetBytes(ib1 & ib2);
+            }
+            else
+                throw new NotImplementedException();
         }
+
         internal static byte[] Or(this byte[] b1, byte[] b2)
         {
             if (b1 == null)
@@ -103,12 +113,43 @@ namespace System.Net.Topology
             if (b2 == null)
                 throw new ArgumentNullException("b2");
 
-            throw new NotImplementedException();
+            // TODO: Testing
+
+            if (b1.Length == 4 && b2.Length == 4)
+            {
+                var ib1 = BitConverter.ToInt32(b1, 0);
+                var ib2 = BitConverter.ToInt32(b2, 0);
+                return BitConverter.GetBytes(ib1 | ib2);
+            }
+            else
+                throw new NotImplementedException();
         }
+
+        internal static byte[] Xor(this byte[] b1, byte[] b2)
+        {
+            if (b1 == null)
+                throw new ArgumentNullException("b1");
+            if (b2 == null)
+                throw new ArgumentNullException("b2");
+
+            // TODO: Testing
+
+            if (b1.Length == 4 && b2.Length == 4)
+            {
+                var ib1 = BitConverter.ToInt32(b1, 0);
+                var ib2 = BitConverter.ToInt32(b2, 0);
+                return BitConverter.GetBytes(ib1 ^ ib2);
+            }
+            else
+                throw new NotImplementedException();
+        }
+
         internal static byte[] Not(this byte[] bits)
         {
             if (bits == null)
                 throw new ArgumentNullException("b1");
+
+            // TODO: Testing
 
             if (bits.Length == 4)
             {
