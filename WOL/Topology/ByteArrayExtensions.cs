@@ -101,12 +101,12 @@ namespace System.Net.Topology
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
-
-            // TODO: Testing?
-
+            
             int fromLeft = bits.CountFromLeft(true);
             int fromRight = bits.CountFromRight(false);
-            return (fromLeft + fromRight) == (8 * NetMask.MaskLength); // Sum of all counted indexes schloud be equal the whole length
+
+            // Sum of all counted indexes schloud be equal the whole length
+            return (fromLeft + fromRight) == (8 * NetMask.MaskLength);
         }
 
         internal static byte[] And(this byte[] b1, byte[] b2)

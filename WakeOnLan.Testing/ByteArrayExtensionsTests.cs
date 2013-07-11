@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
+using System.Linq;
 using System.Net.Topology;
 using System.Diagnostics;
 using System.Collections.Generic;
@@ -204,6 +205,31 @@ namespace WakeOnLan.Testing
                 Debug.WriteLine("Testing " + BitConverter.ToString(i.Item1));
                 Assert.AreEqual(i.Item2, isValid);
                 ++index;
+            }
+        }
+
+        [TestMethod]
+        public void Not()
+        {
+            var a = new List<Tuple<byte[], byte[]>> {
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0x00}, new byte[]{0x00, 0x00, 0x00, 0xFF}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0x01}, new byte[]{0x00, 0x00, 0x00, 0xFE}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF0}, new byte[]{0x00, 0x00, 0x00, 0x0F}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF9}, new byte[]{0x00, 0x00, 0x00, 0x06}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF0}, new byte[]{0x00, 0x00, 0x00, 0x0F}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF2}, new byte[]{0x00, 0x00, 0x00, 0x0D}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0x00, 0x00}, new byte[]{0x00, 0x00, 0xFF, 0xFF}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0x01, 0x00}, new byte[]{0x00, 0x00, 0xFE, 0xFF}),
+                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0x00, 0xFF, 0xF2}, new byte[]{0x00, 0xFF, 0x00, 0x0D}),
+                new Tuple<byte[], byte[]>(new byte[] {0x00, 0xFF, 0xFF, 0xFF}, new byte[]{0xFF, 0x00, 0x00, 0x00}),
+                new Tuple<byte[], byte[]>(new byte[] {0x00, 0x00, 0xFF, 0xF2}, new byte[]{0xFF, 0xFF, 0x00, 0x0D}),
+                new Tuple<byte[], byte[]>(new byte[] {0xAA, 0xAA, 0xAA, 0xAA}, new byte[]{0x55, 0x55, 0x55, 0x55})
+            };
+            foreach (var i in a)
+            {
+                byte[] inversed = i.Item1.Not();
+                Debug.WriteLine("Testing: " + BitConverter.ToString(i.Item2) + "\r\n     --> " + BitConverter.ToString(inversed));
+                Assert.IsTrue(i.Item2.SequenceEqual(inversed));
             }
         }
     }
