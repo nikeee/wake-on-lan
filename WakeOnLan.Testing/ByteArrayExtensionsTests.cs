@@ -150,17 +150,17 @@ namespace WakeOnLan.Testing
         public void RepresentsValidNetMask()
         {
             var a = new TestingCollection<byte[], bool> {
-                new BaBTestItem(Ba(255,255,255,0), true),
-                new BaBTestItem(Ba(255,255,255,1), false),
-                new BaBTestItem(Ba(255,255,255,248), true),
-                new BaBTestItem(Ba(255,255,255,249), false),
-                new BaBTestItem(Ba(255,255,255,240), true),
-                new BaBTestItem(Ba(255,255,255,242), false),
-                new BaBTestItem(Ba(255,255,0,0), true),
-                new BaBTestItem(Ba(255,255,1,0), false),
-                new BaBTestItem(Ba(255,0,255,242), false),
-                new BaBTestItem(Ba(0,255,255,255), false),
-                new BaBTestItem(Ba(0,0,255,242), false)
+                new BaBTestItem(Ba(0xFF, 0xFF, 0xFF, 0x00), true),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0xFF, 0x01), false),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0xFF, 0xF8), true),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0xFF, 0xF9), false),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0xFF, 0xF0), true),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0xFF, 0xF2), false),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0x00, 0x00), true),
+                new BaBTestItem(Ba(0xFF, 0xFF, 0x01, 0x00), false),
+                new BaBTestItem(Ba(0xFF, 0x00, 0xFF, 0xF2), false),
+                new BaBTestItem(Ba(0x00, 0xFF, 0xFF, 0xFF), false),
+                new BaBTestItem(Ba(0x00, 0x00, 0xFF, 0xF2), false)
             };
             int index = 0;
             foreach (var i in a)
