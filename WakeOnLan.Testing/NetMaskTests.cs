@@ -182,6 +182,26 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(NetMask.Empty, mAnd);
         }
 
+        
+        [TestMethod]
+        public void AndIp()
+        {
+            var m1 = new NetMask(255, 255, 255, 0);
+            var ip1 = new IPAddress(Ba(255, 255, 0, 0));
+
+            var mAnd = m1 & ip1;
+            Assert.AreEqual(ip1, mAnd);
+
+            mAnd = ip1 & m1;
+            Assert.AreEqual(ip1, mAnd);
+
+            mAnd = NetMask.BitwiseAnd(ip1, m1);
+            Assert.AreEqual(ip1, mAnd);
+
+            mAnd = NetMask.BitwiseAnd(m1, ip1);
+            Assert.AreEqual(ip1, mAnd);
+        }
+
         [TestMethod]
         public void MaskValidity()
         {
