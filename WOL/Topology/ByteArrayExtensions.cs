@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace System.Net.Topology
@@ -22,7 +23,7 @@ namespace System.Net.Topology
             }
             else
             {
-                for (int i = bytes.Length-1; i >= 0; --i)
+                for (int i = bytes.Length - 1; i >= 0; --i)
                 {
                     byte tmp = bytes[i];
                     for (int j = 0; j < 8; ++j)
@@ -101,7 +102,7 @@ namespace System.Net.Topology
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
-            
+
             int fromLeft = bits.CountFromLeft(true);
             int fromRight = bits.CountFromRight(false);
 
@@ -134,17 +135,48 @@ namespace System.Net.Topology
                 throw new ArgumentNullException("b1");
             if (b2 == null)
                 throw new ArgumentNullException("b2");
-
-            // TODO: Testing
-
+            
+            if (b1.Length == 1 && b2.Length == 1)
+            {
+                int ib1 = (int)b1[0];
+                int ib2 = (int)b1[0];
+                return new byte[] { (byte)(ib1 | ib2) };
+            }
+            if (b1.Length == 2 && b2.Length == 2)
+            {
+                var sb1 = BitConverter.ToInt16(b1, 0);
+                var sb2 = BitConverter.ToInt16(b2, 0);
+                return BitConverter.GetBytes(sb1 | sb2);
+            }
             if (b1.Length == 4 && b2.Length == 4)
             {
                 var ib1 = BitConverter.ToInt32(b1, 0);
                 var ib2 = BitConverter.ToInt32(b2, 0);
                 return BitConverter.GetBytes(ib1 | ib2);
             }
-            else
-                throw new NotImplementedException();
+            if(b1.Length != b2.Length)
+            {
+                int maxIndex = Math.Max(b1.Length, b2.Length);
+                byte[] biggerArray = b1.Length > b2.Length ? b1 : b2;
+                byte[] smallerArray = b1.Length <= b2.Length ? b1 : b2;
+                
+                byte[] paddedArray = new byte[maxIndex];
+
+                Buffer.BlockCopy(smallerArray, 0, paddedArray, 0, smallerArray.Length);
+
+                Debug.Assert(biggerArray.Length == paddedArray.Length);
+
+                return Or(biggerArray, paddedArray);
+            }
+
+            var targetIndex = b1.Length;
+            var oredArray = new byte[targetIndex];
+            Buffer.BlockCopy(b1, 0, oredArray, 0, oredArray.Length);
+
+            for (int i = 0; i < targetIndex; ++i)
+                oredArray[i] |= b2[i];
+
+            return oredArray;
         }
 
         internal static byte[] Xor(this byte[] b1, byte[] b2)
