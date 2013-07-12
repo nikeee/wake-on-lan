@@ -94,24 +94,12 @@ namespace WakeOnLan.Testing
         {
             var a = new TestingCollection<byte[], string>
             {
-                new BaSTestItem(new byte[] 
-	                { 0x00, 0x00, 0x00, 0x01 },
-	                "00000000000000000000000000000001"),
-                new BaSTestItem(new byte[] 
-	                { 0x00, 0x00, 0x00, 0x80 },
-	                "00000000000000000000000010000000"),
-                new BaSTestItem(new byte[] 
-	                { 0x80, 0x00, 0x00, 0x80 },
-	                "10000000000000000000000010000000"),
-                new BaSTestItem(new byte[] 
-	                { 0xFF, 0x00, 0x00, 0x80 },
-	                "11111111000000000000000010000000"),
-                new BaSTestItem(new byte[] 
-	                { 0xFF, 0x00, 0x01, 0x80 },
-	                "11111111000000000000000110000000"),
-                new BaSTestItem(new byte[] 
-	                { 0xFF, 0x02, 0x01, 0x80 },
-	                "11111111000000100000000110000000")
+                new BaSTestItem(new byte[] { 0x00, 0x00, 0x00, 0x01 }, "00000000000000000000000000000001"),
+                new BaSTestItem(new byte[] { 0x00, 0x00, 0x00, 0x80 }, "00000000000000000000000010000000"),
+                new BaSTestItem(new byte[] { 0x80, 0x00, 0x00, 0x80 }, "10000000000000000000000010000000"),
+                new BaSTestItem(new byte[] { 0xFF, 0x00, 0x00, 0x80 }, "11111111000000000000000010000000"),
+                new BaSTestItem(new byte[] { 0xFF, 0x00, 0x01, 0x80 }, "11111111000000000000000110000000"),
+                new BaSTestItem(new byte[] { 0xFF, 0x02, 0x01, 0x80 }, "11111111000000100000000110000000")
             };
 
             foreach (var item in a)
@@ -134,24 +122,12 @@ namespace WakeOnLan.Testing
         public void BitStreamFromRight()
         {
             var a = new TestingCollection<byte[], string> { 
-                new BaSTestItem(new byte[] 
-                { 0x00, 0x00, 0x00, 0x01 },
-                "00000000000000000000000000000001"),
-                new BaSTestItem(new byte[] 
-                	{ 0x00, 0x00, 0x00, 0x80 },
-                	"00000000000000000000000010000000"),
-                new BaSTestItem(new byte[] 
-                	{ 0x80, 0x00, 0x00, 0x80 },
-                	"10000000000000000000000010000000"),
-                new BaSTestItem(new byte[] 
-                	{ 0xFF, 0x00, 0x00, 0x80 },
-                	"11111111000000000000000010000000"),
-                new BaSTestItem(new byte[] 
-                	{ 0xFF, 0x00, 0x01, 0x80 },
-                	"11111111000000000000000110000000"),
-                new BaSTestItem(new byte[] 
-                	{ 0xFF, 0x02, 0x01, 0x80 },
-                	"11111111000000100000000110000000")
+                new BaSTestItem(new byte[] { 0x00, 0x00, 0x00, 0x01 }, "00000000000000000000000000000001"),
+                new BaSTestItem(new byte[] { 0x00, 0x00, 0x00, 0x80 }, "00000000000000000000000010000000"),
+                new BaSTestItem(new byte[] { 0x80, 0x00, 0x00, 0x80 }, "10000000000000000000000010000000"),
+                new BaSTestItem(new byte[] { 0xFF, 0x00, 0x00, 0x80 }, "11111111000000000000000010000000"),
+                new BaSTestItem(new byte[] { 0xFF, 0x00, 0x01, 0x80 }, "11111111000000000000000110000000"),
+                new BaSTestItem(new byte[] { 0xFF, 0x02, 0x01, 0x80 }, "11111111000000100000000110000000")
             };
 
             foreach (var item in a)
