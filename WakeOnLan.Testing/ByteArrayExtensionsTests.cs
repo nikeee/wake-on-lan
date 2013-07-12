@@ -92,32 +92,32 @@ namespace WakeOnLan.Testing
         [TestMethod]
         public void BitStreamFromLeft()
         {
-            var a = new List<KeyValuePair<byte[], string>>
+            var a = new TestingCollection<byte[], string>
             {
-                new KeyValuePair<byte[], string>(new byte[] 
-                	{ 0x00, 0x00, 0x00, 0x01 },
-                	"00000000000000000000000000000001"),
-                new KeyValuePair<byte[], string>(new byte[] 
-                	{ 0x00, 0x00, 0x00, 0x80 },
-                	"00000000000000000000000010000000"),
-                new KeyValuePair<byte[], string>(new byte[] 
-                	{ 0x80, 0x00, 0x00, 0x80 },
-                	"10000000000000000000000010000000"),
-                new KeyValuePair<byte[], string>(new byte[] 
-                	{ 0xFF, 0x00, 0x00, 0x80 },
-                	"11111111000000000000000010000000"),
-                new KeyValuePair<byte[], string>(new byte[] 
-                	{ 0xFF, 0x00, 0x01, 0x80 },
-                	"11111111000000000000000110000000"),
-                new KeyValuePair<byte[], string>(new byte[] 
-                	{ 0xFF, 0x02, 0x01, 0x80 },
-                	"11111111000000100000000110000000")
+                new BaSTestItem(new byte[] 
+	                { 0x00, 0x00, 0x00, 0x01 },
+	                "00000000000000000000000000000001"),
+                new BaSTestItem(new byte[] 
+	                { 0x00, 0x00, 0x00, 0x80 },
+	                "00000000000000000000000010000000"),
+                new BaSTestItem(new byte[] 
+	                { 0x80, 0x00, 0x00, 0x80 },
+	                "10000000000000000000000010000000"),
+                new BaSTestItem(new byte[] 
+	                { 0xFF, 0x00, 0x00, 0x80 },
+	                "11111111000000000000000010000000"),
+                new BaSTestItem(new byte[] 
+	                { 0xFF, 0x00, 0x01, 0x80 },
+	                "11111111000000000000000110000000"),
+                new BaSTestItem(new byte[] 
+	                { 0xFF, 0x02, 0x01, 0x80 },
+	                "11111111000000100000000110000000")
             };
 
             foreach (var item in a)
             {
-                byte[] mask = item.Key;
-                var str = item.Value;
+                byte[] mask = item.ToTest;
+                var str = item.Expected;
                 int i = 0;
                 var bits = mask.ToBitStream(true);
                 foreach (var b in bits)
@@ -133,32 +133,31 @@ namespace WakeOnLan.Testing
         [TestMethod]
         public void BitStreamFromRight()
         {
-            var a = new List<Tuple<byte[], string>>
-            {
-                new Tuple<byte[], string>(new byte[] 
-                	{ 0x00, 0x00, 0x00, 0x01 },
-                	"00000000000000000000000000000001"),
-                new Tuple<byte[], string>(new byte[] 
+            var a = new TestingCollection<byte[], string> { 
+                new BaSTestItem(new byte[] 
+                { 0x00, 0x00, 0x00, 0x01 },
+                "00000000000000000000000000000001"),
+                new BaSTestItem(new byte[] 
                 	{ 0x00, 0x00, 0x00, 0x80 },
                 	"00000000000000000000000010000000"),
-                new Tuple<byte[], string>(new byte[] 
+                new BaSTestItem(new byte[] 
                 	{ 0x80, 0x00, 0x00, 0x80 },
                 	"10000000000000000000000010000000"),
-                new Tuple<byte[], string>(new byte[] 
+                new BaSTestItem(new byte[] 
                 	{ 0xFF, 0x00, 0x00, 0x80 },
                 	"11111111000000000000000010000000"),
-                new Tuple<byte[], string>(new byte[] 
+                new BaSTestItem(new byte[] 
                 	{ 0xFF, 0x00, 0x01, 0x80 },
                 	"11111111000000000000000110000000"),
-                new Tuple<byte[], string>(new byte[] 
+                new BaSTestItem(new byte[] 
                 	{ 0xFF, 0x02, 0x01, 0x80 },
                 	"11111111000000100000000110000000")
             };
 
             foreach (var item in a)
             {
-                byte[] mask = item.Item1;
-                var str = item.Item2.Reverse();
+                byte[] mask = item.ToTest;
+                var str = item.Expected.Reverse();
                 int i = 0;
                 var bits = mask.ToBitStream(false);
                 foreach (var b in bits)
@@ -174,36 +173,25 @@ namespace WakeOnLan.Testing
         [TestMethod]
         public void RepresentsValidNetMask()
         {
-            var a = new List<Tuple<byte[], bool>> {
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,255,0}, true),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,255,1}, false),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,255,248}, true),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,255,249}, false),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,255,240}, true),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,255,242}, false),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,0,0}, true),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,255,1,0}, false),
-                new Tuple<byte[], bool>(new byte[] 
-                {255,0,255,242}, false),
-                new Tuple<byte[], bool>(new byte[] 
-                {0,255,255,255}, false),
-                new Tuple<byte[], bool>(new byte[] 
-                {0,0,255,242}, false)
+            var a = new TestingCollection<byte[], bool> {
+                new BaBTestItem(new byte[] {255,255,255,0}, true),
+                new BaBTestItem(new byte[] {255,255,255,1}, false),
+                new BaBTestItem(new byte[] {255,255,255,248}, true),
+                new BaBTestItem(new byte[] {255,255,255,249}, false),
+                new BaBTestItem(new byte[] {255,255,255,240}, true),
+                new BaBTestItem(new byte[] {255,255,255,242}, false),
+                new BaBTestItem(new byte[] {255,255,0,0}, true),
+                new BaBTestItem(new byte[] {255,255,1,0}, false),
+                new BaBTestItem(new byte[] {255,0,255,242}, false),
+                new BaBTestItem(new byte[] {0,255,255,255}, false),
+                new BaBTestItem(new byte[] {0,0,255,242}, false)
             };
             int index = 0;
             foreach (var i in a)
             {
-                bool isValid = i.Item1.RepresentsValidNetMask();
-                Debug.WriteLine("Testing " + BitConverter.ToString(i.Item1));
-                Assert.AreEqual(i.Item2, isValid);
+                bool isValid = i.ToTest.RepresentsValidNetMask();
+                Debug.WriteLine("Testing " + BitConverter.ToString(i.ToTest));
+                Assert.AreEqual(i.Expected, isValid);
                 ++index;
             }
         }
@@ -211,25 +199,25 @@ namespace WakeOnLan.Testing
         [TestMethod]
         public void Not()
         {
-            var a = new List<Tuple<byte[], byte[]>> {
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0x00}, new byte[]{0x00, 0x00, 0x00, 0xFF}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0x01}, new byte[]{0x00, 0x00, 0x00, 0xFE}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF0}, new byte[]{0x00, 0x00, 0x00, 0x0F}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF9}, new byte[]{0x00, 0x00, 0x00, 0x06}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF0}, new byte[]{0x00, 0x00, 0x00, 0x0F}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0xFF, 0xF2}, new byte[]{0x00, 0x00, 0x00, 0x0D}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0x00, 0x00}, new byte[]{0x00, 0x00, 0xFF, 0xFF}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0xFF, 0x01, 0x00}, new byte[]{0x00, 0x00, 0xFE, 0xFF}),
-                new Tuple<byte[], byte[]>(new byte[] {0xFF, 0x00, 0xFF, 0xF2}, new byte[]{0x00, 0xFF, 0x00, 0x0D}),
-                new Tuple<byte[], byte[]>(new byte[] {0x00, 0xFF, 0xFF, 0xFF}, new byte[]{0xFF, 0x00, 0x00, 0x00}),
-                new Tuple<byte[], byte[]>(new byte[] {0x00, 0x00, 0xFF, 0xF2}, new byte[]{0xFF, 0xFF, 0x00, 0x0D}),
-                new Tuple<byte[], byte[]>(new byte[] {0xAA, 0xAA, 0xAA, 0xAA}, new byte[]{0x55, 0x55, 0x55, 0x55})
+            var a = new TestingCollection<byte[], byte[]> {
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0xFF, 0x00}, new byte[]{0x00, 0x00, 0x00, 0xFF}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0xFF, 0x01}, new byte[]{0x00, 0x00, 0x00, 0xFE}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0xFF, 0xF0}, new byte[]{0x00, 0x00, 0x00, 0x0F}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0xFF, 0xF9}, new byte[]{0x00, 0x00, 0x00, 0x06}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0xFF, 0xF0}, new byte[]{0x00, 0x00, 0x00, 0x0F}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0xFF, 0xF2}, new byte[]{0x00, 0x00, 0x00, 0x0D}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0x00, 0x00}, new byte[]{0x00, 0x00, 0xFF, 0xFF}),
+                new BaBaTestItem(new byte[] {0xFF, 0xFF, 0x01, 0x00}, new byte[]{0x00, 0x00, 0xFE, 0xFF}),
+                new BaBaTestItem(new byte[] {0xFF, 0x00, 0xFF, 0xF2}, new byte[]{0x00, 0xFF, 0x00, 0x0D}),
+                new BaBaTestItem(new byte[] {0x00, 0xFF, 0xFF, 0xFF}, new byte[]{0xFF, 0x00, 0x00, 0x00}),
+                new BaBaTestItem(new byte[] {0x00, 0x00, 0xFF, 0xF2}, new byte[]{0xFF, 0xFF, 0x00, 0x0D}),
+                new BaBaTestItem(new byte[] {0xAA, 0xAA, 0xAA, 0xAA}, new byte[]{0x55, 0x55, 0x55, 0x55})
             };
             foreach (var i in a)
             {
-                byte[] inversed = i.Item1.Not();
-                Debug.WriteLine("Testing: " + BitConverter.ToString(i.Item2) + "\r\n     --> " + BitConverter.ToString(inversed));
-                Assert.IsTrue(i.Item2.SequenceEqual(inversed));
+                byte[] inversed = i.ToTest.Not();
+                Debug.WriteLine("Testing: " + BitConverter.ToString(i.Expected) + "\r\n     --> " + BitConverter.ToString(inversed));
+                Assert.IsTrue(i.Expected.SequenceEqual(inversed));
             }
         }
     }

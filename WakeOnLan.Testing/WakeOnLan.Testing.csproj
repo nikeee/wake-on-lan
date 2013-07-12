@@ -54,6 +54,7 @@
     <Compile Include="ByteArrayExtensionsTests.cs" />
     <Compile Include="NetMaskTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestingCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WOL\WakeOnLan45.csproj">
