@@ -9,6 +9,9 @@ namespace System.Net.Topology
     {
         internal static IEnumerable<bool> ToBitStream(this byte[] bytes, bool fromLeft)
         {
+            if (bytes == null)
+                throw new ArgumentNullException();
+
             if (fromLeft)
             {
                 for (int i = 0; i < bytes.Length; ++i)
@@ -246,7 +249,7 @@ namespace System.Net.Topology
                 int maxIndex = Math.Max(b1.Length, b2.Length);
                 byte[] biggerArray = b1.Length > b2.Length ? b1 : b2;
                 byte[] smallerArray = b1.Length <= b2.Length ? b1 : b2;
-
+                
                 byte[] paddedArray = new byte[maxIndex];
 
                 Buffer.BlockCopy(smallerArray, 0, paddedArray, 0, smallerArray.Length);
