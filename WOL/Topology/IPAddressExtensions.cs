@@ -10,13 +10,13 @@ namespace System.Net.Topology
     {
         private const string OnlyIPv4Supported = "Only IPv4 is currently supported";
 
-        /// <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network.</summary>
+        /// <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network. Compliant to RFC 950 (2^n-2).</summary>
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
         /// <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
         public static int GetSiblingCount(this IPAddress address, NetMask mask)
         {
-            return GetSiblingCount(address, mask, SiblingOptions.ExcludeAll);
+            return GetSiblingCount(address, mask, SiblingOptions.ExcludeUnusable);
         }
 
         /// <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network.</summary>
@@ -48,12 +48,12 @@ namespace System.Net.Topology
             return total;
         }
 
-        /// <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network.</summary>
+        /// <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network. Compliant to RFC 950 (2^n-2).</summary>
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
         public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMask mask)
         {
-            return GetSiblings(address, mask, SiblingOptions.ExcludeAll);
+            return GetSiblings(address, mask, SiblingOptions.ExcludeUnusable);
         }
 
         /// <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network.</summary>
