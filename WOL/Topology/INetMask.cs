@@ -13,6 +13,6 @@ namespace System.Net.Topology
 
         /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
         /// <returns>The bits of the net mask instance as an BitArray object instance</returns>
-        byte[] GetBits();
+        byte[] GetMaskBytes();
     }
 }

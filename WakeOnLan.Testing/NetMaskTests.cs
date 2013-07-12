@@ -45,6 +45,13 @@ namespace WakeOnLan.Testing
         }
 
         [TestMethod]
+        public void Length()
+        {
+            Assert.AreEqual(32, NetMask.MaskLength * 8);
+            Assert.AreEqual(32, NetMask.Empty.AddressLength);
+        }
+
+        [TestMethod]
         public void ToStringTest()
         {
             //var m1 = new NetMask(255, 255, 248, 0);

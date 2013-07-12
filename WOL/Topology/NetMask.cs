@@ -15,7 +15,7 @@ namespace System.Net.Topology
         public static NetMask Empty { get { return _empty; } }
 
         /// <summary>Gets the length of the net mask in bits.</summary>
-        public int AddressLength { get { return 32; } }
+        public int AddressLength { get { return MaskLength * 8; } }
 
         /// <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
         public int Cidr
@@ -93,7 +93,7 @@ namespace System.Net.Topology
 
         /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
-        public byte[] GetBits()
+        public byte[] GetMaskBytes()
         {
             return new byte[] { _bits[0], _bits[1], _bits[2], _bits[3] };
         }

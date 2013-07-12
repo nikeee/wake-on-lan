@@ -37,7 +37,7 @@ namespace System.Net.Topology
             bool includeBroadcast = BitHelper.IsOptionSet(options, SiblingOptions.IncludeBroadcast);
             bool includeNetworkIdentifier = BitHelper.IsOptionSet(options, SiblingOptions.IncludeNetworkIdentifier);
 
-            var hostPartBits = mask.GetBits().CountFromRight(false);
+            var hostPartBits = mask.GetMaskBytes().CountFromRight(false);
             var total = 1 << hostPartBits;
             total -= includeSelf ? 1 : 0;
             total -= includeBroadcast ? 1 : 0;
@@ -105,7 +105,7 @@ namespace System.Net.Topology
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
-            var maskBits = mask.GetBits();
+            var maskBits = mask.GetMaskBytes();
             var ipBits = address.GetAddressBytes();
 
             // TODO: Testing!
