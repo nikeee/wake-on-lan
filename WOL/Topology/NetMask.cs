@@ -156,7 +156,11 @@ namespace System.Net.Topology
         /// <returns>The bitwised combination using the AND operation.</returns>
         public static IPAddress operator &(NetMask mask, IPAddress address)
         {
-            throw new NotImplementedException();
+            var ipBytes = address == null ? new byte[MaskLength] : address.GetAddressBytes();
+            var maskBytes = mask == null ? new byte[MaskLength] : mask._bits;
+            byte[] combinedBytes = maskBytes.And(ipBytes);
+
+            return new IPAddress(combinedBytes);
         }
 
         /// <summary>Bitwise combines a <see cref="T:System.Net.Topology.NetMask" /> instance and an <see cref="T:System.Net.IPAddress"/> the AND operation.</summary>
