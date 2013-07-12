@@ -16,6 +16,9 @@ namespace System.Net.Topology
         /// <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
         public static int GetSiblingCount(this IPAddress address, NetMask mask)
         {
+            // wtf, no address needed?
+            // TODO: Move method to other class.
+
             return GetSiblingCount(address, mask, SiblingOptions.ExcludeUnusable);
         }
 
@@ -26,6 +29,9 @@ namespace System.Net.Topology
         /// <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
         public static int GetSiblingCount(this IPAddress address, NetMask mask, SiblingOptions options)
         {
+            // wtf, no address needed?
+            // TODO: Move method to other class.
+
             if (address == null)
                 throw new ArgumentNullException("address");
             if (mask == null)
@@ -82,10 +88,10 @@ namespace System.Net.Topology
         /// <returns>The network prefix of an <see cref="T:System.Net.IPAddress"/></returns>
         public static IPAddress GetNetworkPrefix(this IPAddress address, NetMask mask)
         {
-            if (address == null)
-                throw new ArgumentNullException("address");
-            if (mask == null)
-                throw new ArgumentNullException("mask");
+            //if (address == null)
+            //    throw new ArgumentNullException("address");
+            //if (mask == null)
+            //    throw new ArgumentNullException("mask");
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
@@ -107,10 +113,8 @@ namespace System.Net.Topology
 
             var maskBits = mask.GetMaskBytes();
             var ipBits = address.GetAddressBytes();
-
-            // TODO: Testing!
-
-            // !Mask & IP
+            
+            // ~Mask & IP
             var retVal = maskBits.Not().And(ipBits); // why does BitArray has no operators?
             var bytes = new byte[NetMask.MaskLength];
             retVal.CopyTo(bytes, 0);

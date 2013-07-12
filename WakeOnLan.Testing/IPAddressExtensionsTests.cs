@@ -22,5 +22,19 @@ namespace WakeOnLan.Testing
 
             // TODO: Add more tests!
         }
+
+        [TestMethod]
+        public void GetHostIdentifier()
+        {
+            var ip = new IPAddress(Ba(10, 20, 30, 40));
+            var m = new NetMask(Ba(255, 255, 255, 0));
+
+            IPAddress expectedId = new IPAddress(Ba(0, 0, 0, 40));
+            IPAddress id = ip.GetHostIdentifier(m);
+
+            Assert.AreEqual(expectedId, id);
+
+            // TODO: Add more tests!
+        }
     }
 }
