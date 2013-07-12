@@ -43,8 +43,7 @@ namespace System.Net.Topology
             {
                 if (bit == value)
                     ++counter;
-                else
-                    break;
+                else return counter;
             }
             return counter;
         }
@@ -79,6 +78,7 @@ namespace System.Net.Topology
             sb.Append(Convert.ToString(bits[3], radix).PadLeft(padding, paddingChar));
             return sb.ToString();
         }
+        
         internal static string ToBinaryString(this byte[] bits)
         {
             if (bits == null)
