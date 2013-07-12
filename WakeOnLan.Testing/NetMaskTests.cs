@@ -137,6 +137,9 @@ namespace WakeOnLan.Testing
             var mOr = m1 | m2;
             Assert.AreEqual(m1, mOr);
 
+            mOr = (NetMask)null | (NetMask)null; // wat
+            Assert.AreEqual(NetMask.Empty, mOr);
+
             mOr = NetMask.BitwiseOr(m1, m2);
             Assert.AreEqual(m1, mOr);
 
@@ -148,6 +151,9 @@ namespace WakeOnLan.Testing
 
             mOr = NetMask.BitwiseOr(null, m1);
             Assert.AreEqual(m1, mOr);
+
+            mOr = NetMask.BitwiseOr(null, null);
+            Assert.AreEqual(NetMask.Empty, mOr);
         }
 
         [TestMethod]
@@ -200,6 +206,13 @@ namespace WakeOnLan.Testing
 
             mAnd = NetMask.BitwiseAnd(m1, ip1);
             Assert.AreEqual(ip1, mAnd);
+
+
+            mAnd = NetMask.BitwiseAnd(m1, (IPAddress)null);
+            Assert.AreEqual(IPAddress.Any, mAnd);
+            
+            mAnd = NetMask.BitwiseAnd((NetMask)null, ip1);
+            Assert.AreEqual(IPAddress.Any, mAnd);
         }
 
         [TestMethod]
