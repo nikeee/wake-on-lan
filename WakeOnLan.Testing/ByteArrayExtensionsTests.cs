@@ -104,7 +104,7 @@ namespace WakeOnLan.Testing
 
             foreach (var item in a)
             {
-                byte[] mask = item.ToTest;
+                byte[] mask = item.ToTest1;
                 var str = item.Expected;
                 int i = 0;
                 var bits = mask.ToBitStream(true);
@@ -132,7 +132,7 @@ namespace WakeOnLan.Testing
 
             foreach (var item in a)
             {
-                byte[] mask = item.ToTest;
+                byte[] mask = item.ToTest1;
                 var str = item.Expected.Reverse();
                 int i = 0;
                 var bits = mask.ToBitStream(false);
@@ -165,8 +165,8 @@ namespace WakeOnLan.Testing
             int index = 0;
             foreach (var i in a)
             {
-                bool isValid = i.ToTest.RepresentsValidNetMask();
-                Debug.WriteLine("Testing " + BitConverter.ToString(i.ToTest));
+                bool isValid = i.ToTest1.RepresentsValidNetMask();
+                Debug.WriteLine("Testing " + BitConverter.ToString(i.ToTest1));
                 Assert.AreEqual(i.Expected, isValid);
                 ++index;
             }
@@ -191,9 +191,45 @@ namespace WakeOnLan.Testing
             };
             foreach (var i in a)
             {
-                byte[] inversed = i.ToTest.Not();
+                byte[] inversed = i.ToTest1.Not();
                 Debug.WriteLine("Testing: " + BitConverter.ToString(i.Expected) + "\r\n     --> " + BitConverter.ToString(inversed));
+                Assert.AreEqual(i.Expected.Length, inversed.Length);
                 Assert.IsTrue(i.Expected.SequenceEqual(inversed));
+            }
+        }
+
+        [TestMethod]
+        public void Or()
+        {
+            var a = new TestingCollection<byte[], byte[], byte[]>
+            {
+                new BaBaBaTestItem(new byte[] {0x01}, new byte[] {0x00}, new byte[] {0x01}),
+                new BaBaBaTestItem(new byte[] {0x00}, new byte[] {0x01}, new byte[] {0x01}),
+                new BaBaBaTestItem(new byte[] {0x00}, new byte[] {0x00}, new byte[] {0x00}),
+                new BaBaBaTestItem(new byte[] {0x01}, new byte[] {0x01}, new byte[] {0x01}),
+                new BaBaBaTestItem(new byte[] {0x00, 0x00}, new byte[] {0x00, 0x00}, new byte[] {0x00, 0x00}),
+                new BaBaBaTestItem(new byte[] {0x00, 0x00}, new byte[] {0x00, 0x01}, new byte[] {0x00, 0x01}),
+                new BaBaBaTestItem(new byte[] {0x00, 0x01}, new byte[] {0x00, 0x00}, new byte[] {0x00, 0x01}),
+                new BaBaBaTestItem(new byte[] {0x00, 0x01}, new byte[] {0x00, 0x00}, new byte[] {0x00, 0x01}),
+                new BaBaBaTestItem(new byte[] {0x00, 0x00}, new byte[] {0x00, 0x01}, new byte[] {0x00, 0x01}),
+                new BaBaBaTestItem(new byte[] {0x01, 0x01}, new byte[] {0x01, 0x00}, new byte[] {0x01, 0x01}),
+                new BaBaBaTestItem(new byte[] {0xF0, 0x00}, new byte[] {0x0F, 0x01}, new byte[] {0xFF, 0x01}),
+                new BaBaBaTestItem(new byte[] {0x80, 0xF1}, new byte[] {0x00, 0x0E}, new byte[] {0x80, 0xFF}),
+                new BaBaBaTestItem(new byte[] {0x00, 0xF1, 0x00}, new byte[] {0x00, 0x00, 0x00}, new byte[] {0x00, 0xF1, 0x00})
+                new BaBaBaTestItem(new byte[] {0x00, 0xF1, 0x00, 0x01}, new byte[] {0x00, 0x00, 0x00, 0x00}, new byte[] {0x00, 0xF1, 0x00, 0x01}),
+                new BaBaBaTestItem(new byte[] {0x00, 0xF1, 0x00, 0x00}, new byte[] {0x00, 0x00, 0x00, 0x00}, new byte[] {0x00, 0xF1, 0x00, 0x00}),
+                new BaBaBaTestItem(new byte[] {0x00, 0xF1, 0x00, 0xF0}, new byte[] {0x00, 0x00, 0x00, 0x00}, new byte[] {0x00, 0xF1, 0x00, 0xF0}),
+                new BaBaBaTestItem(new byte[] {0x00, 0xF1, 0x00, 0x0F}, new byte[] {0x00, 0x00, 0x00, 0x00}, new byte[] {0x00, 0xF1, 0x00, 0x0F})
+            };
+
+            foreach (var i in a)
+            {
+                byte[] actual = i.ToTest1.Or(i.ToTest2);
+                Debug.WriteLine("Testing: " + BitConverter.ToString(i.ToTest1));
+                Debug.WriteLine("       | " + BitConverter.ToString(i.ToTest2));
+                Debug.WriteLine("     --> " + BitConverter.ToString(actual));
+                Assert.AreEqual(i.Expected.Length, actual.Length);
+                Assert.IsTrue(i.Expected.SequenceEqual(actual));
             }
         }
     }
