@@ -8,11 +8,13 @@
         ExcludeAll = 0,
         /// <summary>Include the addess passed to the method.</summary>
         IncludeSelf = 1,
+        /// <summary>Include the addess passed to the method. Compliant to RFC 950 (2^n-2).</summary>
+        ExcludeUnusable = IncludeSelf,
         /// <summary>Include the broadcast address.</summary>
         IncludeBroadcast = 2,
         /// <summary>Include the net address.</summary>
         IncludeNetworkIdentifier = 4,
-        /// <summary>Include all addresses possible.</summary>
+        /// <summary>Include all addresses possible. RFC 1878 (2^n).</summary>
         IncludeAll = IncludeSelf | IncludeBroadcast | IncludeNetworkIdentifier
     }
 
