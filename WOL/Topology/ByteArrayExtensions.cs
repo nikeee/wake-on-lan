@@ -139,7 +139,7 @@ namespace System.Net.Topology
             if (b1.Length == 1 && b2.Length == 1)
             {
                 int ib1 = (int)b1[0];
-                int ib2 = (int)b1[0];
+                int ib2 = (int)b2[0];
                 return new byte[] { (byte)(ib1 | ib2) };
             }
             if (b1.Length == 2 && b2.Length == 2)
