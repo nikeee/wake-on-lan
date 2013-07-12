@@ -98,6 +98,11 @@ namespace System.Net.Topology
             return new byte[] { _bits[0], _bits[1], _bits[2], _bits[3] };
         }
 
+        public static bool IsValidNetMask(byte[] bytes)
+        {
+            return bytes.RepresentsValidNetMask();
+        }
+
         #region Operators
 
         #region Equality
@@ -174,6 +179,15 @@ namespace System.Net.Topology
             return new NetMask(n1._bits.And(n2._bits));
         }
 
+        /// <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the AND operation.</summary>
+        /// <param name="n1">The first other.</param>
+        /// <param name="n2">The second other.</param>
+        /// <returns>The bitwised combination using the AND operation.</returns>
+        public static NetMask BitwiseAnd(NetMask n1, NetMask n2)
+        {
+            return n1 & n2;
+        }
+
         #endregion
         #region Or
 
@@ -183,8 +197,10 @@ namespace System.Net.Topology
         /// <returns>The bitwised combination using the OR operation.</returns>
         public static NetMask operator |(NetMask n1, NetMask n2)
         {
-            if (n1 == null || n2 == null)
-                return NetMask.Empty;
+            if (n1 == null)
+                return n2 == null ? NetMask.Empty : n2;
+            if (n2 == null)
+                return n1;
             return new NetMask(n1._bits.Or(n2._bits));
         }
 

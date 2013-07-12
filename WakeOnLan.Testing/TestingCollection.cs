@@ -63,6 +63,13 @@ namespace WakeOnLan.Testing
         { }
     }
 
+    internal class BaITestItem : TestItem<byte[], int>
+    {
+        public BaITestItem(byte[] toTest, int expected)
+            : base(toTest, expected)
+        { }
+    }
+
     internal class BaBTestItem : TestItem<byte[], bool>
     {
         public BaBTestItem(byte[] toTest, bool expected)
