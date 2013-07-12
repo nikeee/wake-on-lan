@@ -167,6 +167,19 @@ namespace WakeOnLan.Testing
 
             mAnd = NetMask.BitwiseAnd(m2, m1);
             Assert.AreEqual(m2, mAnd);
+            
+            mAnd = NetMask.BitwiseAnd(m2, m2);
+            Assert.AreEqual(m2, mAnd);
+
+            mAnd = NetMask.BitwiseAnd(m1, m1);
+            Assert.AreEqual(m1, mAnd);
+
+
+            mAnd = NetMask.BitwiseAnd((NetMask)null, m1);
+            Assert.AreEqual(NetMask.Empty, mAnd);
+
+            mAnd = NetMask.BitwiseAnd(m2, (NetMask)null);
+            Assert.AreEqual(NetMask.Empty, mAnd);
         }
 
         [TestMethod]
