@@ -53,7 +53,6 @@ namespace System.Net.Topology
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
-            // TODO: Testing
             return CountFromSide(bits, value, true);
         }
 
@@ -61,7 +60,6 @@ namespace System.Net.Topology
         {
             if (bits == null)
                 throw new ArgumentNullException("bits");
-            // TODO: Testing
             return CountFromSide(bits, value, false);
         }
 
@@ -221,6 +219,8 @@ namespace System.Net.Topology
             if (b2 == null)
                 throw new ArgumentNullException("b2");
 
+            // TODO: Testing
+
             if (b1.Length == 1 && b2.Length == 1)
             {
                 int ib1 = (int)b1[0];
@@ -270,8 +270,6 @@ namespace System.Net.Topology
         {
             if (bits == null)
                 throw new ArgumentNullException("b1");
-
-            // TODO: Testing
 
             if (bits.Length == 4)
             {
