@@ -252,6 +252,7 @@ namespace WakeOnLan.Testing
         [TestMethod]
         public void Not()
         {
+
             var a = new TestingCollection<byte[], byte[]> {
                 new BaBaTestItem(Ba(0xFF, 0xFF, 0xFF, 0x00), Ba(0x00, 0x00, 0x00, 0xFF)),
                 new BaBaTestItem(Ba(0xFF, 0xFF, 0xFF, 0x01), Ba(0x00, 0x00, 0x00, 0xFE)),

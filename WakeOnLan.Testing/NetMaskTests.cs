@@ -219,47 +219,47 @@ namespace WakeOnLan.Testing
         public void MaskValidity()
         {
             var b1 = Ba(255, 255, 255, 255);
-            var valid = NetMask.IsValidNetMask(b1);
+            var valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(true, valid);
 
             b1 = Ba(255, 255, 255, 0);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(true, valid);
 
             b1 = Ba(255, 255, 0, 0);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(true, valid);
 
             b1 = Ba(255, 0, 0, 0);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(true, valid);
 
             b1 = Ba(0, 0, 0, 0);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(true, valid);
 
             b1 = Ba(0, 255, 255, 255);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
 
             b1 = Ba(0, 0, 255, 255);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
 
             b1 = Ba(0, 0, 0, 255);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
 
             b1 = Ba(255, 0, 255, 255);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
 
             b1 = Ba(255, 0, 0, 255);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
             
             b1 = Ba(255, 255, 0, 255);
-            valid = NetMask.IsValidNetMask(b1);
+            valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
         }
     }

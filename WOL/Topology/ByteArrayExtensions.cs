@@ -281,6 +281,7 @@ namespace System.Net.Topology
             }
             else
             {
+            Debugger.Break();
                 byte[] newBytes = new byte[bits.Length];
 
                 for (int i = 0; i < newBytes.Length; ++i)

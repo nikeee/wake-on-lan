@@ -98,7 +98,9 @@ namespace System.Net.Topology
             return new byte[] { _bits[0], _bits[1], _bits[2], _bits[3] };
         }
 
-        public static bool IsValidNetMask(byte[] bytes)
+        /// <summary>Returns a value indicating whether the given array of <see cref="T:System.Byte"/> represents a valid net mask.</summary>
+        /// <returns>True if the given array of <see cref="T:System.Byte"/> represents a valid net mask, otherwise false.</returns>
+        public static bool GetIsValidNetMask(byte[] bytes)
         {
             return bytes.RepresentsValidNetMask();
         }
@@ -239,7 +241,7 @@ namespace System.Net.Topology
             return sb.ToString();
         }
 
-        /// <summary>Returns a other indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and other.</summary>
+        /// <summary>Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and other.</summary>
         /// <returns>true if <paramref name="obj" /> is a <see cref="T:System.Net.Topology.NetMask" /> and equal to this instance; otherwise, false.</returns>
         /// <param name="obj">The object to compare with this instance. </param>
         /// <filterpriority>2</filterpriority>
@@ -255,7 +257,7 @@ namespace System.Net.Topology
             return Equals(mask);
         }
 
-        /// <summary>Returns a other indicating whether this instance and a specified <see cref="T:System.Net.Topology.NetMask" /> object represent the same other.</summary>
+        /// <summary>Returns a value indicating whether this instance and a specified <see cref="T:System.Net.Topology.NetMask" /> object represent the same other.</summary>
         /// <returns>true if <paramref name="other" /> is equal to this instance; otherwise, false.</returns>
         /// <param name="other">An object to compare to this instance.</param>
         /// <filterpriority>2</filterpriority>
