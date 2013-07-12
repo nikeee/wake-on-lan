@@ -106,13 +106,13 @@ namespace System.Net.Topology
                 throw new NotSupportedException(OnlyIPv4Supported);
 
             var maskBits = mask.GetBits();
-            var ipBits = new BitArray(address.GetAddressBytes());
+            var ipBits = address.GetAddressBytes();
 
             // TODO: Testing!
 
             // !Mask & IP
             var retVal = maskBits.Not().And(ipBits); // why does BitArray has no operators?
-            var bytes = new byte[4];
+            var bytes = new byte[NetMask.MaskLength];
             retVal.CopyTo(bytes, 0);
 
             return new IPAddress(bytes);

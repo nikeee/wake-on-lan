@@ -45,7 +45,7 @@ namespace WakeOnLan.Testing
         }
 
         [TestMethod]
-        public void ToString()
+        public void ToStringTest()
         {
             //var m1 = new NetMask(255, 255, 248, 0);
             var m1 = new NetMask(-2048);

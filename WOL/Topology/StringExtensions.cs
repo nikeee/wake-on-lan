@@ -17,9 +17,7 @@ namespace System.Net.Topology
                 int i = 0;
                 int j = i + len - 1;
                 while (i < len)
-                {
                     reversed[i++] = str[j--];
-                }
             }
 
             // Need to use this overload for the System.String constructor
