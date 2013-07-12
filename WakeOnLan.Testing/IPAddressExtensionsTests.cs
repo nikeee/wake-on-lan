@@ -22,6 +22,16 @@ namespace WakeOnLan.Testing
 
             // TODO: Add more tests!
         }
+        
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void GetNetworkPrefixEx()
+        {
+            var ip = new IPAddress(Ba(10, 20, 30, 40, 10, 20, 30, 40, 10, 20, 30, 40, 10, 20, 30, 40));
+            var m = new NetMask(Ba(255, 255, 255, 0));
+
+            IPAddress prefix = ip.GetNetworkPrefix(m);
+        }
 
         [TestMethod]
         public void GetHostIdentifier()
@@ -35,6 +45,16 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(expectedId, id);
 
             // TODO: Add more tests!
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NotSupportedException))]
+        public void GetHostIdentifierEx()
+        {
+            var ip = new IPAddress(Ba(10, 20, 30, 40, 10, 20, 30, 40, 10, 20, 30, 40, 10, 20, 30, 40));
+            var m = new NetMask(Ba(255, 255, 255, 0));
+
+            IPAddress id = ip.GetHostIdentifier(m);
         }
     }
 }
