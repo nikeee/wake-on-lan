@@ -231,7 +231,6 @@ namespace WakeOnLan.Testing
             expected = "00000000.11110000.00000100.11110001";
             str = mask.ToBinaryString('.');
             Assert.AreEqual(expected, str);
-
         }
 
         [TestMethod]
@@ -455,6 +454,5 @@ namespace WakeOnLan.Testing
             byte[] b2 = null;
             byte[] re = ByteArrayExtensions.Xor(b1, b2);
         }
-
     }
 }

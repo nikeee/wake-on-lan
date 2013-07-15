@@ -157,7 +157,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
+    <Compile Include="Topology\NetCalculator.cs" />
     <Compile Include="Topology\NetMask.cs" />
+    <Compile Include="Topology\NetMaskExtensions.cs" />
     <Compile Include="Topology\SiblingOptions.cs" />
     <Compile Include="Topology\StringExtensions.cs" />
   </ItemGroup>
