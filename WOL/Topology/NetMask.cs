@@ -48,7 +48,7 @@ namespace System.Net.Topology
             if (value.Length != MaskLength)
                 throw new ArgumentException("Invalid mask length.");
 
-            CheckMaskBytes(value); // check if passed bytes are a valid mask. if not, throw Exception
+            CheckMaskBytes(value); // check if passed mask are a valid mask. if not, throw Exception
 
             _bits = new byte[] { value[0], value[1], value[2], value[3] };
         }
@@ -100,10 +100,10 @@ namespace System.Net.Topology
         
         #endregion
 
-        private void CheckMaskBytes(byte[] bytes)
+        private static void CheckMaskBytes(byte[] bytes)
         {
             if (!bytes.RepresentsValidNetMask())
-                throw new ArgumentException("The passed bytes do not represent a valid net mask.");
+                throw new ArgumentException("The passed mask do not represent a valid net mask.");
         }
 
         /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
@@ -115,9 +115,9 @@ namespace System.Net.Topology
 
         /// <summary>Returns a value indicating whether the given array of <see cref="T:System.Byte"/> represents a valid net mask.</summary>
         /// <returns>True if the given array of <see cref="T:System.Byte"/> represents a valid net mask, otherwise false.</returns>
-        public static bool GetIsValidNetMask(byte[] bytes)
+        public static bool GetIsValidNetMask(byte[] mask)
         {
-            return bytes.RepresentsValidNetMask();
+            return mask.RepresentsValidNetMask();
         }
 
         #region Operators

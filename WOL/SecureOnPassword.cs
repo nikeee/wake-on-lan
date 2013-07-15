@@ -4,10 +4,10 @@
     /// Stellt ein SecureOn-Passwort bereit.
     /// </summary>
     [Serializable]
-    public class SecureOnPassword
+    public sealed class SecureOnPassword
     {
-        /// <summary>Die Passwortdaten des SecureOn-Passworts.</summary>
-        public byte[] Password { get; private set; }
+        //public byte[] Password { get; private set; }
+        private byte[] _password;
 
         /// <summary>
         /// Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
@@ -21,7 +21,17 @@
                 throw new ArgumentNullException("password");
             if (password.Length != 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidPasswordLength);
-            Password = password;
+            _password = password;
+        }
+
+        /// <summary>Ruft die Passwortdaten des SecureOn-Passworts ab.</summary>
+        public byte[] GetPasswordBytes()
+        {
+if(_password == null)
+    return null;
+var buffer = new byte[_password.Length];
+Array.Copy(_password, buffer, 0);
+return buffer;
         }
 
         /// <summary>
@@ -49,32 +59,46 @@
                 throw new ArgumentNullException("password");
 
             if (string.IsNullOrEmpty(password))
-            {
-                Password = new byte[6];
-            }
+                _password = new byte[6];
+
             var bytes = encoding.GetBytes(password);
             if (bytes.Length > 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidPasswordLength);
 
-            Password = new byte[6];
+            _password = new byte[6];
             for (int i = 0; i < bytes.Length; i++)
-                Password[i] = bytes[i];
+                _password[i] = bytes[i];
             if (bytes.Length < 6)
             {
                 for (int i = bytes.Length - 1; i < 6; i++)
-                    Password[i] = 0x00;
+                    _password[i] = 0x00;
             }
         }
 
-        /// <summary>
-        /// Konvertiert SecureOn-Passwörter in die Strichnotation.
-        /// </summary>
+        /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
         /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
         public override string ToString()
         {
+            return ToString("X2");
+        }
+
+        /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
+        /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        private string ToString(string format)
+        {
             var f = new string[6];
             for (int i = 0; i < f.Length; i++)
-                f[i] = Password[i].ToString("X2");
+                f[i] = _password[i].ToString(format);
+            return string.Join("-", f);
+        }
+
+        /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
+        /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        public string ToString(IFormatProvider format)
+        {
+            var f = new string[6];
+            for (int i = 0; i < f.Length; i++)
+                f[i] = _password[i].ToString(format);
             return string.Join("-", f);
         }
 

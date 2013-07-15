@@ -65,7 +65,8 @@ namespace System.Net
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            byte[] packet = GetWolPacket(macAddress, password.Password);
+            byte[] passwordBuffer = password.GetPasswordBytes();
+            byte[] packet = GetWolPacket(macAddress, passwordBuffer);
             SendPacket(target, packet);
         }
 
@@ -146,7 +147,8 @@ namespace System.Net
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            byte[] packet = GetWolPacket(macAddress.GetAddressBytes(), password.Password);
+            byte[] passwordBuffer = password.GetPasswordBytes();
+            byte[] packet = GetWolPacket(macAddress.GetAddressBytes(), passwordBuffer);
             SendPacket(target, packet);
         }
 
@@ -215,7 +217,8 @@ namespace System.Net
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            var packet = GetWolPacket(macAddress, password.Password);
+            var passwordBuffer = password.GetPasswordBytes();
+            var packet = GetWolPacket(macAddress, passwordBuffer);
             return SendPacketAsync(target, packet);
         }
 
@@ -232,6 +235,7 @@ namespace System.Net
                 throw new ArgumentNullException("target");
             if (macAddress == null)
                 throw new ArgumentNullException("macAddress");
+
             var p = GetWolPacket(macAddress.GetAddressBytes());
             return SendPacketAsync(target, p);
             //return new Task(() => Send(target, macAddress));
@@ -254,7 +258,9 @@ namespace System.Net
                 throw new ArgumentNullException("macAddress");
             if (password == null)
                 throw new ArgumentNullException("password");
-            var p = GetWolPacket(macAddress.GetAddressBytes(), password.Password);
+
+            var passwordBuffer = password.GetPasswordBytes();
+            var p = GetWolPacket(macAddress.GetAddressBytes(), passwordBuffer);
             return SendPacketAsync(target, p);
         }
 

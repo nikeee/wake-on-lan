@@ -153,10 +153,11 @@ namespace System.Net.Topology
         /// <returns>The network prefix of an <see cref="T:System.Net.IPAddress"/></returns>
         public static IPAddress GetNetworkPrefix(this IPAddress address, NetMask mask)
         {
-            //if (address == null)
-            //    throw new ArgumentNullException("address");
-            //if (mask == null)
-            //    throw new ArgumentNullException("mask");
+            if (address == null)
+                throw new ArgumentNullException("address");
+            if (mask == null)
+                throw new ArgumentNullException("mask");
+
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
@@ -169,6 +170,11 @@ namespace System.Net.Topology
         /// <returns>The broadcast address of an <see cref="T:System.Net.IPAddress"/></returns>
         public static IPAddress GetBroadcastAddress(this IPAddress address, NetMask mask)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+            if (mask == null)
+                throw new ArgumentNullException("mask");
+
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 

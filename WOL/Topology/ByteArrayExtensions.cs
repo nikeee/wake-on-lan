@@ -272,7 +272,7 @@ namespace System.Net.Topology
         internal static byte[] Not(this byte[] bits)
         {
             if (bits == null)
-                throw new ArgumentNullException("b1");
+                throw new ArgumentNullException("bits");
 
             if (bits.Length == 4)
             {
