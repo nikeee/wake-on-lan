@@ -68,12 +68,12 @@ namespace System.Net.Topology
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
         /// <param name="cidr">The mask represented by the CIDR notation integer.</param>
-        public NetMask(int cidr)
+        public NetMask(byte cidr)
         {
             // maybe change parameter type interpretation to CIDR?
             if (cidr < 0 || cidr > MaskLength * 8)
                 throw new ArgumentException("Invalid CIDR length");
-            
+
             // TODO: Testing(!)
 
             int target = MaskLength * 8 - cidr;
@@ -86,6 +86,11 @@ namespace System.Net.Topology
             var bytes = BitConverter.GetBytes(~mask);
             _bits = new byte[] { bytes[0].ReverseBits(), bytes[1].ReverseBits(), bytes[2].ReverseBits(), bytes[3].ReverseBits() };
         }
+        /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+        /// <param name="cidr">The mask represented by the CIDR notation integer.</param>
+        public NetMask(int cidr) :
+            this(unchecked((byte)cidr))
+        { }
 
         /*
          * TODO: Reimplement this constructor
@@ -291,7 +296,7 @@ namespace System.Net.Topology
                     return false;
             return true;
             */
-            
+
             // faster approach:
             return _bits[0] == other._bits[0]
                 && _bits[1] == other._bits[1]
