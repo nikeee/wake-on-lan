@@ -48,6 +48,8 @@ namespace System.Net.Topology
             if (value.Length != MaskLength)
                 throw new ArgumentException("Invalid mask length.");
 
+            CheckMaskBytes(value); // check if passed bytes are a valid mask. if not, throw Exception
+
             _bits = new byte[] { value[0], value[1], value[2], value[3] };
         }
 
@@ -85,29 +87,24 @@ namespace System.Net.Topology
             }
             var bytes = BitConverter.GetBytes(~mask);
             _bits = new byte[] { bytes[0].ReverseBits(), bytes[1].ReverseBits(), bytes[2].ReverseBits(), bytes[3].ReverseBits() };
+
+            // Not needed:
+            // CheckMaskBytes()
         }
+
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
         /// <param name="cidr">The mask represented by the CIDR notation integer.</param>
         public NetMask(int cidr) :
             this(unchecked((byte)cidr))
         { }
-
-        /*
-         * TODO: Reimplement this constructor
-        /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> using a <see cref="T:System.Collections.BitArray"/>.</summary>
-        /// <param name="mask">The mask represented by a <see cref="T:System.Collections.BitArray"/>.</param>
-        public NetMask(BitArray mask)
-        {
-            if (mask == null)
-                throw new ArgumentNullException("mask");
-            if (mask.Count != 32)
-                throw new ArgumentException("Invalid mask length.");
-
-            _bits = new BitArray(mask);
-        }
-        */
-
+        
         #endregion
+
+        private void CheckMaskBytes(byte[] bytes)
+        {
+            if (!bytes.RepresentsValidNetMask())
+                throw new ArgumentException("The passed bytes do not represent a valid net mask.");
+        }
 
         /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
