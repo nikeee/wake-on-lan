@@ -27,11 +27,11 @@
         /// <summary>Ruft die Passwortdaten des SecureOn-Passworts ab.</summary>
         public byte[] GetPasswordBytes()
         {
-if(_password == null)
-    return null;
-var buffer = new byte[_password.Length];
-Array.Copy(_password, buffer, 0);
-return buffer;
+            if (_password == null)
+                return null;
+            var buffer = new byte[_password.Length];
+            Array.Copy(_password, buffer, 0);
+            return buffer;
         }
 
         /// <summary>
