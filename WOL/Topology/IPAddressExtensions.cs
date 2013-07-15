@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using System.Collections;
+using System.Diagnostics;
 
 namespace System.Net.Topology
 {
@@ -79,6 +80,70 @@ namespace System.Net.Topology
             bool includeBroadcast = BitHelper.IsOptionSet(options,SiblingOptions.IncludeBroadcast);
             bool includeNetworkIdentifier = BitHelper.IsOptionSet(options, SiblingOptions.IncludeNetworkIdentifier);
 
+            bool alreadyReturnedSelf = false;
+
+            var netPrefix = address.GetNetworkPrefix(mask);
+
+            if (includeNetworkIdentifier)
+            {
+                netPrefix = address.GetNetworkPrefix(mask);
+                if (netPrefix == address)
+                    alreadyReturnedSelf = true;
+                yield return netPrefix;
+            }
+
+            var netPrefixBytes = netPrefix.GetAddressBytes();
+
+            int cidr = mask.Cidr;
+            uint maxHosts = 0xFFFFFFFF;
+            
+            if(cidr > 0)
+                maxHosts = (uint)(1 << (8 * NetMask.MaskLength - cidr)) - 2;
+
+            byte[] hostBytes = new byte[NetMask.MaskLength];
+            for (int hostPart = 1; hostPart < maxHosts; ++hostPart)
+            {
+                unchecked
+                {
+                    /*
+                    hostBytes[0] = (byte)((hostPart >> 0) & 0x000000FF);
+                    hostBytes[1] = (byte)((hostPart >> 8) & 0x000000FF);
+                    hostBytes[2] = (byte)((hostPart >> 16) & 0x000000FF);
+                    hostBytes[3] = (byte)((hostPart >> 24) & 0x000000FF);
+                    */
+                    hostBytes[0] = (byte)(hostPart >> 0);
+                    hostBytes[1] = (byte)(hostPart >> 8);
+                    hostBytes[2] = (byte)(hostPart >> 16);
+                    hostBytes[3] = (byte)(hostPart >> 24);
+
+                    Debug.WriteLine("HostPart: " + hostPart.ToString("X2".PadLeft(8, '0')) + " (" + BitConverter.ToString(hostBytes));
+                }
+
+                var nextIpBytes = netPrefixBytes.Or(hostBytes);
+                var nextIp = new IPAddress(nextIpBytes);
+
+                if(!alreadyReturnedSelf)
+                {
+                    if(includeSelf)
+                    {
+                        if (nextIp == address)
+                            alreadyReturnedSelf = true;
+                        yield return nextIp;
+                    }
+                    else if (nextIp != address)
+                        yield return nextIp;
+                }
+                else
+                    yield return nextIp;
+            }
+
+            if (includeBroadcast)
+            {
+                var broadcastAddress = address.GetBroadcastAddress(mask);
+                if (address != broadcastAddress || (address == broadcastAddress && !alreadyReturnedSelf))
+                    yield return broadcastAddress;
+            }
+
             throw new NotImplementedException();
         }
 
@@ -98,6 +163,18 @@ namespace System.Net.Topology
             return mask & address;
         }
 
+        /// <summary>Gets the broadcast address of an <see cref="T:System.Net.IPAddress"/>.</summary>
+        /// <param name="address">The address</param>
+        /// <param name="mask">The net mask of the network</param>
+        /// <returns>The broadcast address of an <see cref="T:System.Net.IPAddress"/></returns>
+        public static IPAddress GetBroadcastAddress(this IPAddress address, NetMask mask)
+        {
+            if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
+                throw new NotSupportedException(OnlyIPv4Supported);
+
+            throw new NotImplementedException();
+        }
+        
         /// <summary>Gets the host identifier (rest) an <see cref="T:System.Net.IPAddress"/>.</summary>
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
