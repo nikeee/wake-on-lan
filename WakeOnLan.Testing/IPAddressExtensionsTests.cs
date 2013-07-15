@@ -3,6 +3,7 @@ using System.Net;
 using System.Linq;
 using System.Net.Topology;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
 namespace WakeOnLan.Testing
 {
@@ -55,6 +56,34 @@ namespace WakeOnLan.Testing
             var m = new NetMask(Ba(255, 255, 255, 0));
 
             IPAddress id = ip.GetHostIdentifier(m);
+        }
+
+        [TestMethod]
+        public void GetSiblings()
+        {
+            var a = new List<IPAddress> {
+                new IPAddress(Ba(192, 168, 178, 0)),
+                new IPAddress(Ba(192, 168, 178, 1)),
+                new IPAddress(Ba(192, 168, 178, 2)),
+                new IPAddress(Ba(192, 168, 178, 3)),
+                new IPAddress(Ba(192, 168, 178, 4)),
+                new IPAddress(Ba(192, 168, 178, 5)),
+                new IPAddress(Ba(192, 168, 178, 6)),
+                new IPAddress(Ba(192, 168, 178, 7))
+            };
+            var ip = new IPAddress(Ba(192, 168, 178, 5));
+            var mask = new NetMask(255, 255, 255, 248);
+
+            var enumerable = ip.GetSiblings(mask, SiblingOptions.IncludeAll);
+            int i = 0;
+            
+            foreach (var t in enumerable)
+            {
+                var expected = a[i];
+                Assert.AreEqual(expected, t);
+                ++i;
+            }
+            Assert.AreEqual(a.Count, i);
         }
     }
 }

@@ -98,25 +98,20 @@ namespace System.Net.Topology
             uint maxHosts = 0xFFFFFFFF;
             
             if(cidr > 0)
-                maxHosts = (uint)(1 << (8 * NetMask.MaskLength - cidr)) - 2;
+                maxHosts = (uint)(1 << (8 * NetMask.MaskLength - cidr)) - 1;
 
             byte[] hostBytes = new byte[NetMask.MaskLength];
             for (int hostPart = 1; hostPart < maxHosts; ++hostPart)
             {
+                if (hostPart == 6)
+                    Debugger.Break();
                 unchecked
                 {
-                    /*
-                    hostBytes[0] = (byte)((hostPart >> 0) & 0x000000FF);
-                    hostBytes[1] = (byte)((hostPart >> 8) & 0x000000FF);
-                    hostBytes[2] = (byte)((hostPart >> 16) & 0x000000FF);
-                    hostBytes[3] = (byte)((hostPart >> 24) & 0x000000FF);
-                    */
-                    hostBytes[0] = (byte)(hostPart >> 0);
-                    hostBytes[1] = (byte)(hostPart >> 8);
-                    hostBytes[2] = (byte)(hostPart >> 16);
-                    hostBytes[3] = (byte)(hostPart >> 24);
-
-                    Debug.WriteLine("HostPart: " + hostPart.ToString("X2".PadLeft(8, '0')) + " (" + BitConverter.ToString(hostBytes));
+                    hostBytes[0] = (byte)(hostPart >> 24);
+                    hostBytes[1] = (byte)(hostPart >> 16);
+                    hostBytes[2] = (byte)(hostPart >> 8);
+                    hostBytes[3] = (byte)(hostPart >> 0);
+                    Debug.WriteLine("HostPart: " + hostPart.ToString("X2").PadLeft(8, '0') + " (" + BitConverter.ToString(hostBytes) + ")");
                 }
 
                 var nextIpBytes = netPrefixBytes.Or(hostBytes);
@@ -143,8 +138,6 @@ namespace System.Net.Topology
                 if (address != broadcastAddress || (address == broadcastAddress && !alreadyReturnedSelf))
                     yield return broadcastAddress;
             }
-
-            throw new NotImplementedException();
         }
 
         /// <summary>Gets the network prefix of an <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -172,7 +165,13 @@ namespace System.Net.Topology
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
-            throw new NotImplementedException();
+            // TODO: Test
+
+            var ipBytes = address.GetAddressBytes();
+            var notMaskBytes = mask.GetMaskBytes().Not();
+
+            var broadcastAddressBytes = notMaskBytes.Or(ipBytes);
+            return new IPAddress(broadcastAddressBytes);            
         }
         
         /// <summary>Gets the host identifier (rest) an <see cref="T:System.Net.IPAddress"/>.</summary>

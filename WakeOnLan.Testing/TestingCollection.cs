@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -70,6 +71,12 @@ namespace WakeOnLan.Testing
         { }
     }
 
+    internal class IpIpTestItem : TestItem<IPAddress, IPAddress>
+    {
+        public IpIpTestItem(IPAddress toTest, IPAddress expected)
+            : base(toTest, expected)
+        { }
+    }
     internal class BaBTestItem : TestItem<byte[], bool>
     {
         public BaBTestItem(byte[] toTest, bool expected)
