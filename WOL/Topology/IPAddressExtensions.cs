@@ -46,9 +46,9 @@ namespace System.Net.Topology
 
             var hostPartBits = mask.GetMaskBytes().CountFromRight(false);
             var total = 1 << hostPartBits;
-            total -= includeSelf ? 1 : 0;
-            total -= includeBroadcast ? 1 : 0;
-            total -= includeNetworkIdentifier ? 1 : 0;
+            total -= includeSelf ? 0 : 1;
+            total -= includeBroadcast ? 0 : 1;
+            total -= includeNetworkIdentifier ? 0 : 1;
 
             // TODO: Testing
 
@@ -92,6 +92,8 @@ namespace System.Net.Topology
                 yield return netPrefix;
             }
 
+            var selfAddressBytes = address.GetAddressBytes();
+
             var netPrefixBytes = netPrefix.GetAddressBytes();
 
             int cidr = mask.Cidr;
@@ -103,17 +105,16 @@ namespace System.Net.Topology
             byte[] hostBytes = new byte[NetMask.MaskLength];
             for (int hostPart = 1; hostPart < maxHosts; ++hostPart)
             {
-                if (hostPart == 6)
-                    Debugger.Break();
                 unchecked
                 {
                     hostBytes[0] = (byte)(hostPart >> 24);
                     hostBytes[1] = (byte)(hostPart >> 16);
                     hostBytes[2] = (byte)(hostPart >> 8);
                     hostBytes[3] = (byte)(hostPart >> 0);
-                    Debug.WriteLine("HostPart: " + hostPart.ToString("X2").PadLeft(8, '0') + " (" + BitConverter.ToString(hostBytes) + ")");
                 }
 
+                Debug.WriteLine("HostPart: " + hostPart.ToString("X2").PadLeft(8, '0') + " (" + BitConverter.ToString(hostBytes) + ")");
+                
                 var nextIpBytes = netPrefixBytes.Or(hostBytes);
                 var nextIp = new IPAddress(nextIpBytes);
 
@@ -121,11 +122,17 @@ namespace System.Net.Topology
                 {
                     if(includeSelf)
                     {
-                        if (nextIp == address)
+                        if (nextIpBytes[0] == selfAddressBytes[0]
+                         && nextIpBytes[1] == selfAddressBytes[1]
+                         && nextIpBytes[2] == selfAddressBytes[2]
+                         && nextIpBytes[3] == selfAddressBytes[3])
                             alreadyReturnedSelf = true;
                         yield return nextIp;
                     }
-                    else if (nextIp != address)
+                    else if (nextIpBytes[0] != selfAddressBytes[0]
+                          || nextIpBytes[1] != selfAddressBytes[1]
+                          || nextIpBytes[2] != selfAddressBytes[2]
+                          || nextIpBytes[3] != selfAddressBytes[3])
                         yield return nextIp;
                 }
                 else

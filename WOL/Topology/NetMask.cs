@@ -70,6 +70,8 @@ namespace System.Net.Topology
         /// <param name="mask">The mask represented by a 32-Bit integer.</param>
         public NetMask(int mask) // uint is not CLS-compliant, so int will do the job.
         {
+            // maybe change parameter type interpretation to CIDR?
+
             var bytes = BitConverter.GetBytes(mask);
             _bits = new byte[] { bytes[3], bytes[2], bytes[1], bytes[0] }; // TODO: Testing
         }
