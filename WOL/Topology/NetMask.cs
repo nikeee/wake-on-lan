@@ -291,7 +291,19 @@ namespace System.Net.Topology
         /// <filterpriority>2</filterpriority>
         public override int GetHashCode()
         {
-            return _bits.GetHashCode();
+            int hashCode = 0x77FF11AA; // entropy?
+
+            hashCode ^= _bits[0] << 24;
+            hashCode ^= _bits[1] << 16;
+            hashCode ^= _bits[2] << 8;
+            hashCode ^= _bits[3] << 0;
+
+            hashCode ^= _bits[0] << 0;
+            hashCode ^= _bits[1] << 8;
+            hashCode ^= _bits[2] << 16;
+            hashCode ^= _bits[3] << 24;
+
+            return hashCode;
         }
 
         #endregion

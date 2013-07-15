@@ -29,6 +29,10 @@ namespace WakeOnLan.Testing
 
             var m5 = new NetMask(Ba());
             Assert.IsTrue(m5 == NetMask.Empty);
+
+            var m6 = new NetMask((IPAddress)null);
+            Assert.IsTrue(m6 == NetMask.Empty);
+
         }
 
         [TestMethod]
