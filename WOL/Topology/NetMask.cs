@@ -48,7 +48,7 @@ namespace System.Net.Topology
             if (value.Length != MaskLength)
                 throw new ArgumentException("Invalid mask length.");
 
-            _bits = new byte[] { value[0], value[1], value[2], value[3] }; //new BitArray(value); // The BitArray screws things up, need to change to byte[4].
+            _bits = new byte[] { value[0], value[1], value[2], value[3] };
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -67,13 +67,24 @@ namespace System.Net.Topology
         { }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
-        /// <param name="mask">The mask represented by a 32-Bit integer.</param>
-        public NetMask(int mask) // uint is not CLS-compliant, so int will do the job.
+        /// <param name="cidr">The mask represented by the CIDR notation integer.</param>
+        public NetMask(int cidr)
         {
             // maybe change parameter type interpretation to CIDR?
+            if (cidr < 0 || cidr > MaskLength * 8)
+                throw new ArgumentException("Invalid CIDR length");
+            
+            // TODO: Testing(!)
 
-            var bytes = BitConverter.GetBytes(mask);
-            _bits = new byte[] { bytes[3], bytes[2], bytes[1], bytes[0] }; // TODO: Testing
+            int target = MaskLength * 8 - cidr;
+            int mask = 0;
+            for (int i = 0; i < target; ++i)
+            {
+                mask >>= 1;
+                mask |= unchecked((int)0x80000000);
+            }
+            var bytes = BitConverter.GetBytes(~mask);
+            _bits = new byte[] { bytes[0].ReverseBits(), bytes[1].ReverseBits(), bytes[2].ReverseBits(), bytes[3].ReverseBits() };
         }
 
         /*

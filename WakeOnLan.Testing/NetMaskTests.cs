@@ -18,7 +18,7 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(expected, actual);
 
             var m1 = new NetMask(255, 255, 248, 0);
-            var m2 = new NetMask(-2048);
+            var m2 = new NetMask(21);
             Assert.IsTrue(m1 == m2);
 
             var m3 = new NetMask(Ba( 255, 255, 248, 0 ));
@@ -99,7 +99,7 @@ namespace WakeOnLan.Testing
         public void ToStringTest()
         {
             //var m1 = new NetMask(255, 255, 248, 0);
-            var m1 = new NetMask(-2048);
+            var m1 = new NetMask(21);
             var expected = "255.255.248.0 (11111111.11111111.11111000.00000000)";
             var str = m1.ToString();
             Assert.AreEqual(expected, str);
