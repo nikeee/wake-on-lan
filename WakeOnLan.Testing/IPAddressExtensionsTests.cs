@@ -58,5 +58,10 @@ namespace WakeOnLan.Testing
             IPAddress id = ip.GetHostIdentifier(m);
         }
 
+        [TestMethod]
+        public void GetBroadcastAddress()
+        {
+            // TODO: Implement
+        }
     }
 }
