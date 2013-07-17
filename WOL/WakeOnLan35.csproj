@@ -158,7 +158,6 @@
     <Compile Include="Topology\ByteExtensions.cs" />
     <Compile Include="Topology\INetMask.cs" />
     <Compile Include="Topology\IPAddressExtensions.cs" />
-    <Compile Include="Topology\NetCalculator.cs" />
     <Compile Include="Topology\NetMask.cs" />
     <Compile Include="Topology\NetMaskExtensions.cs" />
     <Compile Include="Topology\SiblingOptions.cs" />
