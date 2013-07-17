@@ -6,8 +6,12 @@ namespace System.Net.Topology
     /// <summary>Represents an IPv4 net mask.</summary>
     public sealed class NetMask : INetMask, IEquatable<NetMask>
     {
-        private byte[] _bits;
+        private object _lockObject = new object();
+
+        private byte[] _maskBytes;
+
         internal const int MaskLength = 4;
+        private int _cidr;
 
         private static readonly NetMask _empty = new NetMask();
 
@@ -17,13 +21,28 @@ namespace System.Net.Topology
         /// <summary>Gets the length of the net mask in bits.</summary>
         public int AddressLength { get { return MaskLength * 8; } }
 
+        private byte[] Bits
+        {
+            get
+            {
+                return _maskBytes;
+            }
+            set
+            {
+                lock (_lockObject)
+                {
+                    _maskBytes = value;
+                }
+                UpdateCidr();
+            }
+        }
+
         /// <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
         public int Cidr
         {
             get
             {
-                System.Diagnostics.Debug.Assert(_bits.Length == MaskLength);
-                return _bits.CountFromLeft(true);
+                return _cidr;
             }
         }
 
@@ -32,7 +51,7 @@ namespace System.Net.Topology
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> with all bits set to 0.</summary>
         public NetMask()
         {
-            _bits = new byte[MaskLength];
+            Bits = new byte[MaskLength];
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from an array of <see cref="System.Byte"/>.</summary>
@@ -41,7 +60,7 @@ namespace System.Net.Topology
             if (value == null || value.Length == 0)
             {
                 // maybe throw ArgumentNullException?
-                _bits = new byte[MaskLength];
+                Bits = new byte[MaskLength];
                 return;
             }
 
@@ -50,7 +69,7 @@ namespace System.Net.Topology
 
             CheckMaskBytes(value); // check if passed mask are a valid mask. if not, throw Exception
 
-            _bits = new byte[] { value[0], value[1], value[2], value[3] };
+            Bits = new byte[MaskLength] { value[0], value[1], value[2], value[3] };
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -77,19 +96,7 @@ namespace System.Net.Topology
                 throw new ArgumentException("Invalid CIDR length");
 
             // TODO: Testing(!)
-
-            int target = MaskLength * 8 - cidr;
-            int mask = 0;
-            for (int i = 0; i < target; ++i)
-            {
-                mask >>= 1;
-                mask |= unchecked((int)0x80000000);
-            }
-            var bytes = BitConverter.GetBytes(~mask);
-            _bits = new byte[] { bytes[0].ReverseBits(), bytes[1].ReverseBits(), bytes[2].ReverseBits(), bytes[3].ReverseBits() };
-
-            // Not needed:
-            // CheckMaskBytes()
+            Bits = BytesFromCidrValue(cidr);
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
@@ -97,7 +104,7 @@ namespace System.Net.Topology
         public NetMask(int cidr) :
             this(unchecked((byte)cidr))
         { }
-        
+
         #endregion
 
         private static void CheckMaskBytes(byte[] bytes)
@@ -110,7 +117,48 @@ namespace System.Net.Topology
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
         public byte[] GetMaskBytes()
         {
-            return new byte[] { _bits[0], _bits[1], _bits[2], _bits[3] };
+            return new byte[] { _maskBytes[0], _maskBytes[1], _maskBytes[2], _maskBytes[3] };
+        }
+
+        private void UpdateCidr()
+        {
+            System.Diagnostics.Debug.Assert(_maskBytes.Length == MaskLength);
+            UpdateCidr(_maskBytes.CountFromLeft(true));
+        }
+
+        private void UpdateCidr(int value)
+        {
+            _cidr = value;
+        }
+
+        /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
+        /// <param name="value"></param>
+        public void Extend(int value)
+        {
+            int currentCidr = _cidr;
+            if (currentCidr >= MaskLength * 8)
+                return;
+            if (currentCidr <= 0)
+                currentCidr = 0;
+
+            int newLength = Math.Min(Math.Max(currentCidr + value, 32), 0);
+
+            Bits = BytesFromCidrValue(newLength);
+        }
+
+        /// <summary>Abbreviates the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
+        /// <param name="value"></param>
+        public void Abbreviate(int value)
+        {
+            int currentCidr = _cidr;
+            if (currentCidr < 1)
+                return;
+            if (currentCidr >= MaskLength * 8)
+                currentCidr = MaskLength * 8;
+
+            int newLength = Math.Min(Math.Max(currentCidr - value, 32), 0);
+
+            Bits = BytesFromCidrValue(newLength);
         }
 
         /// <summary>Returns a value indicating whether the given array of <see cref="T:System.Byte"/> represents a valid net mask.</summary>
@@ -118,6 +166,24 @@ namespace System.Net.Topology
         public static bool GetIsValidNetMask(byte[] mask)
         {
             return mask.RepresentsValidNetMask();
+        }
+
+        private static byte[] BytesFromCidrValue(int cidr)
+        {
+            int target = MaskLength * 8 - cidr;
+            int mask = 0;
+            for (int i = 0; i < target; ++i)
+            {
+                mask >>= 1;
+                mask |= unchecked((int)0x80000000);
+            }
+            var bytes = BitConverter.GetBytes(~mask);
+            return new byte[MaskLength] {
+                bytes[0].ReverseBits(),
+                bytes[1].ReverseBits(),
+                bytes[2].ReverseBits(),
+                bytes[3].ReverseBits()
+            };
         }
 
         #region Operators
@@ -174,7 +240,7 @@ namespace System.Net.Topology
         public static IPAddress operator &(NetMask mask, IPAddress address)
         {
             var ipBytes = address == null ? new byte[MaskLength] : address.GetAddressBytes();
-            var maskBytes = mask == null ? new byte[MaskLength] : mask._bits;
+            var maskBytes = mask == null ? new byte[MaskLength] : mask._maskBytes;
             byte[] combinedBytes = maskBytes.And(ipBytes);
 
             return new IPAddress(combinedBytes);
@@ -197,7 +263,7 @@ namespace System.Net.Topology
         {
             if (n1 == null || n2 == null)
                 return NetMask.Empty;
-            return new NetMask(n1._bits.And(n2._bits));
+            return new NetMask(n1._maskBytes.And(n2._maskBytes));
         }
 
         /// <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the AND operation.</summary>
@@ -222,7 +288,7 @@ namespace System.Net.Topology
                 return n2 == null ? NetMask.Empty : n2;
             if (n2 == null)
                 return n1;
-            return new NetMask(n1._bits.Or(n2._bits));
+            return new NetMask(n1._maskBytes.Or(n2._maskBytes));
         }
 
         /// <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the OR operation.</summary>
@@ -246,9 +312,9 @@ namespace System.Net.Topology
         {
             var sb = new StringBuilder(4 * 3 + 3 * 3 + 32 + 3 + 3); // 255.255.255.255 (11111111111111111111111111111111)
 
-            var arr = new byte[4];
-            _bits.CopyTo(arr, 0);
-            var asString = _bits.ToBinaryString('.');
+            var arr = new byte[MaskLength];
+            _maskBytes.CopyTo(arr, 0);
+            var asString = _maskBytes.ToBinaryString('.');
 
             sb.Append(arr[0]).Append('.').Append(arr[1]).Append('.').Append(arr[2]).Append('.').Append(arr[3]).Append(" (");
             sb.Append(asString).Append(')');
@@ -281,9 +347,9 @@ namespace System.Net.Topology
             if (other == null)
                 return false;
 
-            if (other._bits.Length != MaskLength)
+            if (other._maskBytes.Length != MaskLength)
                 return false;
-            if (other._bits.Length != _bits.Length)
+            if (other._maskBytes.Length != _maskBytes.Length)
                 return false;
 
             /*
@@ -295,10 +361,10 @@ namespace System.Net.Topology
             */
 
             // faster approach:
-            return _bits[0] == other._bits[0]
-                && _bits[1] == other._bits[1]
-                && _bits[2] == other._bits[2]
-                && _bits[3] == other._bits[3];
+            return _maskBytes[0] == other._maskBytes[0]
+                && _maskBytes[1] == other._maskBytes[1]
+                && _maskBytes[2] == other._maskBytes[2]
+                && _maskBytes[3] == other._maskBytes[3];
         }
 
         /// <summary>Returns the hash code for this instance.</summary>
@@ -308,15 +374,15 @@ namespace System.Net.Topology
         {
             int hashCode = 0x77FF11AA; // entropy?
 
-            hashCode ^= _bits[0] << 24;
-            hashCode ^= _bits[1] << 16;
-            hashCode ^= _bits[2] << 8;
-            hashCode ^= _bits[3] << 0;
+            hashCode ^= _maskBytes[0] << 24;
+            hashCode ^= _maskBytes[1] << 16;
+            hashCode ^= _maskBytes[2] << 8;
+            hashCode ^= _maskBytes[3] << 0;
 
-            hashCode ^= _bits[0] << 0;
-            hashCode ^= _bits[1] << 8;
-            hashCode ^= _bits[2] << 16;
-            hashCode ^= _bits[3] << 24;
+            hashCode ^= _maskBytes[0] << 0;
+            hashCode ^= _maskBytes[1] << 8;
+            hashCode ^= _maskBytes[2] << 16;
+            hashCode ^= _maskBytes[3] << 24;
 
             return hashCode;
         }
