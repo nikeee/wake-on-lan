@@ -140,6 +140,7 @@ namespace System.Net.Topology
         /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
         /// <param name="mask">The mask to use as a reference.</param>
         /// <param name="value">The value.</param>
+        /// <remarks>Because <see cref="T:System.Net.Topology.NetMask"/> is a reference type, this method is static. If it were not like this, you could change the value of <see cref="T:System.Net.Topology.NetMask.Empty"/>, for example.</remarks>
         public static NetMask Extend(NetMask mask, int value)
         {
             int currentCidr = mask._cidr;
@@ -158,6 +159,7 @@ namespace System.Net.Topology
         /// <summary>Abbreviates the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
         /// <param name="mask">The mask to use as a reference.</param>
         /// <param name="value">The value.</param>
+        /// <remarks>Because <see cref="T:System.Net.Topology.NetMask"/> is a reference type, this method is static. If it were not like this, you could change the value of <see cref="T:System.Net.Topology.NetMask.Empty"/>, for example.</remarks>
         public static NetMask Abbreviate(NetMask mask, int value)
         {
             int currentCidr = mask._cidr;
