@@ -32,8 +32,8 @@ namespace System.Net.Topology
                 lock (_lockObject)
                 {
                     _maskBytes = value;
+                    UpdateCidr();
                 }
-                UpdateCidr();
             }
         }
 
@@ -117,20 +117,15 @@ namespace System.Net.Topology
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
         public byte[] GetMaskBytes()
         {
-            return new byte[] { _maskBytes[0], _maskBytes[1], _maskBytes[2], _maskBytes[3] };
+            return new byte[MaskLength] { _maskBytes[0], _maskBytes[1], _maskBytes[2], _maskBytes[3] };
         }
 
         private void UpdateCidr()
         {
             System.Diagnostics.Debug.Assert(_maskBytes.Length == MaskLength);
-            UpdateCidr(_maskBytes.CountFromLeft(true));
+            _cidr = _maskBytes.CountFromLeft(true);
         }
-
-        private void UpdateCidr(int value)
-        {
-            _cidr = value;
-        }
-
+        
         /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
         /// <param name="value"></param>
         public void Extend(int value)
@@ -372,18 +367,10 @@ namespace System.Net.Topology
         /// <filterpriority>2</filterpriority>
         public override int GetHashCode()
         {
-            int hashCode = 0x77FF11AA; // entropy?
-
-            hashCode ^= _maskBytes[0] << 24;
-            hashCode ^= _maskBytes[1] << 16;
-            hashCode ^= _maskBytes[2] << 8;
-            hashCode ^= _maskBytes[3] << 0;
-
-            hashCode ^= _maskBytes[0] << 0;
-            hashCode ^= _maskBytes[1] << 8;
-            hashCode ^= _maskBytes[2] << 16;
-            hashCode ^= _maskBytes[3] << 24;
-
+            int hashCode = _maskBytes[0] << 24;
+            hashCode |= _maskBytes[1] << 16;
+            hashCode |= _maskBytes[2] << 8;
+            hashCode |= _maskBytes[3];
             return hashCode;
         }
 
