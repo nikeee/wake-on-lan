@@ -24,7 +24,7 @@ namespace System.Net
             int destIp = BitConverter.ToInt32(destination.GetAddressBytes(), 0);
 
             var addr = new byte[6];
-            var len = (uint)addr.Length;
+            var len = addr.Length;
 
             var res = NativeMethods.SendARP(destIp, 0, addr, ref len);
 

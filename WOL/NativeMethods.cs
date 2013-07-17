@@ -9,6 +9,6 @@ namespace System.Net
     	
         [DllImport(IphlpApi, ExactSpelling = true)]
         [SecurityCritical]
-        public static extern int SendARP(int destIp, int srcIp, byte[] macAddr, ref uint physicalAddrLen);
+        internal static extern int SendARP(int destinationIp, int sourceIp, byte[] macAddress, ref int physicalAddrLength);
     }
 }
