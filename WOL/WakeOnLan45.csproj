@@ -148,6 +148,7 @@
     <Compile Include="Localization.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Topology\ByteArrayExtensions.cs" />
+    <Compile Include="Topology\ByteExtensions.cs" />
     <Compile Include="Topology\IPAddressExtensions.cs" />
     <Compile Include="Topology\INetMask.cs" />
     <Compile Include="PhysicalAddressExtensions.cs" />

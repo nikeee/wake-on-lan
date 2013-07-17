@@ -155,6 +155,7 @@
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
     <Compile Include="Topology\ByteArrayExtensions.cs" />
+    <Compile Include="Topology\ByteExtensions.cs" />
     <Compile Include="Topology\INetMask.cs" />
     <Compile Include="Topology\IPAddressExtensions.cs" />
     <Compile Include="Topology\NetCalculator.cs" />
