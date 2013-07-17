@@ -266,5 +266,37 @@ namespace WakeOnLan.Testing
             valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
         }
+
+        [TestMethod]
+        public void Expand()
+        {
+            var expected = new NetMask(1);
+            var actual = NetMask.Extend(NetMask.Empty, 1);
+            Assert.AreEqual(expected, actual);
+
+            expected = new NetMask(2);
+            actual = NetMask.Extend(NetMask.Empty, 2);
+            Assert.AreEqual(expected, actual);
+
+            expected = new NetMask(2);
+            actual = NetMask.Extend(new NetMask(1), 1);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void Abbreviate()
+        {
+            var expected = new NetMask(0);
+            var actual = NetMask.Abbreviate(NetMask.Empty, 1);
+            Assert.AreEqual(expected, actual);
+
+            expected = new NetMask(3);
+            actual = NetMask.Abbreviate(new NetMask(28), 25);
+            Assert.AreEqual(expected, actual);
+
+            expected = new NetMask(8);
+            actual = NetMask.Abbreviate(new NetMask(9), 1);
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

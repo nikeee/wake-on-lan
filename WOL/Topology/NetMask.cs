@@ -54,6 +54,17 @@ namespace System.Net.Topology
             Bits = new byte[MaskLength];
         }
 
+        /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> cloning an existing instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+        public NetMask(NetMask mask)
+        {
+            if (mask == null)
+                throw new ArgumentNullException("mask");
+
+            byte[] bytes = new byte[MaskLength];
+            Buffer.BlockCopy(mask._maskBytes, 0, bytes, 0, MaskLength);
+            Bits = bytes;
+        }
+
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from an array of <see cref="System.Byte"/>.</summary>
         public NetMask(byte[] value)
         {
@@ -125,35 +136,40 @@ namespace System.Net.Topology
             System.Diagnostics.Debug.Assert(_maskBytes.Length == MaskLength);
             _cidr = _maskBytes.CountFromLeft(true);
         }
-        
+
         /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
-        /// <param name="value"></param>
-        public void Extend(int value)
+        /// <param name="mask">The mask to use as a reference.</param>
+        /// <param name="value">The value.</param>
+        public static NetMask Extend(NetMask mask, int value)
         {
-            int currentCidr = _cidr;
+            int currentCidr = mask._cidr;
             if (currentCidr >= MaskLength * 8)
-                return;
+                return new NetMask(mask);
             if (currentCidr <= 0)
                 currentCidr = 0;
 
-            int newLength = Math.Min(Math.Max(currentCidr + value, 32), 0);
+            int newLength = Math.Max(Math.Min(currentCidr + value, 32), 0);
 
-            Bits = BytesFromCidrValue(newLength);
+            var bytes = BytesFromCidrValue(newLength);
+
+            return new NetMask(bytes);
         }
 
         /// <summary>Abbreviates the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
-        /// <param name="value"></param>
-        public void Abbreviate(int value)
+        /// <param name="mask">The mask to use as a reference.</param>
+        /// <param name="value">The value.</param>
+        public static NetMask Abbreviate(NetMask mask, int value)
         {
-            int currentCidr = _cidr;
+            int currentCidr = mask._cidr;
             if (currentCidr < 1)
-                return;
+                return new NetMask(mask);
             if (currentCidr >= MaskLength * 8)
                 currentCidr = MaskLength * 8;
 
-            int newLength = Math.Min(Math.Max(currentCidr - value, 32), 0);
+            int newLength = Math.Max(Math.Min(currentCidr - value, 32), 0);
 
-            Bits = BytesFromCidrValue(newLength);
+            var bytes = BytesFromCidrValue(newLength);
+            return new NetMask(bytes);
         }
 
         /// <summary>Returns a value indicating whether the given array of <see cref="T:System.Byte"/> represents a valid net mask.</summary>
