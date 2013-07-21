@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+﻿
 namespace System.Net.Topology
 {
     /// <summary>Provides extension methods for the <see cref="T:System.Net.Topology.NetMask"/>.</summary>

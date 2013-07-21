@@ -80,7 +80,7 @@ namespace System.Net.Topology
             sb.Append(Convert.ToString(bits[3], radix).PadLeft(padding, paddingChar));
             return sb.ToString();
         }
-        
+
         internal static string ToBinaryString(this byte[] bits)
         {
             if (bits == null)
@@ -119,9 +119,9 @@ namespace System.Net.Topology
 
             if (b1.Length == 1 && b2.Length == 1)
             {
-                int ib1 = (int)b1[0];
-                int ib2 = (int)b2[0];
-                return new byte[] { (byte)(ib1 & ib2) };
+                int ib1 = b1[0];
+                int ib2 = b2[0];
+                return new[] { (byte)(ib1 & ib2) };
             }
             if (b1.Length == 2 && b2.Length == 2)
             {
@@ -143,7 +143,7 @@ namespace System.Net.Topology
                 byte[] biggerArray = b1.Length > b2.Length ? b1 : b2;
                 byte[] smallerArray = b1.Length <= b2.Length ? b1 : b2;
 
-                byte[] paddedArray = new byte[maxIndex];
+                var paddedArray = new byte[maxIndex];
 
                 Buffer.BlockCopy(smallerArray, 0, paddedArray, 0, smallerArray.Length);
 
@@ -168,12 +168,12 @@ namespace System.Net.Topology
                 throw new ArgumentNullException("b1");
             if (b2 == null)
                 throw new ArgumentNullException("b2");
-            
+
             if (b1.Length == 1 && b2.Length == 1)
             {
-                int ib1 = (int)b1[0];
-                int ib2 = (int)b2[0];
-                return new byte[] { (byte)(ib1 | ib2) };
+                int ib1 = b1[0];
+                int ib2 = b2[0];
+                return new[] { (byte)(ib1 | ib2) };
             }
             if (b1.Length == 2 && b2.Length == 2)
             {
@@ -187,15 +187,15 @@ namespace System.Net.Topology
                 var ib2 = BitConverter.ToInt32(b2, 0);
                 return BitConverter.GetBytes(ib1 | ib2);
             }
-            if(b1.Length != b2.Length)
+            if (b1.Length != b2.Length)
             {
                 // Or maybe throw exception?
 
                 int maxIndex = Math.Max(b1.Length, b2.Length);
                 byte[] biggerArray = b1.Length > b2.Length ? b1 : b2;
                 byte[] smallerArray = b1.Length <= b2.Length ? b1 : b2;
-                
-                byte[] paddedArray = new byte[maxIndex];
+
+                var paddedArray = new byte[maxIndex];
 
                 Buffer.BlockCopy(smallerArray, 0, paddedArray, 0, smallerArray.Length);
 
@@ -225,9 +225,9 @@ namespace System.Net.Topology
 
             if (b1.Length == 1 && b2.Length == 1)
             {
-                int ib1 = (int)b1[0];
-                int ib2 = (int)b2[0];
-                return new byte[] { (byte)(ib1 ^ ib2) };
+                int ib1 = b1[0];
+                int ib2 = b2[0];
+                return new[] { (byte)(ib1 ^ ib2) };
             }
             if (b1.Length == 2 && b2.Length == 2)
             {
@@ -248,8 +248,8 @@ namespace System.Net.Topology
                 int maxIndex = Math.Max(b1.Length, b2.Length);
                 byte[] biggerArray = b1.Length > b2.Length ? b1 : b2;
                 byte[] smallerArray = b1.Length <= b2.Length ? b1 : b2;
-                
-                byte[] paddedArray = new byte[maxIndex];
+
+                var paddedArray = new byte[maxIndex];
 
                 Buffer.BlockCopy(smallerArray, 0, paddedArray, 0, smallerArray.Length);
 
@@ -278,15 +278,10 @@ namespace System.Net.Topology
                 var i = BitConverter.ToInt32(bits, 0);
                 return BitConverter.GetBytes(~i);
             }
-            else
-            {
-                byte[] newBytes = new byte[bits.Length];
-
-                for (int i = 0; i < newBytes.Length; ++i)
-                    newBytes[i] = unchecked((byte)(~(int)bits[i]));
-
-                return newBytes;
-            }
+            var newBytes = new byte[bits.Length];
+            for (int i = 0; i < newBytes.Length; ++i)
+                newBytes[i] = unchecked((byte)(~bits[i]));
+            return newBytes;
         }
     }
 }

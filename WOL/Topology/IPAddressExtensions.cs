@@ -1,7 +1,6 @@
 ﻿#if NET35
 
 using System.Collections.Generic;
-using System.Collections;
 using System.Diagnostics;
 
 namespace System.Net.Topology
@@ -45,7 +44,7 @@ namespace System.Net.Topology
             if (includeNetworkIdentifier)
             {
                 netPrefix = address.GetNetworkPrefix(mask);
-                if (netPrefix == address)
+                if (netPrefix.Equals(address))
                     alreadyReturnedSelf = true;
                 yield return netPrefix;
             }
@@ -60,7 +59,7 @@ namespace System.Net.Topology
             if(cidr > 0)
                 maxHosts = (uint)(1 << (8 * NetMask.MaskLength - cidr)) - 1;
 
-            byte[] hostBytes = new byte[NetMask.MaskLength];
+            var hostBytes = new byte[NetMask.MaskLength];
             for (int hostPart = 1; hostPart < maxHosts; ++hostPart)
             {
                 unchecked
@@ -100,7 +99,7 @@ namespace System.Net.Topology
             if (includeBroadcast)
             {
                 var broadcastAddress = address.GetBroadcastAddress(mask);
-                if (address != broadcastAddress || (address == broadcastAddress && !alreadyReturnedSelf))
+                if (address.Equals(broadcastAddress) || (address.Equals(broadcastAddress) && !alreadyReturnedSelf))
                     yield return broadcastAddress;
             }
         }

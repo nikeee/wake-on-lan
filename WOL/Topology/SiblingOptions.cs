@@ -21,10 +21,10 @@
     internal static class BitHelper
     {
 #if NET40
-        [System.Runtime.TargetedPatchingOptOut("Performance critical to inline across NGen image boundaries")] // as if NGen will ever compile this assembly ;)
+        [Runtime.TargetedPatchingOptOut("Performance critical to inline across NGen image boundaries")] // as if NGen will ever compile this assembly ;)
 #endif
 #if NET45
-        [System.Runtime.CompilerServices.MethodImpl(Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+        [Runtime.CompilerServices.MethodImpl(Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #endif
         internal static bool IsOptionSet(SiblingOptions value, SiblingOptions testValue)
         {

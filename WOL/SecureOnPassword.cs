@@ -6,8 +6,7 @@
     [Serializable]
     public sealed class SecureOnPassword
     {
-        //public byte[] Password { get; private set; }
-        private byte[] _password;
+        private readonly byte[] _password;
 
         /// <summary>
         /// Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
