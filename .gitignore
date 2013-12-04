@@ -99,3 +99,13 @@ Thumbs.db
 
 *.csproj.user
 *.vbproj.user
+
+
+!build/2.0/*.dll
+!build/3.5/*.dll
+!build/4.0/*.dll
+!build/4.5/*.dll
+!build/4.5.1/*.dll
+
+*.sln.DotSettings.user
+.gitattributes
