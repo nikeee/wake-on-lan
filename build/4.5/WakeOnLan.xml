@@ -1,0 +1,907 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WakeOnLan</name>
+    </assembly>
+    <members>
+        <member name="T:System.Net.ArpRequest">
+            <summary>Stellt Methoden für das Senden von Anfragen über das ARP-Protokoll bereit.</summary>
+        </member>
+        <member name="M:System.Net.ArpRequest.Send(System.Net.IPAddress)">
+            <summary>
+            Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
+            </summary>
+            <param name="destination">Die Ziel-IPAdress</param>
+            <returns>Eine <see cref="T:System.Net.ArpRequestResult">ArpRequestResult</see>-Instanz, welche die Ergebnisse der Anfrage enthält.</returns>
+        </member>
+        <member name="M:System.Net.ArpRequest.SendAsync(System.Net.IPAddress)">
+            <summary>
+            Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
+            </summary>
+            <param name="destination">Die Ziel-IPAdress</param>
+            <returns>Ein asynchroner Task, welcher einen ARP-Request sendet.</returns>
+        </member>
+        <member name="T:System.Net.ArpRequestResult">
+            <summary>
+            Enthält die Rückgabewerte der ArpRequest.Send-Funktion.
+            </summary>
+        </member>
+        <member name="M:System.Net.ArpRequestResult.#ctor(System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>Erstellt eine neue ArpRequestResult-Instanz</summary>
+            <param name="address">Die physikalische Adresse</param>
+        </member>
+        <member name="M:System.Net.ArpRequestResult.#ctor(System.Exception)">
+            <summary>Erstellt eine neue ArpRequestResult-Instanz</summary>
+            <param name="exception">Der aufgetretene Fehler</param>
+        </member>
+        <member name="M:System.Net.ArpRequestResult.ToString">
+            <summary>Konvertiert ARP-Rückgabewerte in eine Zeichenfolge.</summary>
+        </member>
+        <member name="P:System.Net.ArpRequestResult.Exception">
+            <summary>Falls Fehler bei der Protokollanfrage auftreten, werden diese in dieser Eigenschaft abgelegt. Andernfalls null.</summary>
+        </member>
+        <member name="P:System.Net.ArpRequestResult.Address">
+            <summary>Die aufgelöste physikalische Adresse.</summary>
+        </member>
+        <member name="T:System.Net.IPAddressExtensions">
+            <summary>Stellt Erweiterungsmethoden für das Senden von Wake-On-LAN-Signalen bereit.</summary>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Int32)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+            <param name="port">der Port, an den das Signal gesendet wird</param>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+            <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+            <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Byte[],System.Int32)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="port">der Port, an den das Signal gesendet wird</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+            <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Byte[],System.Int32,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="port">der Port, an den das Signal gesendet wird</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+            <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Byte[])">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">die Ziel-IPAddress</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+             <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Byte[],System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+            <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Net.NetworkInformation.PhysicalAddress)">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">die Ziel-IPAddress</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+             <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWol(System.Net.IPAddress,System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+            <returns/>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendArpRequest(System.Net.IPAddress)">
+            <summary>
+            Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
+            </summary>
+            <param name="destination">Die Ziel-IPAdress</param>
+            <returns>Eine <see cref="T:System.Net.ArpRequestResult">ArpRequestResult</see>-Instanz, welche die Ergebnisse der Anfrage enthält.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Int32)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+            <param name="port">der Port, an den das Signal gesendet wird</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">die Ziel-IPAddress</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Byte[],System.Int32)">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">der Hostname des Zielclients</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+             <param name="port">der Port, an den das Signal gesendet wird</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Byte[],System.Int32,System.Net.SecureOnPassword)">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">der Hostname des Zielclients</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+             <param name="port">der Port, an den das Signal gesendet wird</param>
+             <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+             <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Byte[])">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">der Hostname des Zielclients</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Byte[],System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">der Hostname des Zielclients</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Net.NetworkInformation.PhysicalAddress)">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">der Hostname des Zielclients</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendWolAsync(System.Net.IPAddress,System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">der Hostname des Zielclients</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPAddressExtensions.SendArpRequestAsync(System.Net.IPAddress)">
+            <summary>
+            Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
+            </summary>
+            <param name="destination">Die Ziel-IPAdress</param>
+            <returns>Ein asynchroner Task, welcher einen ARP-Request sendet.</returns>
+        </member>
+        <member name="T:System.Net.IPEndPointExtensions">
+            <summary>Stellt Erweiterungsmethoden für das Senden von Wake-On-LAN-Signalen bereit.</summary>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWol(System.Net.IPEndPoint,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWol(System.Net.IPEndPoint,System.Byte[])">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWol(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWol(System.Net.IPEndPoint,System.Byte[],System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWol(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWolAsync(System.Net.IPEndPoint,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWolAsync(System.Net.IPEndPoint,System.Byte[])">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWolAsync(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWolAsync(System.Net.IPEndPoint,System.Byte[],System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.IPEndPointExtensions.SendWolAsync(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="T:System.Net.Topology.IPAddressExtensions">
+            <summary>Provides extension methods for the <see cref="T:System.Net.IPAddress"/>.</summary>
+        </member>
+        <member name="M:System.Net.Topology.IPAddressExtensions.GetSiblings(System.Net.IPAddress,System.Net.Topology.NetMask)">
+            <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network. Compliant to RFC 950 (2^n-2).</summary>
+            <param name="address">The address</param>
+            <param name="mask">The net mask of the network</param>
+        </member>
+        <member name="M:System.Net.Topology.IPAddressExtensions.GetSiblings(System.Net.IPAddress,System.Net.Topology.NetMask,System.Net.Topology.SiblingOptions)">
+            <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network.</summary>
+            <param name="address">The address</param>
+            <param name="mask">The net mask of the network</param>
+            <param name="options">Options which addresses to include an which not</param>
+        </member>
+        <member name="M:System.Net.Topology.IPAddressExtensions.GetNetworkPrefix(System.Net.IPAddress,System.Net.Topology.NetMask)">
+            <summary>Gets the network prefix of an <see cref="T:System.Net.IPAddress"/>.</summary>
+            <param name="address">The address</param>
+            <param name="mask">The net mask of the network</param>
+            <returns>The network prefix of an <see cref="T:System.Net.IPAddress"/></returns>
+        </member>
+        <member name="M:System.Net.Topology.IPAddressExtensions.GetBroadcastAddress(System.Net.IPAddress,System.Net.Topology.NetMask)">
+            <summary>Gets the broadcast address of an <see cref="T:System.Net.IPAddress"/>.</summary>
+            <param name="address">The address</param>
+            <param name="mask">The net mask of the network</param>
+            <returns>The broadcast address of an <see cref="T:System.Net.IPAddress"/></returns>
+        </member>
+        <member name="M:System.Net.Topology.IPAddressExtensions.GetHostIdentifier(System.Net.IPAddress,System.Net.Topology.NetMask)">
+            <summary>Gets the host identifier (rest) an <see cref="T:System.Net.IPAddress"/>.</summary>
+            <param name="address">The address</param>
+            <param name="mask">The net mask of the network</param>
+            <returns>The host identifier (rest) an <see cref="T:System.Net.IPAddress"/></returns>
+        </member>
+        <member name="T:System.Net.Topology.INetMask">
+            <summary>Provides an interface for IP net masks.</summary>
+        </member>
+        <member name="M:System.Net.Topology.INetMask.GetMaskBytes">
+            <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
+            <returns>The bits of the net mask instance as an BitArray object instance</returns>
+        </member>
+        <member name="P:System.Net.Topology.INetMask.AddressLength">
+            <summary>Gets the length of the net mask in bits.</summary>
+        </member>
+        <member name="P:System.Net.Topology.INetMask.Cidr">
+            <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
+        </member>
+        <member name="T:System.Net.PhysicalAddressExtensions">
+            <summary>
+            Stellt Erweiterungsmethoden für das Senden von Wake-On-LAN-Signalen bereit.
+            </summary>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWol(System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse mit der MAC-Adresse der Instanz.
+            </summary>
+            <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWol(System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse mit der MAC-Adresse der Instanz.
+            </summary>
+            <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWol(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die IP-Adresse der target-Instanz mit der MAC-Adresse der Instanz.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWol(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die IP-Adresse der target-Instanz mit der MAC-Adresse der Instanz.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWol(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPEndPoint)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an den IP-Endpunkt der target-Instanz mit der MAC-Adresse der Instanz.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWol(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPEndPoint,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an den IP-Endpunkt der target-Instanz mit der MAC-Adresse der Instanz.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWolAsync(System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
+            </summary>
+            <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWolAsync(System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
+            </summary>
+            <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWolAsync(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die IP-Adresse der target-Instanz, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWolAsync(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an die IP-Adresse der target-Instanz, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWolAsync(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPEndPoint)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an den IP-Endpunkt der target-Instanz, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.SendWolAsync(System.Net.NetworkInformation.PhysicalAddress,System.Net.IPEndPoint,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an den IP-Endpunkt der target-Instanz, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
+            </summary>
+            <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.GetAddressType(System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Ruft den Typ einer physikalischen Adresse ab.
+            </summary>
+            <param name="address">Die Adresse</param>
+            <returns>Der <see cref="T:System.Net.PhysicalAddressType">Typ</see> der physikalischen Adresse.</returns>
+        </member>
+        <member name="M:System.Net.PhysicalAddressExtensions.GetAddressAdministrator(System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Ruft den administratortypen einer physikalischen Adresse ab.
+            </summary>
+            <param name="address">Die Adresse</param>
+            <returns>Der <see cref="T:System.Net.PhysicalAddressAdministrator">administratortyp</see> der physikalischen Adresse.</returns>
+        </member>
+        <member name="T:System.Net.PhysicalAddressAdministrator">
+            <summary>
+            Der Administrator der physikalischen Adresse gibt an, ob die Adresse globally unique oder local administrated ist.
+            </summary>
+        </member>
+        <member name="F:System.Net.PhysicalAddressAdministrator.Global">
+            <summary>
+            Die Adresse ist global einzigartig (nach der OUI).
+            </summary>
+        </member>
+        <member name="F:System.Net.PhysicalAddressAdministrator.Local">
+            <summary>
+            Die Adresse ist lokal administriert.
+            </summary>
+        </member>
+        <member name="T:System.Net.PhysicalAddressType">
+            <summary>
+            Der Typ der physikalischen Adresse gibt an, ob es um eine UNicast oder Multicast-Adresse handelt.
+            </summary>
+        </member>
+        <member name="F:System.Net.PhysicalAddressType.Unicast">
+            <summary>
+            Bezeichnet eine Unicast-Adresse.
+            </summary>
+        </member>
+        <member name="F:System.Net.PhysicalAddressType.Multicast">
+            <summary>
+            Bezeichnet eine Multicast-Adresse
+            </summary>
+        </member>
+        <member name="T:System.Net.SecureOnPassword">
+            <summary>
+            Stellt ein SecureOn-Passwort bereit.
+            </summary>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.#ctor(System.Byte[])">
+            <summary>
+            Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
+            </summary>
+            <param name="password">Das Passwort als System.Byte-Array.</param>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <exception cref="T:System.ArgumentException">Das System.Byte-Array password hat eine Länge ungleich 6.</exception>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.GetPasswordBytes">
+            <summary>Ruft die Passwortdaten des SecureOn-Passworts ab.</summary>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
+            </summary>
+            <param name="password">Das Passwort als Zeichenfolge.</param>
+            <remarks >Verwendet System.Text.Encoding.Default als Kodierung.</remarks>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.#ctor(System.String,System.Text.Encoding)">
+            <summary>
+            Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
+            </summary>
+            <param name="password">Das Passwort als Zeichenfolge.</param>
+            <param name="encoding">Die System.Text.Encoding-Instanz für das Passwort.</param>
+            <exception cref="T:System.ArgumentNullException">encoding ist null.</exception>
+            <exception cref="T:System.ArgumentException">Das System.Byte-Array, welches aus dem Passwort resultiert, hat eine Länge größer 6.</exception>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.ToString">
+            <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
+            <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.ToString(System.String)">
+            <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
+            <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        </member>
+        <member name="M:System.Net.SecureOnPassword.ToString(System.IFormatProvider)">
+            <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
+            <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        </member>
+        <member name="T:System.Net.SendWol">
+            <summary>
+            Stellt Methoden für das Senden von Wake-On-LAN-Signalen bereit.
+            </summary>
+        </member>
+        <member name="M:System.Net.SendWol.Send(System.Net.IPEndPoint,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="mac0">Erstes MAC-Adress-Byte.</param>
+            <param name="mac1">Zweites MAC-Adress-Byte.</param>
+            <param name="mac2">Drittes MAC-Adress-Byte.</param>
+            <param name="mac3">Viertes MAC-Adress-Byte.</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte.</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+        </member>
+        <member name="M:System.Net.SendWol.Send(System.Net.IPEndPoint,System.Byte[])">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">Der Ziel-IPEndPoint.</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge dere <see cref="T:System.Byte"/>-Arrays macAddress ist nicht 6.</exception>
+             <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+        </member>
+        <member name="M:System.Net.SendWol.Send(System.Net.IPEndPoint,System.Byte[],System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge des <see cref="T:System.Byte"/>-Arrays macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+        </member>
+        <member name="M:System.Net.SendWol.Send(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+        </member>
+        <member name="M:System.Net.SendWol.Send(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <exception cref="T:System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
+        </member>
+        <member name="M:System.Net.SendWol.SendAsync(System.Net.IPEndPoint,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="mac0">Erstes MAC-Adress-Byte</param>
+            <param name="mac1">Zweites MAC-Adress-Byte</param>
+            <param name="mac2">Drittes MAC-Adress-Byte</param>
+            <param name="mac3">Viertes MAC-Adress-Byte</param>
+            <param name="mac4">Fünftes MAC-Adress-Byte</param>
+            <param name="mac5">Sechstes MAC-Adress-Byte</param>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.SendWol.SendAsync(System.Net.IPEndPoint,System.Byte[])">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">Der Ziel-IPEndPoint.</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentException">Die Länge des <see cref="T:System.Byte"/>-Arrays macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.SendWol.SendAsync(System.Net.IPEndPoint,System.Byte[],System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.SendWol.SendAsync(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress)">
+             <summary>
+             Sendet ein Wake-On-LAN-Signal an einen Client.
+             </summary>
+             <param name="target">Der Ziel-IPEndPoint.</param>
+             <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+             <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.SendWol.SendAsync(System.Net.IPEndPoint,System.Net.NetworkInformation.PhysicalAddress,System.Net.SecureOnPassword)">
+            <summary>
+            Sendet ein Wake-On-LAN-Signal an einen Client.
+            </summary>
+            <param name="target">Der Ziel-IPEndPoint.</param>
+            <param name="macAddress">Die MAC-Adresse des Clients.</param>
+            <param name="password">Das SecureOn-Passwort des Clients.</param>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+            <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        </member>
+        <member name="M:System.Net.SendWol.GetWolPacket(System.Byte[])">
+            <exception cref="T:System.ArgumentException">Die Länge des <see cref="T:System.Byte"/>-Arrays ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+        </member>
+        <member name="M:System.Net.SendWol.GetWolPacket(System.Byte[],System.Byte[])">
+            <exception cref="T:System.ArgumentException">Die Länge des <see cref="T:System.Byte"/>-Arrays macAddress ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">macAddress ist null.</exception>
+            <exception cref="T:System.ArgumentException">Die Länge des <see cref="T:System.Byte"/>-Arrays password ist nicht 6.</exception>
+            <exception cref="T:System.ArgumentNullException">password ist null.</exception>
+        </member>
+        <member name="T:System.Net.Topology.NetMask">
+            <summary>Represents an IPv4 net mask.</summary>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> with all bits set to 0.</summary>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor(System.Net.Topology.NetMask)">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> cloning an existing instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor(System.Byte[])">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from an array of <see cref="T:System.Byte"/>.</summary>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor(System.Net.IPAddress)">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
+            <param name="address">The IPv4 address.</param>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+            <param name="m1">The first byte.</param>
+            <param name="m2">The second byte.</param>
+            <param name="m3">The third byte.</param>
+            <param name="m4">The fourth byte.</param>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor(System.Byte)">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+            <param name="cidr">The mask represented by the CIDR notation integer.</param>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.#ctor(System.Int32)">
+            <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+            <param name="cidr">The mask represented by the CIDR notation integer.</param>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.GetMaskBytes">
+            <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
+            <returns>The bits of the net mask instance as an BitArray object instance.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.Extend(System.Net.Topology.NetMask,System.Int32)">
+            <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
+            <param name="mask">The mask to use as a reference.</param>
+            <param name="value">The value.</param>
+            <remarks>Because <see cref="T:System.Net.Topology.NetMask"/> is a reference type, this method is static. If it were not like this, you could change the value of <see cref="T:System.Net.Topology.NetMask"/>.Empty, for example.</remarks>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.Abbreviate(System.Net.Topology.NetMask,System.Int32)">
+            <summary>Abbreviates the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
+            <param name="mask">The mask to use as a reference.</param>
+            <param name="value">The value.</param>
+            <remarks>Because <see cref="T:System.Net.Topology.NetMask"/> is a reference type, this method is static. If it were not like this, you could change the value of <see cref="T:System.Net.Topology.NetMask"/>.Empty, for example.</remarks>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.GetIsValidNetMask(System.Byte[])">
+            <summary>Returns a value indicating whether the given array of <see cref="T:System.Byte"/> represents a valid net mask.</summary>
+            <returns>True if the given array of <see cref="T:System.Byte"/> represents a valid net mask, otherwise false.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.op_Equality(System.Net.Topology.NetMask,System.Net.Topology.NetMask)">
+            <summary>Returns a other indicating whether two instances of <see cref="T:System.Net.Topology.NetMask" /> are equal.</summary>
+            <param name="n1">The first other to compare.</param>
+            <param name="n2">The second other to compare.</param>
+            <returns>true if <paramref name="n1" /> and <paramref name="n2" /> are equal; otherwise, false.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.op_Inequality(System.Net.Topology.NetMask,System.Net.Topology.NetMask)">
+            <summary>Returns a other indicating whether two instances of <see cref="T:System.Net.Topology.NetMask" /> are not equal.</summary>
+            <param name="n1">The first other to compare. </param>
+            <param name="n2">The second other to compare. </param>
+            <returns>true if <paramref name="n1" /> and <paramref name="n2" /> are not equal; otherwise, false.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.op_BitwiseAnd(System.Net.IPAddress,System.Net.Topology.NetMask)">
+            <summary>Bitwise combines a <see cref="T:System.Net.Topology.NetMask" /> instance and an <see cref="T:System.Net.IPAddress"/> the AND operation.</summary>
+            <param name="mask">The net mask.</param>
+            <param name="address">The IPAddress.</param>
+            <returns>The bitwised combination using the AND operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.BitwiseAnd(System.Net.IPAddress,System.Net.Topology.NetMask)">
+            <summary>Bitwise combines a <see cref="T:System.Net.Topology.NetMask" /> instance and an <see cref="T:System.Net.IPAddress"/> the AND operation.</summary>
+            <param name="mask">The net mask.</param>
+            <param name="address">The IPAddress.</param>
+            <returns>The bitwised combination using the AND operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.op_BitwiseAnd(System.Net.Topology.NetMask,System.Net.IPAddress)">
+            <summary>Bitwise combines a <see cref="T:System.Net.Topology.NetMask" /> instance and an <see cref="T:System.Net.IPAddress"/> the AND operation.</summary>
+            <param name="mask">The net mask.</param>
+            <param name="address">The IPAddress.</param>
+            <returns>The bitwised combination using the AND operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.BitwiseAnd(System.Net.Topology.NetMask,System.Net.IPAddress)">
+            <summary>Bitwise combines a <see cref="T:System.Net.Topology.NetMask" /> instance and an <see cref="T:System.Net.IPAddress"/> the AND operation.</summary>
+            <param name="mask">The net mask.</param>
+            <param name="address">The IPAddress.</param>
+            <returns>The bitwised combination using the AND operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.op_BitwiseAnd(System.Net.Topology.NetMask,System.Net.Topology.NetMask)">
+            <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the AND operation.</summary>
+            <param name="n1">The first other.</param>
+            <param name="n2">The second other.</param>
+            <returns>The bitwised combination using the AND operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.BitwiseAnd(System.Net.Topology.NetMask,System.Net.Topology.NetMask)">
+            <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the AND operation.</summary>
+            <param name="n1">The first other.</param>
+            <param name="n2">The second other.</param>
+            <returns>The bitwised combination using the AND operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.op_BitwiseOr(System.Net.Topology.NetMask,System.Net.Topology.NetMask)">
+            <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the OR operation.</summary>
+            <param name="n1">The first other.</param>
+            <param name="n2">The second other.</param>
+            <returns>The bitwised combination using the OR operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.BitwiseOr(System.Net.Topology.NetMask,System.Net.Topology.NetMask)">
+            <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the OR operation.</summary>
+            <param name="n1">The first other.</param>
+            <param name="n2">The second other.</param>
+            <returns>The bitwised combination using the OR operation.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.ToString">
+            <summary>Converts the other of this instance to its equivalent string representation.</summary>
+            <returns>A string that represents the other of this instance.</returns>
+            <filterpriority>1</filterpriority>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.Equals(System.Object)">
+            <summary>Returns a value indicating whether this instance and a specified <see cref="T:System.Object" /> represent the same type and other.</summary>
+            <returns>true if <paramref name="obj" /> is a <see cref="T:System.Net.Topology.NetMask" /> and equal to this instance; otherwise, false.</returns>
+            <param name="obj">The object to compare with this instance. </param>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.Equals(System.Net.Topology.NetMask)">
+            <summary>Returns a value indicating whether this instance and a specified <see cref="T:System.Net.Topology.NetMask" /> object represent the same other.</summary>
+            <returns>true if <paramref name="other" /> is equal to this instance; otherwise, false.</returns>
+            <param name="other">An object to compare to this instance.</param>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:System.Net.Topology.NetMask.GetHashCode">
+            <summary>Returns the hash code for this instance.</summary>
+            <returns>A 32-bit signed integer hash code.</returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:System.Net.Topology.NetMask.Empty">
+            <summary>Represents an empty IPv4 NetMask (all bits set to 0).</summary>
+        </member>
+        <member name="P:System.Net.Topology.NetMask.AddressLength">
+            <summary>Gets the length of the net mask in bits.</summary>
+        </member>
+        <member name="P:System.Net.Topology.NetMask.Cidr">
+            <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
+        </member>
+        <member name="T:System.Net.Topology.NetMaskExtensions">
+            <summary>Provides extension methods for the <see cref="T:System.Net.Topology.NetMask"/>.</summary>
+        </member>
+        <member name="M:System.Net.Topology.NetMaskExtensions.GetSiblingCount(System.Net.Topology.NetMask)">
+            <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network. Compliant to RFC 950 (2^n-2).</summary>
+            <param name="mask">The net mask of the network</param>
+            <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
+        </member>
+        <member name="M:System.Net.Topology.NetMaskExtensions.GetSiblingCount(System.Net.Topology.NetMask,System.Net.Topology.SiblingOptions)">
+            <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network.</summary>
+            <param name="mask">The net mask of the network</param>
+            <param name="options">Options which addresses to include an which not</param>
+            <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
+        </member>
+        <member name="T:System.Net.Topology.SiblingOptions">
+            <summary>Provides options for doing network sibling calculations using a net mask.</summary>
+        </member>
+        <member name="F:System.Net.Topology.SiblingOptions.ExcludeAll">
+            <summary>Do not include the broadcast or net address neither the addess passed to the method.</summary>
+        </member>
+        <member name="F:System.Net.Topology.SiblingOptions.IncludeSelf">
+            <summary>Include the addess passed to the method.</summary>
+        </member>
+        <member name="F:System.Net.Topology.SiblingOptions.ExcludeUnusable">
+            <summary>Include the addess passed to the method. Compliant to RFC 950 (2^n-2).</summary>
+        </member>
+        <member name="F:System.Net.Topology.SiblingOptions.IncludeBroadcast">
+            <summary>Include the broadcast address.</summary>
+        </member>
+        <member name="F:System.Net.Topology.SiblingOptions.IncludeNetworkIdentifier">
+            <summary>Include the net address.</summary>
+        </member>
+        <member name="F:System.Net.Topology.SiblingOptions.IncludeAll">
+            <summary>Include all addresses possible. RFC 1878 (2^n).</summary>
+        </member>
+    </members>
+</doc>
