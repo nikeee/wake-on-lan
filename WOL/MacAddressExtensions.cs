@@ -1,6 +1,6 @@
-﻿#if EXTENSIONS
+﻿#if NET35 && INCLUDEOBSOLETE
 
-#if TAP
+#if NET45
 using System.Threading.Tasks;
 #endif
 
@@ -12,7 +12,7 @@ namespace System.Net
     [Obsolete(Localization.ObsoleteMacAddress)]
     public static class MacAddressExtensions
     {
-        #region Wol
+#region Wol
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse mit der MAC-Adresse der Instanz.
@@ -79,8 +79,8 @@ namespace System.Net
         }
 
         #endregion
-        #region TAP
-#if TAP
+#region TAP
+#if NET45
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse mit der MAC-Adresse der Instanz in einem separaten Thread.
         /// </summary>
@@ -151,7 +151,7 @@ namespace System.Net
            return target.SendWolAsync(address.Address,password);
         }
 #endif
-        #endregion
+#endregion
     }
 }
 

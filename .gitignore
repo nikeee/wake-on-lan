@@ -95,3 +95,7 @@ Thumbs.db
 
 # evil sandcastle
 *.shfbproj_*
+/_ReSharper.WOL
+
+*.csproj.user
+*.vbproj.user

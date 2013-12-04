@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Security;
 
 namespace System.Net
 {
@@ -7,6 +8,7 @@ namespace System.Net
     	private const string IphlpApi = "iphlpapi.dll";
     	
         [DllImport(IphlpApi, ExactSpelling = true)]
-        public static extern int SendARP(int destIp, int srcIp, byte[] macAddr, ref uint physicalAddrLen);
+        [SecurityCritical]
+        internal static extern int SendARP(int destinationIp, int sourceIp, byte[] macAddress, ref int physicalAddrLength);
     }
 }

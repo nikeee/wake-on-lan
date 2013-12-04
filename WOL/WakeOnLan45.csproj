@@ -5,12 +5,12 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{1212CE39-7229-4758-9F03-ED6F25C8F501}</ProjectGuid>
+    <ProjectGuid>{3BC8E839-0028-484B-8D91-21EF31FA3D98}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>System.Net</RootNamespace>
     <AssemblyName>WakeOnLan</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -61,13 +61,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\DebugFW40\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET20;NET35;NET40;</DefineConstants>
-    <DocumentationFile>bin\DebugFW40\WakeOnLan.xml</DocumentationFile>
+    <OutputPath>bin\DebugFW45\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NET20;NET35;NET40;NET45;</DefineConstants>
+    <DocumentationFile>bin\DebugFW45\WakeOnLan.xml</DocumentationFile>
     <Optimize>true</Optimize>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <CodeAnalysisLogFile>bin\DebugFW40\WakeOnLan.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisLogFile>bin\Debug\WakeOnLan.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
     <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
     <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
     <ErrorReport>prompt</ErrorReport>
@@ -80,8 +80,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\ReleaseFW40\</OutputPath>
-    <DefineConstants>TRACE;NET20;NET35;NET40;</DefineConstants>
+    <OutputPath>bin\ReleaseFW45\</OutputPath>
+    <DefineConstants>TRACE;NET20;NET35;NET40;NET45;</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -94,7 +94,7 @@
     <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
     <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
-    <DocumentationFile>bin\ReleaseFW40\WakeOnLan.XML</DocumentationFile>
+    <DocumentationFile>bin\ReleaseFW45\WakeOnLan.XML</DocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Prefer32Bit>false</Prefer32Bit>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
@@ -120,10 +120,10 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseDebugSymbols|AnyCPU'">
     <OutputPath>bin\ReleaseDebugSymbols\</OutputPath>
-    <DefineConstants>TRACE;NET20;NET35;NET40;</DefineConstants>
+    <DefineConstants>TRACE;NET20;NET35;NET40;NET45;</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <DocumentationFile>bin\ReleaseFW40\WakeOnLan.XML</DocumentationFile>
+    <DocumentationFile>bin\ReleaseFW45\WakeOnLan.XML</DocumentationFile>
     <Optimize>true</Optimize>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -147,6 +147,10 @@
     <Compile Include="IPEndPointExtensions.cs" />
     <Compile Include="Localization.cs" />
     <Compile Include="NativeMethods.cs" />
+    <Compile Include="Topology\ByteArrayExtensions.cs" />
+    <Compile Include="Topology\ByteExtensions.cs" />
+    <Compile Include="Topology\IPAddressExtensions.cs" />
+    <Compile Include="Topology\INetMask.cs" />
     <Compile Include="PhysicalAddressExtensions.cs" />
     <Compile Include="MacAddress.cs" />
     <Compile Include="MacAddressExtensions.cs" />
@@ -154,10 +158,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureOnPassword.cs" />
     <Compile Include="SendWol.cs" />
-    <Compile Include="Topology\ByteArrayExtensions.cs" />
-    <Compile Include="Topology\ByteExtensions.cs" />
-    <Compile Include="Topology\INetMask.cs" />
-    <Compile Include="Topology\IPAddressExtensions.cs" />
     <Compile Include="Topology\NetMask.cs" />
     <Compile Include="Topology\NetMaskExtensions.cs" />
     <Compile Include="Topology\SiblingOptions.cs" />
@@ -179,6 +179,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Classdiagram.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

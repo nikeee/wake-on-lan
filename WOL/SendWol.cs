@@ -1,4 +1,4 @@
-﻿#if TAP
+﻿#if NET45
 using System.Threading.Tasks;
 #endif
 
@@ -65,7 +65,8 @@ namespace System.Net
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            byte[] packet = GetWolPacket(macAddress, password.Password);
+            byte[] passwordBuffer = password.GetPasswordBytes();
+            byte[] packet = GetWolPacket(macAddress, passwordBuffer);
             SendPacket(target, packet);
         }
 
@@ -85,8 +86,8 @@ namespace System.Net
             SendPacket(target, packet);
         }
 
-#if EXTENSIONS
-
+#if NET35
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -103,7 +104,8 @@ namespace System.Net
             byte[] packet = GetWolPacket(macAddress.Address);
             SendPacket(target, packet);
         }
-        
+#endif
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -126,6 +128,7 @@ namespace System.Net
             SendPacket(target, packet);
         }
 #endif
+#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -144,7 +147,8 @@ namespace System.Net
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            byte[] packet = GetWolPacket(macAddress.GetAddressBytes(), password.Password);
+            byte[] passwordBuffer = password.GetPasswordBytes();
+            byte[] packet = GetWolPacket(macAddress.GetAddressBytes(), passwordBuffer);
             SendPacket(target, packet);
         }
 
@@ -156,7 +160,7 @@ namespace System.Net
 
         #endregion
         #region TAP
-#if TAP
+#if NET45
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -213,7 +217,8 @@ namespace System.Net
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            var packet = GetWolPacket(macAddress, password.Password);
+            var passwordBuffer = password.GetPasswordBytes();
+            var packet = GetWolPacket(macAddress, passwordBuffer);
             return SendPacketAsync(target, packet);
         }
 
@@ -230,6 +235,7 @@ namespace System.Net
                 throw new ArgumentNullException("target");
             if (macAddress == null)
                 throw new ArgumentNullException("macAddress");
+
             var p = GetWolPacket(macAddress.GetAddressBytes());
             return SendPacketAsync(target, p);
             //return new Task(() => Send(target, macAddress));
@@ -252,7 +258,9 @@ namespace System.Net
                 throw new ArgumentNullException("macAddress");
             if (password == null)
                 throw new ArgumentNullException("password");
-            var p = GetWolPacket(macAddress.GetAddressBytes(), password.Password);
+
+            var passwordBuffer = password.GetPasswordBytes();
+            var p = GetWolPacket(macAddress.GetAddressBytes(), passwordBuffer);
             return SendPacketAsync(target, p);
         }
 
@@ -261,8 +269,9 @@ namespace System.Net
             using (var cl = new UdpClient())
                 return Task.Factory.FromAsync<byte[], int, int>(cl.BeginSend, cl.EndSend, packet, packet.Length, target);
         }
-        
-#if EXTENSIONS
+
+#if NET35
+#if INCLUDEOBSOLETE
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -284,6 +293,8 @@ namespace System.Net
             byte[] packet = GetWolPacket(macAddress.Address, password.Password);
             return SendPacketAsync(target, packet);
         }
+#endif
+#if INCLUDEOBSOLETE
         
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -300,6 +311,7 @@ namespace System.Net
             var p = GetWolPacket(macAddress.Address);
             return SendPacketAsync(target, p);
         }
+#endif
 #endif
 
 #endif

@@ -1,6 +1,6 @@
-﻿#if EXTENSIONS
+﻿#if NET35
 
-#if TAP
+#if NET45
 using System.Threading.Tasks;
 #endif
 
@@ -21,6 +21,9 @@ namespace System.Net
         /// <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         public static void SendWol(this PhysicalAddress address)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             IPAddress.Broadcast.SendWol(address.GetAddressBytes());
         }
         /// <summary>
@@ -31,6 +34,9 @@ namespace System.Net
         /// <exception cref="System.ArgumentNullException">password ist null.</exception>
         public static void SendWol(this PhysicalAddress address, SecureOnPassword password)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             IPAddress.Broadcast.SendWol(address.GetAddressBytes(), password);
         }
         /// <summary>
@@ -40,6 +46,9 @@ namespace System.Net
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         public static void SendWol(this PhysicalAddress address, IPAddress target)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             target.SendWol(address.GetAddressBytes());
         }
 
@@ -52,6 +61,9 @@ namespace System.Net
         /// <exception cref="System.ArgumentNullException">password ist null.</exception>
         public static void SendWol(this PhysicalAddress address, IPAddress target, SecureOnPassword password)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             target.SendWol(address.GetAddressBytes(), password);
         }
 
@@ -63,6 +75,9 @@ namespace System.Net
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         public static void SendWol(this PhysicalAddress address, IPEndPoint target)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             target.SendWol(address.GetAddressBytes());
         }
 
@@ -75,13 +90,16 @@ namespace System.Net
         /// <exception cref="System.ArgumentNullException">password ist null.</exception>
         public static void SendWol(this PhysicalAddress address, IPEndPoint target, SecureOnPassword password)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             target.SendWol(address.GetAddressBytes(), password);
         }
 
         #endregion
         #region TAP
 
-#if TAP
+#if NET45
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
@@ -90,6 +108,9 @@ namespace System.Net
         /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
         public static Task SendWolAsync(this PhysicalAddress address)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             return IPAddress.Broadcast.SendWolAsync(address.GetAddressBytes());
         }
 
@@ -102,6 +123,9 @@ namespace System.Net
         /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, SecureOnPassword password)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             return IPAddress.Broadcast.SendWolAsync(address.GetAddressBytes(), password);
         }
 
@@ -113,6 +137,9 @@ namespace System.Net
         /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPAddress target)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             return target.SendWolAsync(address.GetAddressBytes());
         }
 
@@ -127,6 +154,9 @@ namespace System.Net
         /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPAddress target, SecureOnPassword password)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             return target.SendWolAsync(address.GetAddressBytes(), password);
         }
 
@@ -139,6 +169,9 @@ namespace System.Net
         /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPEndPoint target)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             return target.SendWolAsync(address.GetAddressBytes());
         }
 
@@ -153,6 +186,9 @@ namespace System.Net
         /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPEndPoint target, SecureOnPassword password)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             return target.SendWolAsync(address.GetAddressBytes(), password);
         }
 #endif
@@ -167,9 +203,12 @@ namespace System.Net
         /// <returns>Der <see cref="T:System.Net.PhysicalAddressType">Typ</see> der physikalischen Adresse.</returns>
         public static PhysicalAddressType GetAddressType(this PhysicalAddress address)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             var bytes = address.GetAddressBytes();
             if (bytes == null || bytes.Length < 1)
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid PhysicalAddress.");
             return (bytes[0] & 0x1) == 0 ? PhysicalAddressType.Unicast : PhysicalAddressType.Multicast;
         }
 
@@ -180,9 +219,12 @@ namespace System.Net
         /// <returns>Der <see cref="T:System.Net.PhysicalAddressAdministrator">administratortyp</see> der physikalischen Adresse.</returns>
         public static PhysicalAddressAdministrator GetAddressAdministrator(this PhysicalAddress address)
         {
+            if (address == null)
+                throw new ArgumentNullException("address");
+
             var bytes = address.GetAddressBytes();
             if (bytes == null || bytes.Length < 1)
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid PhysicalAddress.");
             return (bytes[0] & 0x2) == 0 ? PhysicalAddressAdministrator.Global : PhysicalAddressAdministrator.Local;
         }
 
