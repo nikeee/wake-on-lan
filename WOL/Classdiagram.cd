@@ -1,41 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="Obsolete.">
-    <Position X="9.51" Y="0.573" Height="0.291" Width="2.231" />
-  </Comment>
   <Class Name="System.Net.IPAddressExtensions">
     <Position X="3.25" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAIAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAEAAAIAAAAAAAAAAAQAAAAIAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IPAddressExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="System.Net.IPEndPointExtensions">
-    <Position X="3.25" Y="2.5" Width="2.5" />
+    <Position X="3.25" Y="2.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IPEndPointExtensions.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="System.Net.MacAddress">
-    <Position X="9.5" Y="1" Width="2.25" />
-    <Members>
-      <Field Name="_broadcast" Hidden="true" />
-    </Members>
-    <TypeIdentifier>
-      <HashCode>AIAgAAAAAACgAAAECAAACAAAAAAAAAACAAAAAAAAAAA=</HashCode>
-      <FileName>MacAddress.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="System.Net.MacAddressExtensions">
-    <Position X="3.25" Y="6" Width="2.5" />
-    <TypeIdentifier>
-      <HashCode>AAACAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MacAddressExtensions.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="System.Net.PhysicalAddressExtensions">
-    <Position X="3.25" Y="4" Width="2.5" />
+    <Position X="3.25" Y="4.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>BAACAAAAAIAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>PhysicalAddressExtensions.cs</FileName>
@@ -44,7 +24,7 @@
   <Class Name="System.Net.SecureOnPassword">
     <Position X="0.5" Y="2.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAAAAAAAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>SecureOnPassword.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -55,8 +35,8 @@
       <FileName>SendWol.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Localization" Collapsed="true">
-    <Position X="12" Y="7.75" Width="1.5" />
+  <Class Name="System.Net.Localization" Collapsed="true">
+    <Position X="11.25" Y="7.75" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AKAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>Localization.cs</FileName>
