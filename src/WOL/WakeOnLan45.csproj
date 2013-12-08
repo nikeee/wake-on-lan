@@ -182,8 +182,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\build\4.5\$(TargetFileName)"
-copy "$(TargetDir)$(TargetName).XML" "$(SolutionDir)..\build\4.5\$(TargetName).xml"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\build\lib\net45\$(TargetFileName)"
+copy "$(TargetDir)$(TargetName).XML" "$(SolutionDir)..\build\lib\net45\$(TargetName).xml"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

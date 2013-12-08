@@ -101,11 +101,11 @@ Thumbs.db
 *.vbproj.user
 
 
-!build/2.0/*.dll
-!build/3.5/*.dll
-!build/4.0/*.dll
-!build/4.5/*.dll
-!build/4.5.1/*.dll
+!build/lib/net20/*.dll
+!build/lib/net35/*.dll
+!build/lib/net40/*.dll
+!build/lib/net45/*.dll
+!build/lib/net451/*.dll
 
 *.sln.DotSettings.user
 .gitattributes

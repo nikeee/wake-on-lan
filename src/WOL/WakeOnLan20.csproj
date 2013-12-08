@@ -171,8 +171,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\build\2.0\$(TargetFileName)"
-copy "$(TargetDir)$(TargetName).XML" "$(SolutionDir)..\build\2.0\$(TargetName).xml"</PostBuildEvent>
+    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\build\lib\net20\$(TargetFileName)"
+copy "$(TargetDir)$(TargetName).XML" "$(SolutionDir)..\build\lib\net20\$(TargetName).xml"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
