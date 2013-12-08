@@ -109,3 +109,4 @@ Thumbs.db
 
 *.sln.DotSettings.user
 .gitattributes
+build/*.nupkg
