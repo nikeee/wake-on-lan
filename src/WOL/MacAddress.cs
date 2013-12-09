@@ -13,7 +13,7 @@ namespace System.Net
     public class MacAddress 
     {
 
-        #region properties
+#region properties
 
         /// <summary>
         /// Die Adressdaten der MAC-Adresse
@@ -22,7 +22,7 @@ namespace System.Net
 
         #endregion
 
-        #region statics
+#region statics
 
         /// <summary>
         /// Stellt die Broadcast MAC-Adresse (FF-FF-FF-FF-FF-FF) bereit.
@@ -38,7 +38,7 @@ namespace System.Net
 
         #endregion
 
-        #region ctors
+#region ctors
 
         /// <summary>
         /// Initialisiert eine neue Instanz der System.Net.MacAddress-Klasse mit der Adresse, die über die einzelnen System.Byte-Bestandteile angegeben ist.
@@ -77,7 +77,7 @@ namespace System.Net
 
         #endregion
         
-        #region parsing
+#region parsing
 
         /// <summary>
         /// Bestimmt, ob eine Zeichenfolge eine gültige MAC-Adresse ist.
@@ -228,7 +228,7 @@ namespace System.Net
 
         #endregion
 
-        #region tostring
+#region tostring
 
         /// <summary>
         /// Konvertiert MAC-Adressen in die Standardnotation.
@@ -270,7 +270,7 @@ namespace System.Net
 
         //#endregion
 
-        #region common overrides
+#region common overrides
 
         /*
         

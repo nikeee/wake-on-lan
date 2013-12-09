@@ -34,7 +34,7 @@ namespace System.Net.Topology
                 throw new NotSupportedException(OnlyIPv4Supported);
 
             bool includeSelf = BitHelper.IsOptionSet(options, SiblingOptions.IncludeSelf);
-            bool includeBroadcast = BitHelper.IsOptionSet(options,SiblingOptions.IncludeBroadcast);
+            bool includeBroadcast = BitHelper.IsOptionSet(options, SiblingOptions.IncludeBroadcast);
             bool includeNetworkIdentifier = BitHelper.IsOptionSet(options, SiblingOptions.IncludeNetworkIdentifier);
 
             bool alreadyReturnedSelf = false;
@@ -55,8 +55,8 @@ namespace System.Net.Topology
 
             int cidr = mask.Cidr;
             uint maxHosts = 0xFFFFFFFF;
-            
-            if(cidr > 0)
+
+            if (cidr > 0)
                 maxHosts = (uint)(1 << (8 * NetMask.MaskLength - cidr)) - 1;
 
             var hostBytes = new byte[NetMask.MaskLength];
@@ -71,13 +71,13 @@ namespace System.Net.Topology
                 }
 
                 Debug.WriteLine("HostPart: " + hostPart.ToString("X2").PadLeft(8, '0') + " (" + BitConverter.ToString(hostBytes) + ")");
-                
+
                 var nextIpBytes = netPrefixBytes.Or(hostBytes);
                 var nextIp = new IPAddress(nextIpBytes);
 
-                if(!alreadyReturnedSelf)
+                if (!alreadyReturnedSelf)
                 {
-                    if(includeSelf)
+                    if (includeSelf)
                     {
                         if (nextIpBytes[0] == selfAddressBytes[0]
                          && nextIpBytes[1] == selfAddressBytes[1]
@@ -141,9 +141,9 @@ namespace System.Net.Topology
             var notMaskBytes = mask.GetMaskBytes().Not();
 
             var broadcastAddressBytes = notMaskBytes.Or(ipBytes);
-            return new IPAddress(broadcastAddressBytes);            
+            return new IPAddress(broadcastAddressBytes);
         }
-        
+
         /// <summary>Gets the host identifier (rest) an <see cref="T:System.Net.IPAddress"/>.</summary>
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
@@ -159,7 +159,7 @@ namespace System.Net.Topology
 
             var maskBits = mask.GetMaskBytes();
             var ipBits = address.GetAddressBytes();
-            
+
             // ~Mask & IP
             var retVal = maskBits.Not().And(ipBits);
             var bytes = new byte[NetMask.MaskLength];

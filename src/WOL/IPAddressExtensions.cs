@@ -31,7 +31,7 @@ namespace System.Net
         {
             Net.SendWol.Send(new IPEndPoint(target, port), mac0, mac1, mac2, mac3, mac4, mac5);
         }
-        
+
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -48,7 +48,7 @@ namespace System.Net
         {
             Net.SendWol.Send(new IPEndPoint(target, DefaultWolPort), mac0, mac1, mac2, mac3, mac4, mac5);
         }
-        
+
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -63,7 +63,7 @@ namespace System.Net
         {
             Net.SendWol.Send(new IPEndPoint(target, port), macAddress);
         }
-        
+
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -140,7 +140,7 @@ namespace System.Net
         {
             Net.SendWol.Send(new IPEndPoint(target, DefaultWolPort), macAddress, password);
         }
-        
+
         #endregion
         #region ARP
 
@@ -299,5 +299,4 @@ namespace System.Net
         #endregion
     }
 }
-
 #endif

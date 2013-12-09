@@ -49,7 +49,7 @@ namespace System.Net.Topology
             lock (_lockObject)
             {
                 _maskBytes = bytes;
-                UpdateCidr();   
+                UpdateCidr();
             }
         }
 
@@ -70,7 +70,7 @@ namespace System.Net.Topology
             CheckMaskBytes(value); // check if passed mask are a valid mask. if not, throw Exception
             lock (_lockObject)
             {
-                _maskBytes = new[] {value[0], value[1], value[2], value[3]};
+                _maskBytes = new[] { value[0], value[1], value[2], value[3] };
                 UpdateCidr();
             }
         }
@@ -132,7 +132,7 @@ namespace System.Net.Topology
             System.Diagnostics.Debug.Assert(_maskBytes.Length == MaskLength);
             _cidr = _maskBytes.CountFromLeft(true);
         }
-        
+
         /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
         /// <param name="mask">The mask to use as a reference.</param>
         /// <param name="value">The value.</param>

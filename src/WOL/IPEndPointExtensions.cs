@@ -63,7 +63,7 @@ namespace System.Net
         {
             Net.SendWol.Send(target, macAddress);
         }
-        
+
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -216,5 +216,4 @@ namespace System.Net
         #endregion
     }
 }
-
 #endif
