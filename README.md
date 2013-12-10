@@ -1,8 +1,8 @@
 # Wake-On-LAN
 
-A simple library for sending magic packets and performing IP address operations
+A simple library for sending magic packets and performing IP address operations.
 
-## Why?
+### Why?
 I wanted to create a library that matches all Microsoft Code Analysis rules and design guidelines.
 However, it does not fit at least one naming guideline. The default namespace is `System.Net`. I decided to do this because I want the library to be used like a normal part of the .NET Framework.
 
