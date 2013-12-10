@@ -30,7 +30,7 @@ endPoint.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55)
 
 ### Getting Subnet Information
 You can also retrieve information about a subnet.
-```
+```C#
 using System.Net;
 using System.Net.Topology;
 // ...
