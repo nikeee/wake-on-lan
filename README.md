@@ -41,13 +41,13 @@ var mask = new NetMask(255, 255, 255, 0); // the network mask of the subnet
 // CIDR-notation number of the network mask
 int cidr = mask.Cidr;
 
-var networkPrefix = someIp & mask; // bitwise operation to get the network address (192.168.178.0)
+var networkPrefix = someIp & mask; // bitwise operation to get the network address (192.168.1.0)
 networkPrefix = someIp.GetNetworkPrefix(mask); // using the extension method for IPAddress
 
-// retrieve broadcast address of the subnet (192.168.178.255)
+// retrieve broadcast address of the subnet (192.168.1.255)
 var broadcastAddress = someIp.GetBroadcastAddress(mask);
 
-var siblings = someIp.GetSiblings(mask, SiblingOptions.ExcludeUnusable);
+IEnumerable<IPAddress> siblings = someIp.GetSiblings(mask, SiblingOptions.ExcludeUnusable);
 // Enumerate through all IP addresses in the subnet, except network prefix and broadcast (RFC 950, 2^n-2)
 foreach (IPAddress someIpInNetwork in siblings)
 {
