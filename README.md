@@ -71,7 +71,7 @@ var mac = new PhysicalAddress(new byte[] {0x00, 0x11, 0x22, 0x33, 0x44, 0x55});
 mac.SendWol(); // via extension method
 ```
 
-## Documentation
+### Documentation
 There is an online documentation available [here][0]. It was built using [Sandcastle] and the [Sandcastle Help File Builder].
 You can download the `.chm` file [here][3].
 
