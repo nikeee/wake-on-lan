@@ -25,10 +25,38 @@ SendWol.Send(endPoint, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55)
 
 // via IPEndPoint extension
 endPoint.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55)
-
 ```
+
+
 ### Getting Subnet Information
-// ADDME
+You can also retrieve information about a subnet.
+```
+using System.Net;
+using System.Net.Topology;
+// ...
+
+var someIp = new IPAddress(new byte[] { 192, 168, 1, 23 }); // Some IP address in the subnet
+var mask = new NetMask(255, 255, 255, 0); // the network mask of the subnet
+
+// CIDR-notation number of the network mask
+int cidr = mask.Cidr;
+
+var networkPrefix = someIp & mask; // bitwise operation to get the network address (192.168.178.0)
+networkPrefix = someIp.GetNetworkPrefix(mask); // using the extension method for IPAddress
+
+// retrieve broadcast address of the subnet (192.168.178.255)
+var broadcastAddress = someIp.GetBroadcastAddress(mask);
+
+var siblings = someIp.GetSiblings(mask, SiblingOptions.ExcludeUnusable);
+// Enumerate through all IP addresses in the subnet, except network prefix and broadcast (RFC 950, 2^n-2)
+foreach (IPAddress someIpInNetwork in siblings)
+{
+    Console.WriteLine(someIpInNetwork.ToString());
+}
+
+// Get number of possible siblings without someIp, broadcast and network prefix
+int siblingCount = mask.GetSiblingCount(SiblingOptions.ExcludeAll);
+```
 
 ### Async/Await
 This library also supports the Task-based Asynchronous Pattern (TAP). Every method that can send a magic packet synchronously is available as a TAP method returning a `Task`.
@@ -37,16 +65,14 @@ await IPAddress.Broadcast.SendWolAsync(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
 ```
 
 ### Further Samples
-The [System.Net.NetworkInformation.PhysicalAddress][5] class is also supportat as it can represent a MAC address.
+The [System.Net.NetworkInformation.PhysicalAddress][5] class is also supported as it represents a MAC address.
 ```C#
 var mac = new PhysicalAddress(new byte[] {0x00, 0x11, 0x22, 0x33, 0x44, 0x55});
-
-// via extension method
-mac.SendWol();
+mac.SendWol(); // via extension method
 ```
 
 ## Documentation
-There is an online documentation available [here][0]. It was built using [Sandcastle][1] and the [Sandcastle Help File Builder][2].
+There is an online documentation available [here][0]. It was built using [Sandcastle] and the [Sandcastle Help File Builder].
 You can download the `.chm` file [here][3].
 
 ### Compability
@@ -66,12 +92,15 @@ The following support is planned but not available yet:
 - Windows Store
 
 ### NuGet
-Install the [NuGet package][4] of this library using `Install-Package WakeOnLan`.
+Install the [NuGet package][4] of this library using
+```
+Install-Package WakeOnLan
+```
 
 [0]: http://holz.nu/doc/wol
-[1]: https://sandcastle.codeplex.com
-[2]: https://shfb.codeplex.com
+[Sandcastle]: https://sandcastle.codeplex.com
+[Sandcastle Help File Builder]: https://shfb.codeplex.com
 [3]: https://github.com/nikeee/wake-on-lan/raw/master/src/Documentation/WOL45/Documentation.chm
-[4]: nuget.org/packages/WakeOnLan
+[4]: https://nuget.org/packages/WakeOnLan
 [5]: http://msdn.microsoft.com/en-us/library/system.net.networkinformation.physicaladdress(v=vs.110).aspx
 [6]: https://github.com/nikeee/wake-on-lan/tree/master/build/lib
