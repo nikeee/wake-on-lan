@@ -78,8 +78,11 @@ You can download the `.chm` file [here][3].
 ### Compability
 There is a compiled version for several versions of the .NET Framework. Currently these frameworks are supported:
 - .NET 2.0
+    - Does not include extension methods and async features
 - .NET 3.5 Client Profile
+    - Does not include async features
 - .NET 4.0 Client Profile
+    - Does not include async features
 - .NET 4.5
 - .NET 4.5.1
 
