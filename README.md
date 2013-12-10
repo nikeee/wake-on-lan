@@ -8,7 +8,7 @@ However, it does not fit at least one naming guideline. The default namespace is
 
 ## Samples
 
-### Sending a magic packet
+### Sending a Magic Packet
 This sample uses `00:11:22:33:44:55` as MAC address.
 
 ```C#
@@ -58,6 +58,22 @@ foreach (IPAddress someIpInNetwork in siblings)
 int siblingCount = mask.GetSiblingCount(SiblingOptions.ExcludeAll);
 ```
 
+### ARP Requests
+To retrieve the MAC address of a host, there is a functionality for ARP-request built-in. It uses the Windows API method [SendArp].
+```C#
+ArpRequestResult res = ArpRequest.Send(someIp);
+if(res.Exception != null)
+{
+    Console.WriteLine("ARP error occurred: " + res.Exception.Message);
+}
+else
+{
+    Console.WriteLine("Host MAC address: " + res.Address.ToString());
+}
+```
+Note that there isn't always an MAC address available although there is a host. The reason for this could be the host is offline and/or the physical address is not cached somewhere.
+Also, this function uses a p/invoke. This might cause problems when used on platforms other than Windows.
+
 ### Async/Await
 This library also supports the Task-based Asynchronous Pattern (TAP). Every method that can send a magic packet synchronously is available as a TAP method returning a `Task`.
 ```C#
@@ -77,12 +93,9 @@ You can download the `.chm` file [here][3].
 
 ### Compability
 There is a compiled version for several versions of the .NET Framework. Currently these frameworks are supported:
-- .NET 2.0
-    - Does not include extension methods and async features
-- .NET 3.5 Client Profile
-    - Does not include async features
-- .NET 4.0 Client Profile
-    - Does not include async features
+- .NET 2.0 (does not include extension methods and async features)
+- .NET 3.5 Client Profile (does not include async features)
+- .NET 4.0 Client Profile (does not include async features)
 - .NET 4.5
 - .NET 4.5.1
 
@@ -103,6 +116,7 @@ Install-Package WakeOnLan
 [0]: http://holz.nu/doc/wol
 [Sandcastle]: https://sandcastle.codeplex.com
 [Sandcastle Help File Builder]: https://shfb.codeplex.com
+[SendArp]: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366358(v=vs.85).aspx
 [3]: https://github.com/nikeee/wake-on-lan/raw/master/src/Documentation/WOL45/Documentation.chm
 [4]: https://nuget.org/packages/WakeOnLan
 [5]: http://msdn.microsoft.com/en-us/library/system.net.networkinformation.physicaladdress(v=vs.110).aspx
