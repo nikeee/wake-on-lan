@@ -91,7 +91,7 @@ mac.SendWol(); // via extension method
 There is an online documentation available [here][0]. It was built using [Sandcastle] and the [Sandcastle Help File Builder].
 You can download the `.chm` file [here][3].
 
-### Compability
+### Compatibility
 There is a compiled version for several versions of the .NET Framework. Currently these frameworks are supported:
 - .NET 2.0 (does not include extension methods and async features)
 - .NET 3.5 Client Profile (does not include async features)
