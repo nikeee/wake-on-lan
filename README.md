@@ -88,7 +88,7 @@ mac.SendWol(); // via extension method
 ```
 
 ### Documentation
-There is an online documentation available [here][0]. It was built using [Sandcastle] and the [Sandcastle Help File Builder].
+There is an online documentation available [here][0]. It was built using [sharpDox].
 You can download the `.chm` file [here][3].
 
 ### Compatibility
@@ -113,9 +113,8 @@ Install the [NuGet package][4] of this library using
 Install-Package WakeOnLan
 ```
 
-[0]: http://holz.nu/doc/wol
-[Sandcastle]: https://sandcastle.codeplex.com
-[Sandcastle Help File Builder]: https://shfb.codeplex.com
+[0]: https://nikeee.github.io/wake-on-lan
+[sharpDox]: http://www.sharpDox.de
 [SendArp]: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366358(v=vs.85).aspx
 [3]: https://github.com/nikeee/wake-on-lan/raw/master/src/Documentation/WOL45/Documentation.chm
 [4]: https://nuget.org/packages/WakeOnLan
