@@ -1,17 +1,15 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net;
+﻿using NUnit.Framework;
+using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Topology;
-using System.Diagnostics;
-using System.Collections.Generic;
 
 namespace WakeOnLan.Testing
 {
-    [TestClass]
+    [TestFixture]
     public class ByteArrayExtensionsTests : TestHelper
     {
-        [TestMethod]
+        [Test]
         public void CountFromLeft()
         {
             byte[] mask = Ba(0x00, 0x00, 0x00, 0x01);
@@ -51,15 +49,15 @@ namespace WakeOnLan.Testing
 
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void CounFromLeftEx()
         {
             ByteArrayExtensions.CountFromLeft(null, true);
         }
 
-        [TestMethod]
+        [Test]
         public void CountFromRight()
         {
             byte[] mask = Ba(0x00, 0x00, 0x00, 0x01);
@@ -99,15 +97,15 @@ namespace WakeOnLan.Testing
 
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void CountFromRightEx()
         {
             ByteArrayExtensions.CountFromRight(null, true);
         }
 
-        [TestMethod]
+        [Test]
         public void BitStreamFromLeft()
         {
             var a = new TestingCollection<byte[], string>
@@ -136,10 +134,10 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         public void BitStreamFromRight()
         {
-            var a = new TestingCollection<byte[], string> { 
+            var a = new TestingCollection<byte[], string> {
                 new BaSTestItem(Ba (0x00, 0x00, 0x00, 0x01 ), "00000000000000000000000000000001"),
                 new BaSTestItem(Ba (0x00, 0x00, 0x00, 0x80 ), "00000000000000000000000010000000"),
                 new BaSTestItem(Ba (0x80, 0x00, 0x00, 0x80 ), "10000000000000000000000010000000"),
@@ -162,12 +160,12 @@ namespace WakeOnLan.Testing
                 }
                 Debug.WriteLine(".");
             }
-            
+
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void BitStreamFromRightEx()
         {
             var res = ByteArrayExtensions.ToBitStream(null, false);
@@ -177,7 +175,7 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         public void RepresentsValidNetMask()
         {
             var a = new TestingCollection<byte[], bool> {
@@ -203,15 +201,15 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void RepresentsValidNetMaskEx()
         {
             ByteArrayExtensions.RepresentsValidNetMask(null);
         }
 
-        [TestMethod]
+        [Test]
         public void ToBinaryString()
         {
             byte[] mask = Ba(0x00, 0x00, 0x00, 0x01);
@@ -233,22 +231,22 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(expected, str);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void ToBinaryStringEx()
         {
             ByteArrayExtensions.ToBinaryString(null, '.');
         }
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void ToBinaryStringEx1()
         {
             ByteArrayExtensions.ToBinaryString(null);
         }
 
-        [TestMethod]
+        [Test]
         public void Not()
         {
 
@@ -280,15 +278,15 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void NotEx()
         {
             var re = ByteArrayExtensions.Not(null);
         }
 
-        [TestMethod]
+        [Test]
         public void Or()
         {
             var a = new TestingCollection<byte[], byte[], byte[]>
@@ -323,9 +321,9 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void OrEx()
         {
             byte[] b1 = null;
@@ -333,9 +331,9 @@ namespace WakeOnLan.Testing
             byte[] re = ByteArrayExtensions.Or(b1, b2);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void OrEx1()
         {
             byte[] b1 = new byte[0];
@@ -343,7 +341,7 @@ namespace WakeOnLan.Testing
             byte[] re = ByteArrayExtensions.Or(b1, b2);
         }
 
-        [TestMethod]
+        [Test]
         public void And()
         {
             var a = new TestingCollection<byte[], byte[], byte[]>
@@ -380,9 +378,9 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void AndEx()
         {
             byte[] b1 = null;
@@ -390,9 +388,9 @@ namespace WakeOnLan.Testing
             byte[] re = ByteArrayExtensions.And(b1, b2);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void AndEx1()
         {
             byte[] b1 = new byte[0];
@@ -400,7 +398,7 @@ namespace WakeOnLan.Testing
             byte[] re = ByteArrayExtensions.And(b1, b2);
         }
 
-        [TestMethod]
+        [Test]
         public void Xor()
         {
             var a = new TestingCollection<byte[], byte[], byte[]>
@@ -435,9 +433,9 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void XorEx()
         {
             byte[] b1 = null;
@@ -445,9 +443,9 @@ namespace WakeOnLan.Testing
             byte[] re = ByteArrayExtensions.Xor(b1, b2);
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentNullException))]
-        [TestCategory("ArgumentNullException Tests")]
+        [Category("ArgumentNullException Tests")]
         public void XorEx1()
         {
             byte[] b1 = new byte[0];

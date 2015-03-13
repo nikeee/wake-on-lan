@@ -1,17 +1,14 @@
-﻿using System;
+﻿using NUnit.Framework;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Net;
 using System.Net.Topology;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace WakeOnLan.Testing
 {
-    [TestClass]
+    [TestFixture]
     class NetMaskExtensionsTests : TestHelper
     {
-        [TestMethod]
+        [Test]
         public void GetSiblings()
         {
             var a = new List<IPAddress> {
