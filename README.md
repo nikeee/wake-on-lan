@@ -1,4 +1,4 @@
-# Wake-On-LAN
+# Wake-On-LAN [![Build Status](https://travis-ci.org/nikeee/wake-on-lan.svg?branch=master)](https://travis-ci.org/nikeee/wake-on-lan)
 
 A simple library for sending magic packets and performing IP address operations.
 
