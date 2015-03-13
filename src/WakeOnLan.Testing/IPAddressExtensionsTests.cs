@@ -1,16 +1,14 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Net;
-using System.Linq;
 using System.Net.Topology;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 
 namespace WakeOnLan.Testing
 {
-    [TestClass]
+    [TestFixture]
     public class IPAddressExtensionsTests : TestHelper
     {
-        [TestMethod]
+        [Test]
         public void GetNetworkPrefix()
         {
             var ip = new IPAddress(Ba(10, 20, 30, 40));
@@ -23,8 +21,8 @@ namespace WakeOnLan.Testing
 
             // TODO: Add more tests!
         }
-        
-        [TestMethod]
+
+        [Test]
         [ExpectedException(typeof(NotSupportedException))]
         public void GetNetworkPrefixEx()
         {
@@ -34,7 +32,7 @@ namespace WakeOnLan.Testing
             IPAddress prefix = ip.GetNetworkPrefix(m);
         }
 
-        [TestMethod]
+        [Test]
         public void GetHostIdentifier()
         {
             var ip = new IPAddress(Ba(10, 20, 30, 40));
@@ -48,7 +46,7 @@ namespace WakeOnLan.Testing
             // TODO: Add more tests!
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(NotSupportedException))]
         public void GetHostIdentifierEx()
         {
@@ -58,7 +56,7 @@ namespace WakeOnLan.Testing
             IPAddress id = ip.GetHostIdentifier(m);
         }
 
-        [TestMethod]
+        [Test]
         public void GetBroadcastAddress()
         {
             // TODO: Implement

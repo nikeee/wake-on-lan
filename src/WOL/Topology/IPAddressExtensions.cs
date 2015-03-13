@@ -99,7 +99,7 @@ namespace System.Net.Topology
             if (includeBroadcast)
             {
                 var broadcastAddress = address.GetBroadcastAddress(mask);
-                if (address.Equals(broadcastAddress) || (address.Equals(broadcastAddress) && !alreadyReturnedSelf))
+                if (!address.Equals(broadcastAddress) || (address.Equals(broadcastAddress) && !alreadyReturnedSelf))
                     yield return broadcastAddress;
             }
         }

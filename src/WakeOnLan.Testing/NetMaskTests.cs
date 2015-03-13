@@ -1,15 +1,15 @@
-﻿using System;
+﻿using NUnit.Framework;
+using System;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Net;
 using System.Net.Topology;
 
 namespace WakeOnLan.Testing
 {
-    [TestClass]
+    [TestFixture]
     public class NetMaskTests : TestHelper
     {
-        [TestMethod]
+        [Test]
         public void Constructor()
         {
             var ip = IPAddress.Parse("255.255.248.0");
@@ -21,7 +21,7 @@ namespace WakeOnLan.Testing
             var m2 = new NetMask(21);
             Assert.IsTrue(m1 == m2);
 
-            var m3 = new NetMask(Ba( 255, 255, 248, 0 ));
+            var m3 = new NetMask(Ba(255, 255, 248, 0));
             Assert.IsTrue(m1 == m3);
 
             var m4 = new NetMask((byte[])null);
@@ -35,15 +35,15 @@ namespace WakeOnLan.Testing
 
         }
 
-        [TestMethod]
+        [Test]
         [ExpectedException(typeof(ArgumentException))]
-        [TestCategory("ArgumentException Tests")]
+        [Category("ArgumentException Tests")]
         public void ConstructorEx()
         {
-            var m3 = new NetMask(Ba( 255, 255, 248, 0, 0 ));
+            var m3 = new NetMask(Ba(255, 255, 248, 0, 0));
         }
 
-        [TestMethod]
+        [Test]
         public void EqualityOperator()
         {
             var m1 = new NetMask(255, 255, 248, 0);
@@ -56,21 +56,21 @@ namespace WakeOnLan.Testing
             Assert.IsTrue(m1 != m3);
         }
 
-        [TestMethod]
+        [Test]
         public void Empty()
         {
             Assert.IsTrue(new NetMask(0, 0, 0, 0) == NetMask.Empty);
             Assert.IsTrue(new NetMask(0) == NetMask.Empty);
         }
 
-        [TestMethod]
+        [Test]
         public void Length()
         {
             Assert.AreEqual(32, NetMask.MaskLength * 8);
             Assert.AreEqual(32, NetMask.Empty.AddressLength);
         }
 
-        [TestMethod]
+        [Test]
         public void Cidr()
         {
             var a = new TestingCollection<byte[], int> {
@@ -95,7 +95,7 @@ namespace WakeOnLan.Testing
             }
         }
 
-        [TestMethod]
+        [Test]
         public void ToStringTest()
         {
             //var m1 = new NetMask(255, 255, 248, 0);
@@ -105,7 +105,7 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(expected, str);
         }
 
-        [TestMethod]
+        [Test]
         public void GetMaskBytes()
         {
             var actual = Ba(255, 255, 248, 0);
@@ -114,7 +114,7 @@ namespace WakeOnLan.Testing
             Assert.IsTrue(actual.SequenceEqual(expected));
         }
 
-        [TestMethod]
+        [Test]
         public void EqualsImplementation()
         {
             int a = 2;
@@ -132,7 +132,7 @@ namespace WakeOnLan.Testing
             Assert.IsTrue(m1.Equals(m));
         }
 
-        [TestMethod]
+        [Test]
         public void Or()
         {
             var m1 = new NetMask(255, 255, 248, 0);
@@ -160,7 +160,7 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(NetMask.Empty, mOr);
         }
 
-        [TestMethod]
+        [Test]
         public void AndMask()
         {
             var m1 = new NetMask(255, 255, 255, 0);
@@ -171,13 +171,13 @@ namespace WakeOnLan.Testing
 
             mAnd = m2 & m1;
             Assert.AreEqual(m2, mAnd);
-            
+
             mAnd = NetMask.BitwiseAnd(m1, m2);
             Assert.AreEqual(m2, mAnd);
 
             mAnd = NetMask.BitwiseAnd(m2, m1);
             Assert.AreEqual(m2, mAnd);
-            
+
             mAnd = NetMask.BitwiseAnd(m2, m2);
             Assert.AreEqual(m2, mAnd);
 
@@ -192,8 +192,8 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(NetMask.Empty, mAnd);
         }
 
-        
-        [TestMethod]
+
+        [Test]
         public void AndIp()
         {
             var m1 = new NetMask(255, 255, 255, 0);
@@ -214,12 +214,12 @@ namespace WakeOnLan.Testing
 
             mAnd = NetMask.BitwiseAnd(m1, (IPAddress)null);
             Assert.AreEqual(IPAddress.Any, mAnd);
-            
+
             mAnd = NetMask.BitwiseAnd((NetMask)null, ip1);
             Assert.AreEqual(IPAddress.Any, mAnd);
         }
 
-        [TestMethod]
+        [Test]
         public void MaskValidity()
         {
             var b1 = Ba(255, 255, 255, 255);
@@ -261,13 +261,13 @@ namespace WakeOnLan.Testing
             b1 = Ba(255, 0, 0, 255);
             valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
-            
+
             b1 = Ba(255, 255, 0, 255);
             valid = NetMask.GetIsValidNetMask(b1);
             Assert.AreEqual(false, valid);
         }
 
-        [TestMethod]
+        [Test]
         public void Expand()
         {
             var expected = new NetMask(1);
@@ -283,7 +283,7 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
+        [Test]
         public void Abbreviate()
         {
             var expected = new NetMask(0);
