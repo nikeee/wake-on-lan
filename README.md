@@ -1,4 +1,4 @@
-# Wake-On-LAN [![Build Status](https://travis-ci.org/nikeee/wake-on-lan.svg?branch=master)](https://travis-ci.org/nikeee/wake-on-lan)
+# Wake-On-LAN [![Build Status](https://travis-ci.org/nikeee/wake-on-lan.svg?branch=master)](https://travis-ci.org/nikeee/wake-on-lan) [![NuGet version](https://img.shields.io/nuget/v/WakeOnLan.svg)](https://nuget.org/packages/WakeOnLan)
 
 A simple library for sending magic packets and performing IP address operations.
 
