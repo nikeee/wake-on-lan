@@ -33,7 +33,7 @@ namespace System.Net
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
         /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, byte[] macAddress)
         {
             Net.SendWol.Send(target, macAddress);
@@ -44,7 +44,7 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, PhysicalAddress macAddress)
         {
             Net.SendWol.Send(target, macAddress);
@@ -57,8 +57,8 @@ namespace System.Net
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
         /// <param name="password">The SecureOn password of the client.</param>
         /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
-        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
             Net.SendWol.Send(target, macAddress, password);
@@ -70,8 +70,8 @@ namespace System.Net
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
         /// <param name="password">The SecureOn password of the client.</param>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
-        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
             Net.SendWol.Send(target, macAddress, password);
@@ -103,7 +103,7 @@ namespace System.Net
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
         /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte[] macAddress)
         {
@@ -115,7 +115,7 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, PhysicalAddress macAddress)
         {
@@ -129,8 +129,8 @@ namespace System.Net
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
         /// <param name="password">The SecureOn password of the client.</param>
         /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
-        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
@@ -143,8 +143,8 @@ namespace System.Net
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
         /// <param name="password">The SecureOn password of the client.</param>
-        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
-        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {

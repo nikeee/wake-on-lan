@@ -1,29 +1,25 @@
 ﻿namespace System.Net
 {
-    /// <summary>
-    /// Stellt ein SecureOn-Passwort bereit.
-    /// </summary>
+    /// <summary>Provides a SecureOn password.</summary>
     [Serializable]
     public sealed class SecureOnPassword
     {
         private readonly byte[] _password;
 
-        /// <summary>
-        /// Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
-        /// </summary>
-        /// <param name="password">Das Passwort als System.Byte-Array.</param>
-        /// <exception cref="ArgumentNullException">password is null.</exception>
-        /// <exception cref="System.ArgumentException">Das System.Byte-Array password hat eine Länge ungleich 6.</exception>
+        /// <summary>Initializes a new instance of <see cref="SecureOnPassword"/> with the given password.</summary>
+        /// <param name="password">The password as <see cref="Byte"/> array.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
+        /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array password is not 6.</exception>
         public SecureOnPassword(byte[] password)
         {
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
             if (password.Length != 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidPasswordLength);
             _password = password;
         }
 
-        /// <summary>Ruft die Passwortdaten des SecureOn-Passworts ab.</summary>
+        /// <summary>Gets the buffer of the password.</summary>
         public byte[] GetPasswordBytes()
         {
             if (_password == null)
@@ -33,23 +29,21 @@
             return buffer;
         }
 
-        /// <summary>
-        /// Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
-        /// </summary>
-        /// <param name="password">Das Passwort als Zeichenfolge.</param>
-        /// <remarks >Verwendet System.Text.Encoding.Default als Kodierung.</remarks>
+        /// <summary>Initializes a new instance of <see cref="SecureOnPassword"/> with the given password.</summary>
+        /// <param name="password">The password as <see cref="String"/>.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
+        /// <remarks>Uses <see cref="Text.Encoding.Default" /> as encoding.</remarks>
         public SecureOnPassword(string password)
             : this(password, Text.Encoding.Default)
         { }
 
 
-        /// <summary>
-        /// Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
-        /// </summary>
-        /// <param name="password">Das Passwort als Zeichenfolge.</param>
-        /// <param name="encoding">Die System.Text.Encoding-Instanz für das Passwort.</param>
-        /// <exception cref="System.ArgumentNullException">encoding ist null.</exception>
-        /// <exception cref="System.ArgumentException">Das System.Byte-Array, welches aus dem Passwort resultiert, hat eine Länge größer 6.</exception>
+        /// <summary>Initializes a new instance of <see cref="SecureOnPassword"/> with the given password.</summary>
+        /// <param name="password">The password as <see cref="String"/>.</param>
+        /// <param name="encoding">The <see cref="Text.Encoding"/> instance to use for the password.</param>
+        /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="encoding"/> is null.</exception>
+        /// <exception cref="ArgumentException">Das System.Byte-Array, welches aus dem Passwort resultiert, hat eine Länge größer 6.</exception>
         public SecureOnPassword(string password, Text.Encoding encoding)
         {
             if (password == null)
@@ -74,8 +68,8 @@
             }
         }
 
-        /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
-        /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        /// <summary>Converts the <see cref="SecureOnPassword"/> to dash notation.</summary>
+        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as das notation.</returns>
         public override string ToString() => ToString("X2");
 
         /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
@@ -88,8 +82,8 @@
             return string.Join("-", f);
         }
 
-        /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
-        /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        /// <summary>Converts the <see cref="SecureOnPassword"/> to dash notation.</summary>
+        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as das notation.</returns>
         public string ToString(IFormatProvider format)
         {
             var f = new string[6];
