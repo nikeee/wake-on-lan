@@ -30,8 +30,8 @@ namespace System.Net
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse mit der MAC-Adresse der Instanz.
         /// </summary>
         /// <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
         public static void SendWol(this PhysicalAddress address, SecureOnPassword password)
         {
             if (address == null)
@@ -57,8 +57,8 @@ namespace System.Net
         /// </summary>
         /// <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
         public static void SendWol(this PhysicalAddress address, IPAddress target, SecureOnPassword password)
         {
             if (address == null)
@@ -86,8 +86,8 @@ namespace System.Net
         /// </summary>
         /// <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
         public static void SendWol(this PhysicalAddress address, IPEndPoint target, SecureOnPassword password)
         {
             if (address == null)
@@ -105,7 +105,7 @@ namespace System.Net
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
         /// </summary>
         /// <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this PhysicalAddress address)
         {
             if (address == null)
@@ -118,9 +118,9 @@ namespace System.Net
         /// Sendet ein Wake-On-LAN-Signal an die Broadcast-IP-Adresse, was als asynchroner Vorgang mithilfe eines Taskobjekts angegeben wird.
         /// </summary>
         /// <param name="address">Die Instanz der PhysicalAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, SecureOnPassword password)
         {
             if (address == null)
@@ -134,7 +134,7 @@ namespace System.Net
         /// </summary>
         /// <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPAddress target)
         {
             if (address == null)
@@ -149,9 +149,9 @@ namespace System.Net
         /// </summary>
         /// <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPAddress target, SecureOnPassword password)
         {
             if (address == null)
@@ -166,7 +166,7 @@ namespace System.Net
         /// </summary>
         /// <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPEndPoint target)
         {
             if (address == null)
@@ -181,9 +181,9 @@ namespace System.Net
         /// </summary>
         /// <param name="address">Die Instanz der MacAddress, die im Wake-On-LAN-Signal angesprochen werden soll.</param>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this PhysicalAddress address, IPEndPoint target, SecureOnPassword password)
         {
             if (address == null)

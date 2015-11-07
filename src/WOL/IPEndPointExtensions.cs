@@ -32,8 +32,8 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
+        /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
         public static void SendWol(this IPEndPoint target, byte[] macAddress)
         {
             Net.SendWol.Send(target, macAddress);
@@ -44,7 +44,7 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
         public static void SendWol(this IPEndPoint target, PhysicalAddress macAddress)
         {
             Net.SendWol.Send(target, macAddress);
@@ -55,10 +55,10 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
         public static void SendWol(this IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
             Net.SendWol.Send(target, macAddress, password);
@@ -69,9 +69,9 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
         public static void SendWol(this IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
             Net.SendWol.Send(target, macAddress, password);
@@ -91,7 +91,7 @@ namespace System.Net
         /// <param name="mac3">Viertes MAC-Adress-Byte.</param>
         /// <param name="mac4">Fünftes MAC-Adress-Byte.</param>
         /// <param name="mac5">Sechstes MAC-Adress-Byte.</param>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5)
         {
             return Net.SendWol.SendAsync(target, mac0, mac1, mac2, mac3, mac4, mac5);
@@ -102,9 +102,9 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte[] macAddress)
         {
             return Net.SendWol.SendAsync(target, macAddress);
@@ -115,8 +115,8 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, PhysicalAddress macAddress)
         {
             return Net.SendWol.SendAsync(target, macAddress);
@@ -127,11 +127,11 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentException">Die Länge der System.Byte-Array macAddress ist nicht 6.</exception>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentException">The length of the <see cref="T:System.Byte" /> array macAddress is not 6.</exception>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
             return Net.SendWol.SendAsync(target, macAddress, password);
@@ -142,10 +142,10 @@ namespace System.Net
         /// </summary>
         /// <param name="target">Der Ziel-IPEndPoint.</param>
         /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
+        /// <param name="password">The SecureOn password of the client.</param>
+        /// <exception cref="ArgumentNullException">macAddress is null.</exception>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
+        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
             return Net.SendWol.SendAsync(target, macAddress, password);

@@ -12,7 +12,7 @@
         /// Initialisiert eine neue Instanz der System.Net.SecureOnPassword-Klasse mit dem angegebenen Passwort.
         /// </summary>
         /// <param name="password">Das Passwort als System.Byte-Array.</param>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
+        /// <exception cref="ArgumentNullException">password is null.</exception>
         /// <exception cref="System.ArgumentException">Das System.Byte-Array password hat eine Länge ungleich 6.</exception>
         public SecureOnPassword(byte[] password)
         {
