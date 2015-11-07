@@ -233,7 +233,7 @@ namespace System.Net
         private static byte[] GetWolPacket(byte[] macAddress)
         {
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
             if (macAddress.Length != 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidMacAddressLength);
 
@@ -258,11 +258,11 @@ namespace System.Net
         private static byte[] GetWolPacket(byte[] macAddress, byte[] password)
         {
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
             if (macAddress.Length != 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidMacAddressLength);
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
             if (password.Length != 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidPasswordLength);
 
