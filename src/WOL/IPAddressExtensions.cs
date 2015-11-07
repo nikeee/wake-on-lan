@@ -149,10 +149,7 @@ namespace System.Net
         /// </summary>
         /// <param name="destination">Die Ziel-IPAdress</param>
         /// <returns>Eine <see cref="T:System.Net.ArpRequestResult">ArpRequestResult</see>-Instanz, welche die Ergebnisse der Anfrage enthält.</returns>
-        public static ArpRequestResult SendArpRequest(this IPAddress destination)
-        {
-            return ArpRequest.Send(destination);
-        }
+        public static ArpRequestResult SendArpRequest(this IPAddress destination) => ArpRequest.Send(destination);
 
         #endregion
         #region TAP
@@ -288,10 +285,7 @@ namespace System.Net
         /// </summary>
         /// <param name="destination">Die Ziel-IPAdress</param>
         /// <returns>Ein asynchroner Task, welcher einen ARP-Request sendet.</returns>
-        public static Task<ArpRequestResult> SendArpRequestAsync(this IPAddress destination)
-        {
-            return ArpRequest.SendAsync(destination);
-        }
+        public static Task<ArpRequestResult> SendArpRequestAsync(this IPAddress destination) => ArpRequest.SendAsync(destination);
 
         #endregion
 

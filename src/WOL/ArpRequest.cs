@@ -38,10 +38,7 @@ namespace System.Net
         /// </summary>
         /// <param name="destination">Die Ziel-IPAdress</param>
         /// <returns>Ein asynchroner Task, welcher einen ARP-Request sendet.</returns>
-        public static Task<ArpRequestResult> SendAsync(IPAddress destination)
-        {
-            return Task.Run(() => Send(destination));
-        }
+        public static Task<ArpRequestResult> SendAsync(IPAddress destination) => Task.Run(() => Send(destination));
 #endif
     }
 }

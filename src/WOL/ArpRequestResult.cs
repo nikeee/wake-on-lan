@@ -9,10 +9,10 @@ namespace System.Net
     public class ArpRequestResult
     {
         /// <summary>Falls Fehler bei der Protokollanfrage auftreten, werden diese in dieser Eigenschaft abgelegt. Andernfalls null.</summary>
-        public Exception Exception { get; private set; }
+        public Exception Exception { get; }
 
         /// <summary>Die aufgelöste physikalische Adresse.</summary>
-        public PhysicalAddress Address { get; private set; }
+        public PhysicalAddress Address { get; }
 
         /// <summary>Erstellt eine neue ArpRequestResult-Instanz</summary>
         /// <param name="address">Die physikalische Adresse</param>

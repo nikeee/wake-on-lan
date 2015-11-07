@@ -41,7 +41,7 @@ namespace System.Net
         public static void Send(IPEndPoint target, byte[] macAddress)
         {
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
 
             byte[] packet = GetWolPacket(macAddress);
             SendPacket(target, packet);
@@ -60,10 +60,9 @@ namespace System.Net
         public static void Send(IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
-
+                throw new ArgumentNullException(nameof(macAddress));
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
 
             byte[] passwordBuffer = password.GetPasswordBytes();
             byte[] packet = GetWolPacket(macAddress, passwordBuffer);
@@ -80,7 +79,7 @@ namespace System.Net
         public static void Send(IPEndPoint target, PhysicalAddress macAddress)
         {
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
 
             byte[] packet = GetWolPacket(macAddress.GetAddressBytes());
             SendPacket(target, packet);
@@ -142,10 +141,9 @@ namespace System.Net
         public static void Send(IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
-
+                throw new ArgumentNullException(nameof(macAddress));
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
 
             byte[] passwordBuffer = password.GetPasswordBytes();
             byte[] packet = GetWolPacket(macAddress.GetAddressBytes(), passwordBuffer);
@@ -189,9 +187,9 @@ namespace System.Net
         public static Task SendAsync(IPEndPoint target, byte[] macAddress)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
             if (macAddress.Length != 6)
                 throw new ArgumentException(Localization.ArgumentExceptionInvalidMacAddressLength);
 
@@ -211,11 +209,11 @@ namespace System.Net
         public static Task SendAsync(IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
 
             var passwordBuffer = password.GetPasswordBytes();
             var packet = GetWolPacket(macAddress, passwordBuffer);
@@ -232,9 +230,9 @@ namespace System.Net
         public static Task SendAsync(IPEndPoint target, PhysicalAddress macAddress)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
 
             var p = GetWolPacket(macAddress.GetAddressBytes());
             return SendPacketAsync(target, p);
@@ -253,11 +251,11 @@ namespace System.Net
         public static Task SendAsync(IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
             if (target == null)
-                throw new ArgumentNullException("target");
+                throw new ArgumentNullException(nameof(target));
             if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
+                throw new ArgumentNullException(nameof(macAddress));
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
 
             var passwordBuffer = password.GetPasswordBytes();
             var p = GetWolPacket(macAddress.GetAddressBytes(), passwordBuffer);

@@ -22,7 +22,7 @@ namespace System.Net
         public static void SendWol(this PhysicalAddress address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             IPAddress.Broadcast.SendWol(address.GetAddressBytes());
         }
@@ -35,7 +35,7 @@ namespace System.Net
         public static void SendWol(this PhysicalAddress address, SecureOnPassword password)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             IPAddress.Broadcast.SendWol(address.GetAddressBytes(), password);
         }
@@ -47,7 +47,7 @@ namespace System.Net
         public static void SendWol(this PhysicalAddress address, IPAddress target)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             target.SendWol(address.GetAddressBytes());
         }
@@ -62,7 +62,7 @@ namespace System.Net
         public static void SendWol(this PhysicalAddress address, IPAddress target, SecureOnPassword password)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             target.SendWol(address.GetAddressBytes(), password);
         }
@@ -76,7 +76,7 @@ namespace System.Net
         public static void SendWol(this PhysicalAddress address, IPEndPoint target)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             target.SendWol(address.GetAddressBytes());
         }
@@ -91,7 +91,7 @@ namespace System.Net
         public static void SendWol(this PhysicalAddress address, IPEndPoint target, SecureOnPassword password)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             target.SendWol(address.GetAddressBytes(), password);
         }
@@ -109,7 +109,7 @@ namespace System.Net
         public static Task SendWolAsync(this PhysicalAddress address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             return IPAddress.Broadcast.SendWolAsync(address.GetAddressBytes());
         }
@@ -124,7 +124,7 @@ namespace System.Net
         public static Task SendWolAsync(this PhysicalAddress address, SecureOnPassword password)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             return IPAddress.Broadcast.SendWolAsync(address.GetAddressBytes(), password);
         }
@@ -138,7 +138,7 @@ namespace System.Net
         public static Task SendWolAsync(this PhysicalAddress address, IPAddress target)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             return target.SendWolAsync(address.GetAddressBytes());
         }
@@ -155,7 +155,7 @@ namespace System.Net
         public static Task SendWolAsync(this PhysicalAddress address, IPAddress target, SecureOnPassword password)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             return target.SendWolAsync(address.GetAddressBytes(), password);
         }
@@ -170,7 +170,7 @@ namespace System.Net
         public static Task SendWolAsync(this PhysicalAddress address, IPEndPoint target)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             return target.SendWolAsync(address.GetAddressBytes());
         }
@@ -187,7 +187,7 @@ namespace System.Net
         public static Task SendWolAsync(this PhysicalAddress address, IPEndPoint target, SecureOnPassword password)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             return target.SendWolAsync(address.GetAddressBytes(), password);
         }
@@ -204,11 +204,11 @@ namespace System.Net
         public static PhysicalAddressType GetAddressType(this PhysicalAddress address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             var bytes = address.GetAddressBytes();
             if (bytes == null || bytes.Length < 1)
-                throw new ArgumentException("Invalid PhysicalAddress.");
+                throw new ArgumentException($"Invalid {nameof(address)}.");
             return (bytes[0] & 0x1) == 0 ? PhysicalAddressType.Unicast : PhysicalAddressType.Multicast;
         }
 
@@ -220,11 +220,11 @@ namespace System.Net
         public static PhysicalAddressAdministrator GetAddressAdministrator(this PhysicalAddress address)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
 
             var bytes = address.GetAddressBytes();
             if (bytes == null || bytes.Length < 1)
-                throw new ArgumentException("Invalid PhysicalAddress.");
+                throw new ArgumentException($"Invalid {nameof(address)}.");
             return (bytes[0] & 0x2) == 0 ? PhysicalAddressAdministrator.Global : PhysicalAddressAdministrator.Local;
         }
 

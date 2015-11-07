@@ -52,10 +52,10 @@
         /// <exception cref="System.ArgumentException">Das System.Byte-Array, welches aus dem Passwort resultiert, hat eine Länge größer 6.</exception>
         public SecureOnPassword(string password, Text.Encoding encoding)
         {
-            if (encoding == null)
-                throw new ArgumentNullException("encoding");
             if (password == null)
-                throw new ArgumentNullException("password");
+                throw new ArgumentNullException(nameof(password));
+            if (encoding == null)
+                throw new ArgumentNullException(nameof(encoding));
 
             if (string.IsNullOrEmpty(password))
                 _password = new byte[6];
@@ -76,10 +76,7 @@
 
         /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
         /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
-        public override string ToString()
-        {
-            return ToString("X2");
-        }
+        public override string ToString() => ToString("X2");
 
         /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
         /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
@@ -100,6 +97,5 @@
                 f[i] = _password[i].ToString(format);
             return string.Join("-", f);
         }
-
     }
 }
