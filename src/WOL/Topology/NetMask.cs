@@ -6,12 +6,9 @@ namespace System.Net.Topology
     /// <summary>Represents an IPv4 net mask.</summary>
     public sealed class NetMask : INetMask, IEquatable<NetMask>
     {
-        private readonly object _lockObject = new object();
-
         private readonly byte[] _maskBytes;
 
         internal const int MaskLength = 4;
-        private int _cidr;
 
         /// <summary>Represents an empty IPv4 NetMask (all bits set to 0).</summary>
         public static NetMask Empty { get; } = new NetMask();
@@ -20,7 +17,7 @@ namespace System.Net.Topology
         public int AddressLength => MaskLength * 8;
 
         /// <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
-        public int Cidr => _cidr;
+        public int Cidr { get; }
 
         #region Ctors
 
@@ -28,7 +25,7 @@ namespace System.Net.Topology
         public NetMask()
         {
             _maskBytes = new byte[MaskLength];
-            _cidr = 0;
+            Cidr = 0;
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> cloning an existing instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
@@ -39,11 +36,8 @@ namespace System.Net.Topology
 
             var bytes = new byte[MaskLength];
             Buffer.BlockCopy(mask._maskBytes, 0, bytes, 0, MaskLength);
-            lock (_lockObject)
-            {
-                _maskBytes = bytes;
-                UpdateCidr();
-            }
+            _maskBytes = bytes;
+            Cidr = GetCidr(_maskBytes);
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from an array of <see cref="System.Byte"/>.</summary>
@@ -53,7 +47,7 @@ namespace System.Net.Topology
             {
                 // maybe throw ArgumentNullException?
                 _maskBytes = new byte[MaskLength];
-                _cidr = 0;
+                Cidr = 0;
                 return;
             }
 
@@ -61,11 +55,8 @@ namespace System.Net.Topology
                 throw new ArgumentException("Invalid mask length.");
 
             CheckMaskBytes(value); // check if passed mask are a valid mask. if not, throw Exception
-            lock (_lockObject)
-            {
-                _maskBytes = new[] { value[0], value[1], value[2], value[3] };
-                UpdateCidr();
-            }
+            _maskBytes = new[] { value[0], value[1], value[2], value[3] };
+            Cidr = GetCidr(_maskBytes);
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -92,11 +83,8 @@ namespace System.Net.Topology
                 throw new ArgumentException("Invalid CIDR length");
 
             // TODO: Testing(!)
-            lock (_lockObject)
-            {
-                _maskBytes = BytesFromCidrValue(cidr);
-                _cidr = cidr;
-            }
+            _maskBytes = BytesFromCidrValue(cidr);
+            Cidr = cidr;
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
@@ -120,10 +108,10 @@ namespace System.Net.Topology
             return new[] { _maskBytes[0], _maskBytes[1], _maskBytes[2], _maskBytes[3] };
         }
 
-        private void UpdateCidr()
+        private static int GetCidr(byte[] maskBytes)
         {
-            Debug.Assert(_maskBytes.Length == MaskLength);
-            _cidr = _maskBytes.CountFromLeft(true);
+            Debug.Assert(maskBytes.Length == MaskLength);
+            return maskBytes.CountFromLeft(true);
         }
 
         /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
@@ -132,7 +120,7 @@ namespace System.Net.Topology
         /// <remarks>Because <see cref="T:System.Net.Topology.NetMask"/> is a reference type, this method is static. If it were not like this, you could change the value of <see cref="T:System.Net.Topology.NetMask"/>.Empty, for example.</remarks>
         public static NetMask Extend(NetMask mask, int value)
         {
-            int currentCidr = mask._cidr;
+            int currentCidr = mask.Cidr;
             if (currentCidr >= MaskLength * 8)
                 return new NetMask(mask);
             if (currentCidr <= 0)
@@ -151,7 +139,7 @@ namespace System.Net.Topology
         /// <remarks>Because <see cref="T:System.Net.Topology.NetMask"/> is a reference type, this method is static. If it were not like this, you could change the value of <see cref="T:System.Net.Topology.NetMask"/>.Empty, for example.</remarks>
         public static NetMask Abbreviate(NetMask mask, int value)
         {
-            int currentCidr = mask._cidr;
+            int currentCidr = mask.Cidr;
             if (currentCidr < 1)
                 return new NetMask(mask);
             if (currentCidr >= MaskLength * 8)
