@@ -18,7 +18,7 @@ namespace System.Net
         public static ArpRequestResult Send(IPAddress destination)
         {
             if (destination == null)
-                throw new ArgumentNullException("destination");
+                throw new ArgumentNullException(nameof(destination));
 
             int destIp = BitConverter.ToInt32(destination.GetAddressBytes(), 0);
 

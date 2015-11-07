@@ -10,8 +10,6 @@ namespace System.Net.Topology
     {
         private const string OnlyIPv4Supported = "Only IPv4 is currently supported";
 
-
-
         /// <summary>Enumerates through the siblings of an <see cref="T:System.Net.IPAddress"/> in a network. Compliant to RFC 950 (2^n-2).</summary>
         /// <param name="address">The address</param>
         /// <param name="mask">The net mask of the network</param>
@@ -27,9 +25,9 @@ namespace System.Net.Topology
         public static IEnumerable<IPAddress> GetSiblings(this IPAddress address, NetMask mask, SiblingOptions options)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
             if (mask == null)
-                throw new ArgumentNullException("mask");
+                throw new ArgumentNullException(nameof(mask));
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 
@@ -111,9 +109,9 @@ namespace System.Net.Topology
         public static IPAddress GetNetworkPrefix(this IPAddress address, NetMask mask)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
             if (mask == null)
-                throw new ArgumentNullException("mask");
+                throw new ArgumentNullException(nameof(mask));
 
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
@@ -151,9 +149,9 @@ namespace System.Net.Topology
         public static IPAddress GetHostIdentifier(this IPAddress address, NetMask mask)
         {
             if (address == null)
-                throw new ArgumentNullException("address");
+                throw new ArgumentNullException(nameof(address));
             if (mask == null)
-                throw new ArgumentNullException("mask");
+                throw new ArgumentNullException(nameof(mask));
             if (address.AddressFamily != Sockets.AddressFamily.InterNetwork)
                 throw new NotSupportedException(OnlyIPv4Supported);
 

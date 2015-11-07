@@ -9,7 +9,7 @@ namespace System.Net.Topology
         internal static IEnumerable<bool> ToBitStream(this byte[] bytes, bool fromLeft)
         {
             if (bytes == null)
-                throw new ArgumentNullException();
+                throw new ArgumentNullException(nameof(bytes));
 
             if (fromLeft)
             {
@@ -53,21 +53,21 @@ namespace System.Net.Topology
         internal static int CountFromLeft(this byte[] bits, bool value)
         {
             if (bits == null)
-                throw new ArgumentNullException("bits");
+                throw new ArgumentNullException(nameof(bits));
             return CountFromSide(bits, value, true);
         }
 
         internal static int CountFromRight(this byte[] bits, bool value)
         {
             if (bits == null)
-                throw new ArgumentNullException("bits");
+                throw new ArgumentNullException(nameof(bits));
             return CountFromSide(bits, value, false);
         }
 
         internal static string ToBinaryString(this byte[] bits, char separator)
         {
             if (bits == null)
-                throw new ArgumentNullException("bits");
+                throw new ArgumentNullException(nameof(bits));
 
             const int radix = 2;
             const int padding = 8;
@@ -84,7 +84,7 @@ namespace System.Net.Topology
         internal static string ToBinaryString(this byte[] bits)
         {
             if (bits == null)
-                throw new ArgumentNullException("bits");
+                throw new ArgumentNullException(nameof(bits));
 
             const int radix = 2;
             const int padding = 8;
@@ -101,7 +101,7 @@ namespace System.Net.Topology
         internal static bool RepresentsValidNetMask(this byte[] bits)
         {
             if (bits == null)
-                throw new ArgumentNullException("bits");
+                throw new ArgumentNullException(nameof(bits));
 
             int fromLeft = bits.CountFromLeft(true);
             int fromRight = bits.CountFromRight(false);
@@ -113,9 +113,9 @@ namespace System.Net.Topology
         internal static byte[] And(this byte[] b1, byte[] b2)
         {
             if (b1 == null)
-                throw new ArgumentNullException("b1");
+                throw new ArgumentNullException(nameof(b1));
             if (b2 == null)
-                throw new ArgumentNullException("b2");
+                throw new ArgumentNullException(nameof(b2));
 
             if (b1.Length == 1 && b2.Length == 1)
             {
@@ -165,9 +165,9 @@ namespace System.Net.Topology
         internal static byte[] Or(this byte[] b1, byte[] b2)
         {
             if (b1 == null)
-                throw new ArgumentNullException("b1");
+                throw new ArgumentNullException(nameof(b1));
             if (b2 == null)
-                throw new ArgumentNullException("b2");
+                throw new ArgumentNullException(nameof(b2));
 
             if (b1.Length == 1 && b2.Length == 1)
             {
@@ -217,9 +217,9 @@ namespace System.Net.Topology
         internal static byte[] Xor(this byte[] b1, byte[] b2)
         {
             if (b1 == null)
-                throw new ArgumentNullException("b1");
+                throw new ArgumentNullException(nameof(b1));
             if (b2 == null)
-                throw new ArgumentNullException("b2");
+                throw new ArgumentNullException(nameof(b2));
 
             // TODO: Testing
 
@@ -271,7 +271,7 @@ namespace System.Net.Topology
         internal static byte[] Not(this byte[] bits)
         {
             if (bits == null)
-                throw new ArgumentNullException("bits");
+                throw new ArgumentNullException(nameof(bits));
 
             if (bits.Length == 4)
             {

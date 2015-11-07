@@ -26,9 +26,6 @@
 #if NET45
         [Runtime.CompilerServices.MethodImpl(Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
 #endif
-        internal static bool IsOptionSet(SiblingOptions value, SiblingOptions testValue)
-        {
-            return (value & testValue) == testValue;
-        }
+        internal static bool IsOptionSet(SiblingOptions value, SiblingOptions testValue) => (value & testValue) == testValue;
     }
 }
