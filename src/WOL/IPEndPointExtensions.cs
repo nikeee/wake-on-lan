@@ -39,20 +39,6 @@ namespace System.Net
             Net.SendWol.Send(target, macAddress);
         }
 
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static void SendWol(this IPEndPoint target, MacAddress macAddress)
-        {
-            Net.SendWol.Send(target, macAddress);
-        }
-#endif
-
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -77,22 +63,6 @@ namespace System.Net
         {
             Net.SendWol.Send(target, macAddress, password);
         }
-
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static void SendWol(this IPEndPoint target, MacAddress macAddress, SecureOnPassword password)
-        {
-            Net.SendWol.Send(target, macAddress, password);
-        }
-#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
@@ -140,21 +110,6 @@ namespace System.Net
             return Net.SendWol.SendAsync(target, macAddress);
         }
 
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static Task SendWolAsync(this IPEndPoint target, MacAddress macAddress)
-        {
-            return Net.SendWol.SendAsync(target, macAddress);
-        }
-#endif
-
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -181,23 +136,6 @@ namespace System.Net
         {
             return Net.SendWol.SendAsync(target, macAddress, password);
         }
-
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static Task SendWolAsync(this IPEndPoint target, MacAddress macAddress, SecureOnPassword password)
-        {
-            return Net.SendWol.SendAsync(target, macAddress, password);
-        }
-#endif
 
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.

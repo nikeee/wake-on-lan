@@ -85,50 +85,6 @@ namespace System.Net
             SendPacket(target, packet);
         }
 
-#if NET35
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static void Send(IPEndPoint target, MacAddress macAddress)
-        {
-            if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
-
-            byte[] packet = GetWolPacket(macAddress.Address);
-            SendPacket(target, packet);
-        }
-#endif
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <exception cref="System.Net.Sockets.SocketException">Fehler beim Zugriff auf den Socket. Weitere Informationen finden Sie im Abschnitt "Hinweise".</exception>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static void Send(IPEndPoint target, MacAddress macAddress, SecureOnPassword password)
-        {
-            if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
-
-            if (password == null)
-                throw new ArgumentNullException("password");
-
-            byte[] packet = GetWolPacket(macAddress.Address, password.Password);
-            SendPacket(target, packet);
-        }
-#endif
-#endif
-
         /// <summary>
         /// Sendet ein Wake-On-LAN-Signal an einen Client.
         /// </summary>
@@ -267,50 +223,6 @@ namespace System.Net
             var cl = new UdpClient();
             return cl.SendAsync(packet, packet.Length, target).ContinueWith((Task t) => cl.Close());
         }
-
-#if NET35
-#if INCLUDEOBSOLETE
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        /// <param name="password">Das SecureOn-Passwort des Clients.</param>
-        /// <exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <exception cref="System.ArgumentNullException">password ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static Task SendAsync(IPEndPoint target, MacAddress macAddress, SecureOnPassword password)
-        {
-            if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
-
-            if (password == null)
-                throw new ArgumentNullException("password");
-
-            byte[] packet = GetWolPacket(macAddress.Address, password.Password);
-            return SendPacketAsync(target, packet);
-        }
-#endif
-#if INCLUDEOBSOLETE
-        
-        /// <summary>
-        /// Sendet ein Wake-On-LAN-Signal an einen Client.
-        /// </summary>
-        /// <param name="target">Der Ziel-IPEndPoint.</param>
-        /// <param name="macAddress">Die MAC-Adresse des Clients.</param>
-        ///<exception cref="System.ArgumentNullException">macAddress ist null.</exception>
-        /// <returns>Ein asynchroner Task, welcher ein Wake-On-LAN-Signal an einen Client sendet.</returns>
-        [Obsolete(Localization.ObsoleteMacAddress)]
-        public static Task SendAsync(IPEndPoint target, MacAddress macAddress)
-        {
-            if (macAddress == null)
-                throw new ArgumentNullException("macAddress");
-            var p = GetWolPacket(macAddress.Address);
-            return SendPacketAsync(target, p);
-        }
-#endif
-#endif
 
 #endif
         #endregion
