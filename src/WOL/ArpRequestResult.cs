@@ -3,22 +3,24 @@ using System.Text;
 
 namespace System.Net
 {
+    // TODO: rethink the whole exception thing
+
     /// <summary>
-    /// Enthält die Rückgabewerte der ArpRequest.Send-Funktion.
+    /// EnthÃ¤lt die RÃ¼ckgabewerte der ArpRequest.Send-Funktion.
     /// </summary>
     public class ArpRequestResult
     {
         /// <summary>Falls Fehler bei der Protokollanfrage auftreten, werden diese in dieser Eigenschaft abgelegt. Andernfalls null.</summary>
         public Exception Exception { get; }
 
-        /// <summary>Die aufgelöste physikalische Adresse.</summary>
+        /// <summary>Die aufgelÃ¶ste physikalische Adresse.</summary>
         public PhysicalAddress Address { get; }
 
         /// <summary>Erstellt eine neue ArpRequestResult-Instanz</summary>
         /// <param name="address">Die physikalische Adresse</param>
         public ArpRequestResult(PhysicalAddress address)
         {
-            Exception = null;
+            this.Exception = null;
             Address = address;
         }
 
@@ -26,11 +28,11 @@ namespace System.Net
         /// <param name="exception">Der aufgetretene Fehler</param>
         public ArpRequestResult(Exception exception)
         {
-            Exception = exception;
+            this.Exception = exception;
             Address = null;
         }
 
-        /// <summary>Konvertiert ARP-Rückgabewerte in eine Zeichenfolge.</summary>
+        /// <summary>Konvertiert ARP-RÃ¼ckgabewerte in eine Zeichenfolge.</summary>
         public override string ToString()
         {
             var sb = new StringBuilder();
