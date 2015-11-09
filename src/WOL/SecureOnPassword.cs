@@ -43,7 +43,7 @@
         /// <param name="encoding">The <see cref="Text.Encoding"/> instance to use for the password.</param>
         /// <exception cref="ArgumentNullException"><paramref name="password"/> is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="encoding"/> is null.</exception>
-        /// <exception cref="ArgumentException">Das System.Byte-Array, welches aus dem Passwort resultiert, hat eine Länge größer 6.</exception>
+        /// <exception cref="ArgumentException">The <see cref="Byte"/> array wich is created using the password has more elements than 6.</exception>
         public SecureOnPassword(string password, Text.Encoding encoding)
         {
             if (password == null)
@@ -69,11 +69,11 @@
         }
 
         /// <summary>Converts the <see cref="SecureOnPassword"/> to dash notation.</summary>
-        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as das notation.</returns>
+        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as dash notation.</returns>
         public override string ToString() => ToString("X2");
 
-        /// <summary>Konvertiert SecureOn-Passwörter in die Strichnotation.</summary>
-        /// <returns>Eine Zeichenfolge mit einem SecureOn-Passwort in Strichnotation.</returns>
+        /// <summary>Converts the <see cref="SecureOnPassword"/> to dash notation.</summary>
+        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as dash notation.</returns>
         private string ToString(string format)
         {
             var f = new string[6];
@@ -83,7 +83,7 @@
         }
 
         /// <summary>Converts the <see cref="SecureOnPassword"/> to dash notation.</summary>
-        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as das notation.</returns>
+        /// <returns>A <see cref="String"/> representing the <see cref="SecureOnPassword"/> as dash notation.</returns>
         public string ToString(IFormatProvider format)
         {
             var f = new string[6];
