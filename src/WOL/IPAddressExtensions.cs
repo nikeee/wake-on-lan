@@ -9,7 +9,7 @@ using System.Net.Sockets;
 
 namespace System.Net
 {
-    /// <summary>Stellt Erweiterungsmethoden für das Senden von Wake-On-LAN-Signalen bereit.</summary>
+    /// <summary>Provides extension methods for sending Wake On LAN signals (magic packets) to a specific <see cref="IPAddress"/>.</summary>
     public static class IPAddressExtensions
     {
         private const int DefaultWolPort = 7;

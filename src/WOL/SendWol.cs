@@ -8,7 +8,7 @@ using System.Net.Sockets;
 namespace System.Net
 {
     /// <summary>Provides methods for sending Wake On LAN signals (magic packets).</summary>
-    public static class SendWol
+    public static class SendWol // TODO: Rename to MagicPacket
     {
         #region Wol
 
