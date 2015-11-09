@@ -1,5 +1,7 @@
 language: csharp
+mono: 4.0.0
 solution: ./src/WOL.sln
+sudo: false
 install:
   - nuget restore ./src/WOL.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner

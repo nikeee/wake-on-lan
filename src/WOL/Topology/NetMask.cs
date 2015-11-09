@@ -14,7 +14,7 @@ namespace System.Net.Topology
         public static NetMask Empty { get; } = new NetMask();
 
         /// <summary>Gets the length of the net mask in bits.</summary>
-        public int AddressLength => MaskLength * 8;
+        public int AddressLength { get; } = MaskLength * 8;
 
         /// <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
         public int Cidr { get; }
