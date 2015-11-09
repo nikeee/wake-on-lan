@@ -25,6 +25,7 @@ namespace System.Net
         /// <param name="mac5">Sixth MAC Address byte.</param>
         /// <param name="port">The port to send the packet to.</param>
         /// <exception cref="SocketException">An error occurred when accessing the socket. See Remarks section of <see cref="UdpClient.Send(byte[], int, IPEndPoint)"/> for more information.</exception>
+        [Obsolete("Use an other overload of this method.")]
         public static void SendWol(this IPAddress target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5, int port)
         {
             Net.SendWol.Send(new IPEndPoint(target, port), mac0, mac1, mac2, mac3, mac4, mac5);
@@ -39,6 +40,7 @@ namespace System.Net
         /// <param name="mac4">Fifth MAC Address byte.</param>
         /// <param name="mac5">Sixth MAC Address byte.</param>
         /// <exception cref="SocketException">An error occurred when accessing the socket. See Remarks section of <see cref="UdpClient.Send(byte[], int, IPEndPoint)"/> for more information.</exception>
+        [Obsolete("Use an other overload of this method.")]
         public static void SendWol(this IPAddress target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5)
         {
             Net.SendWol.Send(new IPEndPoint(target, DefaultWolPort), mac0, mac1, mac2, mac3, mac4, mac5);
@@ -144,6 +146,7 @@ namespace System.Net
         /// <param name="mac5">Sixth MAC Address byte.</param>
         /// <param name="port">The port to send the packet to.</param>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
+        [Obsolete("Use an other overload of this method.")]
         public static Task SendWolAsync(this IPAddress target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5, int port)
         {
             return Net.SendWol.SendAsync(new IPEndPoint(target, port), mac0, mac1, mac2, mac3, mac4, mac5);
@@ -158,6 +161,7 @@ namespace System.Net
         /// <param name="mac4">Fifth MAC Address byte.</param>
         /// <param name="mac5">Sixth MAC Address byte.</param>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
+        [Obsolete("Use an other overload of this method.")]
         public static Task SendWolAsync(this IPAddress target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5)
         {
             return Net.SendWol.SendAsync(new IPEndPoint(target, DefaultWolPort), mac0, mac1, mac2, mac3, mac4, mac5);

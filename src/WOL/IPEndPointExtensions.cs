@@ -22,6 +22,7 @@ namespace System.Net
         /// <param name="mac3">Viertes MAC-Adress-Byte.</param>
         /// <param name="mac4">Fünftes MAC-Adress-Byte.</param>
         /// <param name="mac5">Sechstes MAC-Adress-Byte.</param>
+        [Obsolete("Use an other overload of this method.")]
         public static void SendWol(this IPEndPoint target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5)
         {
             Net.SendWol.Send(target, mac0, mac1, mac2, mac3, mac4, mac5);
@@ -92,6 +93,7 @@ namespace System.Net
         /// <param name="mac4">Fünftes MAC-Adress-Byte.</param>
         /// <param name="mac5">Sechstes MAC-Adress-Byte.</param>
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
+        [Obsolete("Use an other overload of this method.")]
         public static Task SendWolAsync(this IPEndPoint target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5)
         {
             return Net.SendWol.SendAsync(target, mac0, mac1, mac2, mac3, mac4, mac5);
