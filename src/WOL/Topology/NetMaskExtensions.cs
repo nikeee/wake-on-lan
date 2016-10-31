@@ -7,10 +7,7 @@ namespace System.Net.Topology
         /// <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network. Compliant to RFC 950 (2^n-2).</summary>
         /// <param name="mask">The net mask of the network</param>
         /// <returns>The number of siblings an <see cref="T:System.Net.IPAddress"/> can have in the given network.</returns>
-        public static int GetSiblingCount(this NetMask mask)
-        {
-            return GetSiblingCount(mask, SiblingOptions.ExcludeUnusable);
-        }
+        public static int GetSiblingCount(this NetMask mask) => GetSiblingCount(mask, SiblingOptions.ExcludeUnusable);
 
         /// <summary>Gets the number of siblings an <see cref="T:System.Net.IPAddress"/> can have in a given network.</summary>
         /// <param name="mask">The net mask of the network</param>
@@ -19,7 +16,7 @@ namespace System.Net.Topology
         public static int GetSiblingCount(this NetMask mask, SiblingOptions options)
         {
             if (mask == null)
-                throw new ArgumentNullException("mask");
+                throw new ArgumentNullException(nameof(mask));
 
             bool includeSelf = BitHelper.IsOptionSet(options, SiblingOptions.IncludeSelf);
             bool includeBroadcast = BitHelper.IsOptionSet(options, SiblingOptions.IncludeBroadcast);

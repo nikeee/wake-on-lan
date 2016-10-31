@@ -38,9 +38,6 @@ namespace System.Net.Topology
             0x1f, 0x9f, 0x5f, 0xdf, 0x3f, 0xbf, 0x7f, 0xff
         };
 
-        public static byte ReverseBits(this byte toReverse)
-        {
-            return BitReverseTable[toReverse];
-        }
+        public static byte ReverseBits(this byte toReverse) => BitReverseTable[toReverse];
     }
 }

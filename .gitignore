@@ -17,9 +17,10 @@
 
 *.pfx
 
-# Include dlls if they’re in the NuGet packages directory
-!/packages/*/lib/*.dll
+packages/
 !packages.config
+
+build/
 
 #Allow app.config file
 !app.config

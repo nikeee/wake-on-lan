@@ -13,12 +13,12 @@ namespace System.Net
         /// <summary>
         /// Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
         /// </summary>
-        /// <param name="destination">Die Ziel-IPAdress</param>
+        /// <param name="destination">Destination <see cref="IPAddress"/>.</param>
         /// <returns>Eine <see cref="T:System.Net.ArpRequestResult">ArpRequestResult</see>-Instanz, welche die Ergebnisse der Anfrage enthält.</returns>
         public static ArpRequestResult Send(IPAddress destination)
         {
             if (destination == null)
-                throw new ArgumentNullException("destination");
+                throw new ArgumentNullException(nameof(destination));
 
             int destIp = BitConverter.ToInt32(destination.GetAddressBytes(), 0);
 
@@ -36,12 +36,9 @@ namespace System.Net
         /// <summary>
         /// Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
         /// </summary>
-        /// <param name="destination">Die Ziel-IPAdress</param>
+        /// <param name="destination">Destination <see cref="IPAddress"/>.</param>
         /// <returns>Ein asynchroner Task, welcher einen ARP-Request sendet.</returns>
-        public static Task<ArpRequestResult> SendAsync(IPAddress destination)
-        {
-            return Task.Run(() => Send(destination));
-        }
+        public static Task<ArpRequestResult> SendAsync(IPAddress destination) => Task.Run(() => Send(destination));
 #endif
     }
 }

@@ -145,8 +145,6 @@
     <Compile Include="Localization.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PhysicalAddressExtensions.cs" />
-    <Compile Include="MacAddress.cs" />
-    <Compile Include="MacAddressExtensions.cs" />
     <Compile Include="PhysicalAddressProperties.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureOnPassword.cs" />
