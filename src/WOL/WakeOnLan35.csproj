@@ -177,7 +177,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(TargetPath)" "$(SolutionDir)..\build\lib\net35\$(TargetFileName)"
+    <PostBuildEvent>mkdir "$(SolutionDir)..\build\lib\net35"
+copy "$(TargetPath)" "$(SolutionDir)..\build\lib\net35\$(TargetFileName)"
 copy "$(TargetDir)$(TargetName).XML" "$(SolutionDir)..\build\lib\net35\$(TargetName).xml"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
