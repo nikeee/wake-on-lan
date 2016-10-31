@@ -1,5 +1,4 @@
 language: csharp
-mono: 4.0.0
 solution: ./src/WOL.sln
 sudo: false
 install:
