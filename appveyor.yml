@@ -3,6 +3,8 @@ environment:
   repo_url: https://github.com/nikeee/wake-on-lan
   op_build_user: "Docs Publisher"
   op_build_user_email: "nikeee@users.noreply.github.com"
+  access_token:
+    secure: FinXsIDAgF1MXSP2tN/e8V2LSSEC4XgSnKI7+Dn2ZV5ae0sh0pke8d9s18RS9a5M
 
 before_build:
   - nuget restore src\WOL.sln
@@ -19,7 +21,7 @@ after_build:
         {
             docfx docfx.json
             git config --global credential.helper store
-            Add-Content "$env:USERPROFILE\.git-credentials" "https://$env:ci_access_token@github.com`n"
+            Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
             git config --global user.email $env:op_build_user_email
             git config --global user.name $env:op_build_user
 
