@@ -15,7 +15,7 @@ before_build:
             cinst docfx -y
         }
 
-after_build:
+on_success:
   - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
