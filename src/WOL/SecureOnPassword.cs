@@ -1,4 +1,4 @@
-﻿namespace System.Net
+namespace System.Net
 {
     /// <summary>Provides a SecureOn password.</summary>
     [Serializable]

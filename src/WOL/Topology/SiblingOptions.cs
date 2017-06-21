@@ -1,4 +1,4 @@
-﻿namespace System.Net.Topology
+namespace System.Net.Topology
 {
     /// <summary>Provides options for doing network sibling calculations using a net mask.</summary>
     [Flags]

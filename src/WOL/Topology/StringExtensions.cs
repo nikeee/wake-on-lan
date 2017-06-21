@@ -1,4 +1,4 @@
-﻿
+
 namespace System.Net.Topology
 {
     internal static class StringExtensions
