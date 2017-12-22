@@ -1,3 +1,34 @@
 configuration: Release
+environment:
+  repo_url: https://github.com/nikeee/wake-on-lan
+  op_build_user: "Docs Publisher"
+  op_build_user_email: "nikeee@users.noreply.github.com"
+  access_token:
+    secure: FinXsIDAgF1MXSP2tN/e8V2LSSEC4XgSnKI7+Dn2ZV5ae0sh0pke8d9s18RS9a5M
+
 before_build:
   - nuget restore src\WOL.sln
+  - ps: |
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
+        {
+            git checkout $env:APPVEYOR_REPO_BRANCH -q
+            cinst docfx -y
+        }
+
+on_success:
+  - ps: |
+        if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
+        {
+            docfx docfx.json
+            git config --global credential.helper store
+            Add-Content "$env:USERPROFILE\.git-credentials" "https://$($env:access_token):x-oauth-basic@github.com`n"
+            git config --global user.email $env:op_build_user_email
+            git config --global user.name $env:op_build_user
+
+            git clone $env:repo_url -b gh-pages origin_site -q
+            Copy-Item origin_site/.git _site -recurse
+            CD _site
+            git add -A 2>&1
+            git commit -m "CI Updates" -q
+            git push origin gh-pages -q
+        }

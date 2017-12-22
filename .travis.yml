@@ -1,5 +1,4 @@
 language: csharp
-mono: 4.0.0
 solution: ./src/WOL.sln
 sudo: false
 install:
@@ -7,4 +6,4 @@ install:
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Release /p:PostBuildEventUseInBuild=false /p:PreBuildEvent="" /p:PostBuildEvent="" /p:TargetFrameworkProfile="" ./src/WOL.sln
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/WakeOnLan.Testing/bin/Release/WakeOnLan.Testing.dll
+  - mono --runtime=v4.0 ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/WakeOnLan.Testing/bin/Release/WakeOnLan.Testing.dll
