@@ -93,7 +93,7 @@ mac.SendWol(); // via extension method
 ```
 
 ### Documentation
-There is an online documentation available [here][https://nikeee.github.io/wake-on-lan].
+There is an online documentation available [here](https://nikeee.github.io/wake-on-lan).
 
 ### Install
 Install the [NuGet package](https://nuget.org/packages/WakeOnLan) of this library:
