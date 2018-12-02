@@ -7,13 +7,22 @@ environment:
     secure: FinXsIDAgF1MXSP2tN/e8V2LSSEC4XgSnKI7+Dn2ZV5ae0sh0pke8d9s18RS9a5M
 
 before_build:
-  - nuget restore WakeOnLan.sln
+  - dotnet restore
   - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {
             git checkout $env:APPVEYOR_REPO_BRANCH -q
             cinst docfx -y
         }
+
+build_script:
+  - dotnet build
+test_script:
+  - dotnet test src\WakeOnLan.Tests
+after_build:
+  - dotnet pack src\WakeOnLan -o artifacts
+artifacts:
+  - path: src\WakeOnLan\artifacts\*.nupkg
 
 on_success:
   - ps: |
