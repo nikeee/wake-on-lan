@@ -93,7 +93,7 @@ mac.SendWol(); // via extension method
 ```
 
 ### Documentation
-There is an online documentation available [here][0]. It was built using [sharpDox].
+There is an online documentation available [here][https://nikeee.github.io/wake-on-lan]. It was built using [sharpDox].
 You can download the `.chm` file [here][3].
 
 ### Compatibility
@@ -104,24 +104,17 @@ There is a compiled version for several versions of the .NET Framework. Currentl
 - .NET 4.5
 - .NET 4.5.1
 
-The latest compiled assemblies are in the [build/lib directory][6] of this repository. Alternatively, you can install the needed version using NuGet (see below).
-
-The following support is planned but not available yet:
-- Silverlight
-    - Windows Phone 7
-- Windows Phone 8(.1)
-- Windows Store
-
-### NuGet
-Install the [NuGet package][4] of this library using
-```
+### Install
+Install the [NuGet package][4] of this library:
+```Shell
+# NuGet CLI
 Install-Package WakeOnLan
+# dotnet CLI
+dotnet add package WakeOnLAN
 ```
 
-[0]: https://nikeee.github.io/wake-on-lan
 [sharpDox]: http://www.sharpDox.de
 [SendArp]: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366358(v=vs.85).aspx
 [3]: https://github.com/nikeee/wake-on-lan/raw/master/src/Documentation/WOL45/Documentation.chm
 [4]: https://nuget.org/packages/WakeOnLan
 [5]: http://msdn.microsoft.com/en-us/library/system.net.networkinformation.physicaladdress(v=vs.110).aspx
-[6]: https://github.com/nikeee/wake-on-lan/tree/master/build/lib
