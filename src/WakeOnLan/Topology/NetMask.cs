@@ -11,14 +11,19 @@ namespace System.Net.Topology
     {
         [FieldOffset(0)]
         private readonly uint _mask;
-        [FieldOffset(0)]
-        private readonly byte _maskB0;
-        [FieldOffset(1)]
-        private readonly byte _maskB1;
-        [FieldOffset(2)]
-        private readonly byte _maskB2;
+
+        #region byte-wise fields
+
         [FieldOffset(3)]
+        private readonly byte _maskB0;
+        [FieldOffset(2)]
+        private readonly byte _maskB1;
+        [FieldOffset(1)]
+        private readonly byte _maskB2;
+        [FieldOffset(0)]
         private readonly byte _maskB3;
+
+        #endregion
 
         internal const int MaskLength = 4;
 
@@ -287,7 +292,7 @@ namespace System.Net.Topology
         /// <returns>true if <paramref name="obj" /> is a <see cref="T:System.Net.Topology.NetMask" /> and equal to this instance; otherwise, false.</returns>
         /// <param name="obj">The object to compare with this instance. </param>
         /// <filterpriority>2</filterpriority>
-        public override bool Equals(object obj) => obj != null && Equals((NetMask)obj);
+        public override bool Equals(object obj) => obj != null && obj is NetMask && Equals((NetMask)obj);
 
         /// <summary>Returns a value indicating whether this instance and a specified <see cref="T:System.Net.Topology.NetMask" /> object represent the same other.</summary>
         /// <returns>true if <paramref name="other" /> is equal to this instance; otherwise, false.</returns>
