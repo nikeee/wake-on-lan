@@ -15,7 +15,7 @@ namespace System.Net
         /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, byte[] macAddress)
         {
-            Net.SendWol.Send(target, macAddress);
+            Net.MagicPacket.Send(target, macAddress);
         }
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
@@ -24,7 +24,7 @@ namespace System.Net
         /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, PhysicalAddress macAddress)
         {
-            Net.SendWol.Send(target, macAddress);
+            Net.MagicPacket.Send(target, macAddress);
         }
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
@@ -35,7 +35,7 @@ namespace System.Net
         /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
-            Net.SendWol.Send(target, macAddress, password);
+            Net.MagicPacket.Send(target, macAddress, password);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace System.Net
         /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
         public static void SendWol(this IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
-            Net.SendWol.Send(target, macAddress, password);
+            Net.MagicPacket.Send(target, macAddress, password);
         }
 
         #endregion
@@ -61,7 +61,7 @@ namespace System.Net
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte[] macAddress)
         {
-            return Net.SendWol.SendAsync(target, macAddress);
+            return Net.MagicPacket.SendAsync(target, macAddress);
         }
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
@@ -71,7 +71,7 @@ namespace System.Net
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, PhysicalAddress macAddress)
         {
-            return Net.SendWol.SendAsync(target, macAddress);
+            return Net.MagicPacket.SendAsync(target, macAddress);
         }
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
@@ -83,7 +83,7 @@ namespace System.Net
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, byte[] macAddress, SecureOnPassword password)
         {
-            return Net.SendWol.SendAsync(target, macAddress, password);
+            return Net.MagicPacket.SendAsync(target, macAddress, password);
         }
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
@@ -94,7 +94,7 @@ namespace System.Net
         /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
         public static Task SendWolAsync(this IPEndPoint target, PhysicalAddress macAddress, SecureOnPassword password)
         {
-            return Net.SendWol.SendAsync(target, macAddress, password);
+            return Net.MagicPacket.SendAsync(target, macAddress, password);
         }
         #endregion
     }

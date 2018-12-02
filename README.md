@@ -13,10 +13,10 @@ using System.Net;
 // Using the IPAddess extension
 IPAddress.Broadcast.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
 
-// via core SendWol class
+// via core MagicPacket class
 var endPoint = new IPEndPoint(IPAddress.Broadcast, 7); // You don't have to use Broadcast.
                                                        // Every IP/port-combination is possible.
-SendWol.Send(endPoint, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
+MagicPacket.Send(endPoint, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
 
 // via IPEndPoint extension
 endPoint.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
