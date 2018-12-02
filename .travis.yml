@@ -10,6 +10,7 @@ install:
 
 script:
   - dotnet build -c Release
+  - dotnet test -c Release src/WakeOnLan.Tests/WakeOnLan.Tests.csproj
 
 deploy:
   - provider: releases
