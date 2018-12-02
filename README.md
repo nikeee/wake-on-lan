@@ -68,7 +68,7 @@ if(res.Exception != null)
 }
 else
 {
-    Console.WriteLine("Host MAC address: " + res.Address.ToString());
+    Console.WriteLine($"Host MAC address: {res.Address}");
 }
 ```
 Note that there isn't always an MAC address available although there is a host. The reason for this could be the host is offline and/or the physical address is not cached somewhere.
