@@ -16,7 +16,7 @@ namespace WOL
             Console.WriteLine("Taskte drücken, um Wake-On-Lan-signal zu senden.");
             Console.ReadKey();
 
-            IPAddress.Broadcast.SendWOL(macAddress);
+            IPAddress.Broadcast.SendWol(macAddress);
             
             Console.WriteLine("WOL gesendet.");
             Console.WriteLine("So machen wa das. (Taste drücken zum Beenden)");
