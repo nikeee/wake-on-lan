@@ -143,8 +143,9 @@ namespace WakeOnLan.Testing
             var mOr = m1 | m2;
             Assert.AreEqual(m1, mOr);
 
-            mOr = (NetMask)null | (NetMask)null; // wat
-            Assert.AreEqual(NetMask.Empty, mOr);
+            // NetMask is now a struct and cannot be null.
+            // mOr = (NetMask)null | (NetMask)null; // wat
+            // Assert.AreEqual(NetMask.Empty, mOr);
 
             mOr = NetMask.BitwiseOr(m1, m2);
             Assert.AreEqual(m1, mOr);
@@ -152,14 +153,17 @@ namespace WakeOnLan.Testing
             mOr = NetMask.BitwiseOr(m2, m1);
             Assert.AreEqual(m1, mOr);
 
-            mOr = NetMask.BitwiseOr(m2, null);
-            Assert.AreEqual(m2, mOr);
+            // NetMask is now a struct and cannot be null.
+            // mOr = NetMask.BitwiseOr(m2, null);
+            //Assert.AreEqual(m2, mOr);
 
-            mOr = NetMask.BitwiseOr(null, m1);
-            Assert.AreEqual(m1, mOr);
+            // NetMask is now a struct and cannot be null.
+            // mOr = NetMask.BitwiseOr(null, m1);
+            //Assert.AreEqual(m1, mOr);
 
-            mOr = NetMask.BitwiseOr(null, null);
-            Assert.AreEqual(NetMask.Empty, mOr);
+            // NetMask is now a struct and cannot be null.
+            // mOr = NetMask.BitwiseOr(null, null);
+            //Assert.AreEqual(NetMask.Empty, mOr);
         }
 
         [Test]
@@ -187,11 +191,13 @@ namespace WakeOnLan.Testing
             Assert.AreEqual(m1, mAnd);
 
 
-            mAnd = NetMask.BitwiseAnd((NetMask)null, m1);
-            Assert.AreEqual(NetMask.Empty, mAnd);
+            // NetMask is now a struct and cannot be null.
+            // mAnd = NetMask.BitwiseAnd((NetMask)null, m1);
+            // Assert.AreEqual(NetMask.Empty, mAnd);
 
-            mAnd = NetMask.BitwiseAnd(m2, (NetMask)null);
-            Assert.AreEqual(NetMask.Empty, mAnd);
+            // NetMask is now a struct and cannot be null.
+            // mAnd = NetMask.BitwiseAnd(m2, (NetMask)null);
+            // Assert.AreEqual(NetMask.Empty, mAnd);
         }
 
 
@@ -217,8 +223,9 @@ namespace WakeOnLan.Testing
             mAnd = NetMask.BitwiseAnd(m1, (IPAddress)null);
             Assert.AreEqual(IPAddress.Any, mAnd);
 
-            mAnd = NetMask.BitwiseAnd((NetMask)null, ip1);
-            Assert.AreEqual(IPAddress.Any, mAnd);
+            // NetMask is now a struct and cannot be null.
+            // mAnd = NetMask.BitwiseAnd((NetMask)null, ip1);
+            // Assert.AreEqual(IPAddress.Any, mAnd);
         }
 
         [Test]

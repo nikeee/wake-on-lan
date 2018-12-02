@@ -1,12 +1,24 @@
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Text;
 
 namespace System.Net.Topology
 {
+    // TODO: Use Span<T> when available (instead of byte arrays)
     /// <summary>Represents an IPv4 net mask.</summary>
-    public sealed class NetMask : INetMask, IEquatable<NetMask>
+    [StructLayout(LayoutKind.Explicit)]
+    public struct NetMask : INetMask, IEquatable<NetMask>
     {
-        private readonly byte[] _maskBytes;
+        [FieldOffset(0)]
+        private readonly uint _mask;
+        [FieldOffset(0)]
+        private readonly byte _maskB0;
+        [FieldOffset(1)]
+        private readonly byte _maskB1;
+        [FieldOffset(2)]
+        private readonly byte _maskB2;
+        [FieldOffset(3)]
+        private readonly byte _maskB3;
 
         internal const int MaskLength = 4;
 
@@ -14,49 +26,38 @@ namespace System.Net.Topology
         public static NetMask Empty { get; } = new NetMask();
 
         /// <summary>Gets the length of the net mask in bits.</summary>
-        public int AddressLength { get; } = MaskLength * 8;
+        public int AddressLength => MaskLength * 8;
 
         /// <summary>Gets the amount of set bits from the left side (used in CIDR-Notation of net masks).</summary>
-        public int Cidr { get; }
+        public int Cidr => GetCidr(_mask);
 
         #region Ctors
-
-        /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> with all bits set to 0.</summary>
-        public NetMask()
-        {
-            _maskBytes = new byte[MaskLength];
-            Cidr = 0;
-        }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> cloning an existing instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
         public NetMask(NetMask mask)
         {
             if (mask == null)
                 throw new ArgumentNullException(nameof(mask));
-
-            var bytes = new byte[MaskLength];
-            Buffer.BlockCopy(mask._maskBytes, 0, bytes, 0, MaskLength);
-            _maskBytes = bytes;
-            Cidr = GetCidr(_maskBytes);
+            _maskB0 = _maskB1 = _maskB2 = _maskB3 = 0;
+            _mask = mask._mask;
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from an array of <see cref="System.Byte"/>.</summary>
         public NetMask(byte[] value)
         {
-            if (value == null || value.Length == 0)
-            {
-                // maybe throw ArgumentNullException?
-                _maskBytes = new byte[MaskLength];
-                Cidr = 0;
+            _maskB0 = _maskB1 = _maskB2 = _maskB3 = 0;
+            _mask = 0;
+            if (value == null || value.Length == 0) // maybe throw ArgumentNullException?
                 return;
-            }
 
             if (value.Length != MaskLength)
                 throw new ArgumentException("Invalid mask length.");
 
             CheckMaskBytes(value); // check if passed mask are a valid mask. if not, throw Exception
-            _maskBytes = new[] { value[0], value[1], value[2], value[3] };
-            Cidr = GetCidr(_maskBytes);
+            _maskB0 = value[0];
+            _maskB1 = value[1];
+            _maskB2 = value[2];
+            _maskB3 = value[3];
         }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/> from a given <see cref="T:System.Net.IPAddress"/>.</summary>
@@ -66,12 +67,12 @@ namespace System.Net.Topology
         { }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
-        /// <param name="m1">The first byte.</param>
-        /// <param name="m2">The second byte.</param>
-        /// <param name="m3">The third byte.</param>
-        /// <param name="m4">The fourth byte.</param>
-        public NetMask(byte m1, byte m2, byte m3, byte m4)
-            : this(new[] { m1, m2, m3, m4 })
+        /// <param name="m0">The first byte.</param>
+        /// <param name="m1">The second byte.</param>
+        /// <param name="m2">The third byte.</param>
+        /// <param name="m3">The fourth byte.</param>
+        public NetMask(byte m0, byte m1, byte m2, byte m3)
+            : this(new[] { m0, m1, m2, m3 })
         { }
 
         /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
@@ -81,17 +82,15 @@ namespace System.Net.Topology
             // maybe change parameter type interpretation to CIDR?
             if (cidr > MaskLength * 8)
                 throw new ArgumentException("Invalid CIDR length");
-
-            // TODO: Testing(!)
-            _maskBytes = BytesFromCidrValue(cidr);
-            Cidr = cidr;
+            _maskB0 = _maskB1 = _maskB2 = _maskB3 = 0; // to keep init checks happy
+            _mask = GetUIntFromCidrValue(cidr);
         }
 
-        /// <summary>Creates a new instance of <see cref="T:System.Net.Topology.NetMask"/>.</summary>
-        /// <param name="cidr">The mask represented by the CIDR notation integer.</param>
-        public NetMask(int cidr) :
-            this(unchecked((byte)cidr))
-        { }
+        private NetMask(uint ipv4Mask)
+        {
+            _maskB0 = _maskB1 = _maskB2 = _maskB3 = 0; // to keep init checks happy
+            _mask = ipv4Mask;
+        }
 
         #endregion
 
@@ -103,15 +102,12 @@ namespace System.Net.Topology
 
         /// <summary>Gets the bits of the net mask instance as an BitArray object instance.</summary>
         /// <returns>The bits of the net mask instance as an BitArray object instance.</returns>
-        public byte[] GetMaskBytes()
-        {
-            return new[] { _maskBytes[0], _maskBytes[1], _maskBytes[2], _maskBytes[3] };
-        }
+        public byte[] GetMaskBytes() => new[] { _maskB0, _maskB1, _maskB2, _maskB3 };
 
-        private static int GetCidr(byte[] maskBytes)
+        private static int GetCidr(uint mask)
         {
-            Debug.Assert(maskBytes.Length == MaskLength);
-            return maskBytes.CountFromLeft(true);
+            Debug.Assert(sizeof(uint) == MaskLength);
+            return mask.CountOnesFromLeft();
         }
 
         /// <summary>Extends the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
@@ -128,9 +124,9 @@ namespace System.Net.Topology
 
             int newLength = Math.Max(Math.Min(currentCidr + value, 32), 0);
 
-            var bytes = BytesFromCidrValue(newLength);
+            var m = BytesFromCidrValue(newLength);
 
-            return new NetMask(bytes);
+            return new NetMask(m);
         }
 
         /// <summary>Abbreviates the current <see cref="T:System.Net.Topology.NetMask"/> instance by a given value (CIDR-wise).</summary>
@@ -147,14 +143,16 @@ namespace System.Net.Topology
 
             int newLength = Math.Max(Math.Min(currentCidr - value, 32), 0);
 
-            var bytes = BytesFromCidrValue(newLength);
-            return new NetMask(bytes);
+            var m = BytesFromCidrValue(newLength);
+            return new NetMask(m);
         }
 
         /// <summary>Returns a value indicating whether the given array of <see cref="T:System.Byte"/> represents a valid net mask.</summary>
         /// <returns>True if the given array of <see cref="T:System.Byte"/> represents a valid net mask, otherwise false.</returns>
         public static bool GetIsValidNetMask(byte[] mask) => mask.RepresentsValidNetMask();
 
+        // TODO: Testing(!)
+        [Obsolete]
         private static byte[] BytesFromCidrValue(int cidr)
         {
             int target = MaskLength * 8 - cidr;
@@ -172,6 +170,9 @@ namespace System.Net.Topology
                 bytes[3].ReverseBits()
             };
         }
+
+        // TODO: Testing(!)
+        private static uint GetUIntFromCidrValue(int cidr) => UIntExtensions.CreateWithOnesFromLeft(cidr);
 
         #region Operators
 
@@ -217,10 +218,14 @@ namespace System.Net.Topology
         /// <returns>The bitwised combination using the AND operation.</returns>
         public static IPAddress operator &(NetMask mask, IPAddress address)
         {
-            var ipBytes = address == null ? new byte[MaskLength] : address.GetAddressBytes();
-            var maskBytes = mask == null ? new byte[MaskLength] : mask._maskBytes;
-            byte[] combinedBytes = maskBytes.And(ipBytes);
+            var ipBytes = address == null
+                ? new byte[MaskLength]
+                : address.GetAddressBytes();
+            var maskBytes = mask == null
+                ? new byte[MaskLength]
+                : new byte[] { mask._maskB0, mask._maskB1, mask._maskB2, mask._maskB3 };
 
+            byte[] combinedBytes = maskBytes.And(ipBytes);
             return new IPAddress(combinedBytes);
         }
 
@@ -234,12 +239,7 @@ namespace System.Net.Topology
         /// <param name="n1">The first other.</param>
         /// <param name="n2">The second other.</param>
         /// <returns>The bitwised combination using the AND operation.</returns>
-        public static NetMask operator &(NetMask n1, NetMask n2)
-        {
-            if (n1 == null || n2 == null)
-                return Empty;
-            return new NetMask(n1._maskBytes.And(n2._maskBytes));
-        }
+        public static NetMask operator &(NetMask n1, NetMask n2) => new NetMask(n1._mask & n2._mask);
 
         /// <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the AND operation.</summary>
         /// <param name="n1">The first other.</param>
@@ -254,14 +254,7 @@ namespace System.Net.Topology
         /// <param name="n1">The first other.</param>
         /// <param name="n2">The second other.</param>
         /// <returns>The bitwised combination using the OR operation.</returns>
-        public static NetMask operator |(NetMask n1, NetMask n2)
-        {
-            if (n1 == null)
-                return n2 ?? Empty;
-            if (n2 == null)
-                return n1;
-            return new NetMask(n1._maskBytes.Or(n2._maskBytes));
-        }
+        public static NetMask operator |(NetMask n1, NetMask n2) => new NetMask(n1._mask | n2._mask);
 
         /// <summary>Bitwise combines the two instances of <see cref="T:System.Net.Topology.NetMask" /> using the OR operation.</summary>
         /// <param name="n1">The first other.</param>
@@ -281,9 +274,8 @@ namespace System.Net.Topology
         {
             var sb = new StringBuilder(4 * 3 + 3 * 3 + 32 + 3 + 3); // 255.255.255.255 (11111111111111111111111111111111)
 
-            var arr = new byte[MaskLength];
-            _maskBytes.CopyTo(arr, 0);
-            var asString = _maskBytes.ToBinaryString('.');
+            var arr = new byte[] { _maskB0, _maskB1, _maskB2, _maskB3 };
+            var asString = arr.ToBinaryString('.');
 
             sb.Append(arr[0]).Append('.').Append(arr[1]).Append('.').Append(arr[2]).Append('.').Append(arr[3]).Append(" (");
             sb.Append(asString).Append(')');
@@ -295,58 +287,18 @@ namespace System.Net.Topology
         /// <returns>true if <paramref name="obj" /> is a <see cref="T:System.Net.Topology.NetMask" /> and equal to this instance; otherwise, false.</returns>
         /// <param name="obj">The object to compare with this instance. </param>
         /// <filterpriority>2</filterpriority>
-        public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-
-            var mask = obj as NetMask;
-            if ((object)mask == null)
-                return false;
-
-            return Equals(mask);
-        }
+        public override bool Equals(object obj) => obj != null && Equals((NetMask)obj);
 
         /// <summary>Returns a value indicating whether this instance and a specified <see cref="T:System.Net.Topology.NetMask" /> object represent the same other.</summary>
         /// <returns>true if <paramref name="other" /> is equal to this instance; otherwise, false.</returns>
         /// <param name="other">An object to compare to this instance.</param>
         /// <filterpriority>2</filterpriority>
-        public bool Equals(NetMask other)
-        {
-            if (other == null)
-                return false;
-
-            if (other._maskBytes.Length != MaskLength)
-                return false;
-            if (other._maskBytes.Length != _maskBytes.Length)
-                return false;
-
-            /*
-            // More universal approach:
-            for (int i = 0; i < _bits.Length; ++i)
-                if (_bits[i] != other._bits[i])
-                    return false;
-            return true;
-            */
-
-            // faster approach:
-            return _maskBytes[0] == other._maskBytes[0]
-                && _maskBytes[1] == other._maskBytes[1]
-                && _maskBytes[2] == other._maskBytes[2]
-                && _maskBytes[3] == other._maskBytes[3];
-        }
+        public bool Equals(NetMask other) => other._mask == _mask;
 
         /// <summary>Returns the hash code for this instance.</summary>
         /// <returns>A 32-bit signed integer hash code.</returns>
         /// <filterpriority>2</filterpriority>
-        public override int GetHashCode()
-        {
-            int hashCode = _maskBytes[0] << 24;
-            hashCode |= _maskBytes[1] << 16;
-            hashCode |= _maskBytes[2] << 8;
-            hashCode |= _maskBytes[3];
-            return hashCode;
-        }
+        public override int GetHashCode() => unchecked((int)_mask);
 
         #endregion
     }
