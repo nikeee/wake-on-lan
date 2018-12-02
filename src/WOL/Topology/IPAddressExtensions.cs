@@ -1,4 +1,4 @@
-﻿#if NET35
+#if NET35
 
 using System.Collections.Generic;
 using System.Diagnostics;
