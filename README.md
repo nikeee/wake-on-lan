@@ -1,13 +1,8 @@
 # Wake-On-LAN [![Travis Build Status](https://travis-ci.org/nikeee/wake-on-lan.svg?branch=master)](https://travis-ci.org/nikeee/wake-on-lan) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/2t6mkn484amt0j4o?svg=true)](https://ci.appveyor.com/project/nikeee/wake-on-lan) [![NuGet version](https://img.shields.io/nuget/v/WakeOnLan.svg)](https://nuget.org/packages/WakeOnLan)
 
-A simple library for sending magic packets and performing IP address operations.
-
-### Why?
-I wanted to create a library that matches all Microsoft Code Analysis rules and design guidelines.
-However, it does not fit at least one naming guideline. The default namespace is `System.Net`. I decided to do this because I want the library to be used like a normal part of the .NET Framework.
+A simple library for sending magic packets and performing IP address operations. The default namespace is `System.Net`. There is an online documentation available [here](https://nikeee.github.io/wake-on-lan).
 
 ## Samples
-
 ### Sending a Magic Packet
 This sample uses `00:11:22:33:44:55` as MAC address.
 
@@ -91,9 +86,6 @@ The [System.Net.NetworkInformation.PhysicalAddress](http://msdn.microsoft.com/en
 var mac = new PhysicalAddress(new byte[] {0x00, 0x11, 0x22, 0x33, 0x44, 0x55});
 mac.SendWol(); // via extension method
 ```
-
-### Documentation
-There is an online documentation available [here](https://nikeee.github.io/wake-on-lan).
 
 ### Install
 Install the [NuGet package](https://nuget.org/packages/WakeOnLan) of this library:
