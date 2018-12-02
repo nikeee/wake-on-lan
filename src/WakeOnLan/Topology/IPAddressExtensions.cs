@@ -1,5 +1,3 @@
-#if NET35
-
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -167,4 +165,3 @@ namespace System.Net.Topology
         }
     }
 }
-#endif

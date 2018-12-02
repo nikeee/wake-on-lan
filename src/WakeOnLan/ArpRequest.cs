@@ -1,9 +1,6 @@
 using System.ComponentModel;
 using System.Net.NetworkInformation;
-
-#if NET45
 using System.Threading.Tasks;
-#endif
 
 namespace System.Net
 {
@@ -32,13 +29,11 @@ namespace System.Net
             return new ArpRequestResult(new Win32Exception(res));
         }
 
-#if NET45
         /// <summary>
         /// Sendet eine Anfrage über das ARP-Protokoll, um eine IP-Adresse in die Physikalische Adresse aufzulösen. Falls sich die physikalische Adresse bereits im Cache des Hosts befindet, wird diese zurückgegeben.
         /// </summary>
         /// <param name="destination">Destination <see cref="IPAddress"/>.</param>
         /// <returns>Ein asynchroner Task, welcher einen ARP-Request sendet.</returns>
         public static Task<ArpRequestResult> SendAsync(IPAddress destination) => Task.Run(() => Send(destination));
-#endif
     }
 }

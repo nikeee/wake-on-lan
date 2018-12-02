@@ -20,12 +20,8 @@ namespace System.Net.Topology
 
     internal static class BitHelper
     {
-#if NET40
         [Runtime.TargetedPatchingOptOut("Performance critical to inline across NGen image boundaries")] // as if NGen will ever compile this assembly ;)
-#endif
-#if NET45
         [Runtime.CompilerServices.MethodImpl(Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
-#endif
         internal static bool IsOptionSet(SiblingOptions value, SiblingOptions testValue) => (value & testValue) == testValue;
     }
 }

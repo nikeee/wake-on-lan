@@ -1,9 +1,4 @@
-#if NET35
-
-#if NET45
 using System.Threading.Tasks;
-#endif
-
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
@@ -117,7 +112,6 @@ namespace System.Net
         #endregion
         #region TAP
 
-#if NET45
         #region Wol
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
@@ -223,8 +217,6 @@ namespace System.Net
 
         #endregion
 
-#endif
         #endregion
     }
 }
-#endif

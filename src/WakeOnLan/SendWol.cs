@@ -1,7 +1,4 @@
-#if NET45
 using System.Threading.Tasks;
-#endif
-
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 
@@ -82,7 +79,6 @@ namespace System.Net
 
         #endregion
         #region TAP
-#if NET45
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
         /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>
@@ -120,7 +116,7 @@ namespace System.Net
                 throw new ArgumentNullException(nameof(target));
             if (macAddress == null)
                 throw new ArgumentNullException(nameof(macAddress));
-            
+
             var passwordBuffer = password?.GetPasswordBytes();
             var packet = GetWolPacket(macAddress, passwordBuffer);
             return SendPacketAsync(target, packet);
@@ -159,7 +155,6 @@ namespace System.Net
             return cl.SendAsync(packet, packet.Length, target).ContinueWith((Task t) => cl.Close());
         }
 
-#endif
         #endregion
         #region internal
 

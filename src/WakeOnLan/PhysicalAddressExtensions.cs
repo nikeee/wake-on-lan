@@ -1,9 +1,4 @@
-#if NET35
-
-#if NET45
 using System.Threading.Tasks;
-#endif
-
 using System.Net.NetworkInformation;
 
 namespace System.Net
@@ -66,8 +61,6 @@ namespace System.Net
 
         #endregion
         #region TAP
-
-#if NET45
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to the broadcast IP address with the physical address.</summary>
         /// <param name="address">The instance of the physical address that should be used in the magic packet.</param>
@@ -137,7 +130,6 @@ namespace System.Net
 
             return target.SendWolAsync(address.GetAddressBytes(), password);
         }
-#endif
 
         #endregion
         #region common
@@ -175,4 +167,3 @@ namespace System.Net
         #endregion
     }
 }
-#endif

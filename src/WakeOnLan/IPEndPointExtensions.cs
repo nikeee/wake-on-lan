@@ -1,9 +1,4 @@
-#if NET35
-
-#if NET45
 using System.Threading.Tasks;
-#endif
-
 using System.Net.NetworkInformation;
 
 namespace System.Net
@@ -72,7 +67,6 @@ namespace System.Net
         #endregion
         #region TAP
 
-#if NET45
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
         /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>
         /// <param name="mac0">First MAC Address byte.</param>
@@ -131,8 +125,6 @@ namespace System.Net
         {
             return Net.SendWol.SendAsync(target, macAddress, password);
         }
-#endif
         #endregion
     }
 }
-#endif
