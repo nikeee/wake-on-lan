@@ -7,7 +7,7 @@ environment:
     secure: FinXsIDAgF1MXSP2tN/e8V2LSSEC4XgSnKI7+Dn2ZV5ae0sh0pke8d9s18RS9a5M
 
 before_build:
-  - nuget restore src\WOL.sln
+  - nuget restore WakeOnLan.sln
   - ps: |
         if(-Not $env:APPVEYOR_PULL_REQUEST_TITLE)
         {

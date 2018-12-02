@@ -1,9 +1,9 @@
 language: csharp
-solution: ./src/WOL.sln
+solution: WakeOnLan.sln
 sudo: false
 install:
-  - nuget restore ./src/WOL.sln
+  - nuget restore WakeOnLan.sln
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
-  - xbuild /p:Configuration=Release /p:PostBuildEventUseInBuild=false /p:PreBuildEvent="" /p:PostBuildEvent="" /p:TargetFrameworkProfile="" ./src/WOL.sln
-  - mono --runtime=v4.0 ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/WakeOnLan.Testing/bin/Release/WakeOnLan.Testing.dll
+  - xbuild /p:Configuration=Release /p:PostBuildEventUseInBuild=false /p:PreBuildEvent="" /p:PostBuildEvent="" /p:TargetFrameworkProfile="" WakeOnLan.sln
+  - mono --runtime=v4.0 ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/WakeOnLan.Tests/bin/Release/WakeOnLan.Tests.dll
