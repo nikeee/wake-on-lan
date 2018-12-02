@@ -64,7 +64,7 @@ int siblingCount = mask.GetSiblingCount(SiblingOptions.ExcludeAll);
 ```
 
 ### ARP Requests
-To retrieve the MAC address of a host, there is a functionality for ARP-request built-in. It uses the Windows API method [SendArp].
+To retrieve the MAC address of a host, there is a functionality for ARP-request built-in. It uses the Windows API method [SendArp](http://msdn.microsoft.com/en-us/library/windows/desktop/aa366358(v=vs.85).aspx).
 ```C#
 ArpRequestResult res = ArpRequest.Send(someIp);
 if(res.Exception != null)
@@ -86,26 +86,17 @@ await IPAddress.Broadcast.SendWolAsync(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
 ```
 
 ### Further Samples
-The [System.Net.NetworkInformation.PhysicalAddress][5] class is also supported as it represents a MAC address.
+The [System.Net.NetworkInformation.PhysicalAddress](http://msdn.microsoft.com/en-us/library/system.net.networkinformation.physicaladdress(v=vs.110).aspx) class is also supported as it represents a MAC address.
 ```C#
 var mac = new PhysicalAddress(new byte[] {0x00, 0x11, 0x22, 0x33, 0x44, 0x55});
 mac.SendWol(); // via extension method
 ```
 
 ### Documentation
-There is an online documentation available [here][https://nikeee.github.io/wake-on-lan]. It was built using [sharpDox].
-You can download the `.chm` file [here][3].
-
-### Compatibility
-There is a compiled version for several versions of the .NET Framework. Currently these frameworks are supported:
-- .NET 2.0 (does not include extension methods and async features)
-- .NET 3.5 Client Profile (does not include async features)
-- .NET 4.0 Client Profile (does not include async features)
-- .NET 4.5
-- .NET 4.5.1
+There is an online documentation available [here][https://nikeee.github.io/wake-on-lan].
 
 ### Install
-Install the [NuGet package][4] of this library:
+Install the [NuGet package](https://nuget.org/packages/WakeOnLan) of this library:
 ```Shell
 # NuGet CLI
 Install-Package WakeOnLan
@@ -113,8 +104,18 @@ Install-Package WakeOnLan
 dotnet add package WakeOnLAN
 ```
 
-[sharpDox]: http://www.sharpDox.de
-[SendArp]: http://msdn.microsoft.com/en-us/library/windows/desktop/aa366358(v=vs.85).aspx
-[3]: https://github.com/nikeee/wake-on-lan/raw/master/src/Documentation/WOL45/Documentation.chm
-[4]: https://nuget.org/packages/WakeOnLan
-[5]: http://msdn.microsoft.com/en-us/library/system.net.networkinformation.physicaladdress(v=vs.110).aspx
+### Compatibility
+Version `2+` will be available for .NET Standard only. Version 1 supports the following platforms:
+- .NET 2.0 (does not include extension methods and async features)
+- .NET 3.5 Client Profile (does not include async features)
+- .NET 4.0 Client Profile (does not include async features)
+- .NET 4.5
+- .NET 4.5.1
+
+To install a version `<2`, have a look at all the available versions of [the NuGet package](https://www.nuget.org/packages/WakeOnLan) and install a specific version. For example:
+```Shell
+# NuGet CLI
+Install-Package WakeOnLAN -Version 1.6.0
+# dotnet CLI
+dotnet add package --version 1.6.0 WakeOnLAN
+```
