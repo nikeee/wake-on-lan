@@ -32,7 +32,6 @@ namespace WakeOnLan.Testing
 
             var m6 = new NetMask((IPAddress)null);
             Assert.IsTrue(m6 == NetMask.Empty);
-
         }
 
         [Test]

@@ -24,7 +24,6 @@ endPoint.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
 // ...
 using System.Net.NetworkInformation;
 PhysicalAddress.Parse("00-11-22-33-44-55").SendWol();
-
 ```
 
 
