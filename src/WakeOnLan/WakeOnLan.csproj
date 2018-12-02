@@ -9,7 +9,7 @@
     <Description>Library for Sending magic packets and performing IP address operations.</Description>
     <PackageLicenseUrl>https://github.com/nikeee/WakeOnLan/raw/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/nikeee/WakeOnLan</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/nikeee/WakeOnLan</RepositoryUrl>
+    <RepositoryUrl>https://github.com/nikeee/WakeOnLan.git</RepositoryUrl>
     <RepositoryType />
     <PackageTags>WakeOnLan, magic packets</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
