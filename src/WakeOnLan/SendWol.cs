@@ -11,18 +11,6 @@ namespace System.Net
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
         /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>
-        /// <param name="mac0">First MAC Address byte.</param>
-        /// <param name="mac1">Second MAC Address byte.</param>
-        /// <param name="mac2">Third MAC Address byte.</param>
-        /// <param name="mac3">Fourth MAC Address byte.</param>
-        /// <param name="mac4">Fifth MAC Address byte.</param>
-        /// <param name="mac5">Sixth MAC Address byte.</param>
-        /// <exception cref="SocketException">An error occurred when accessing the socket. See Remarks section of <see cref="UdpClient.Send(byte[], int, IPEndPoint)"/> for more information.</exception>
-        [Obsolete("Use an other overload of this method.")]
-        public static void Send(IPEndPoint target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5) => Send(target, new[] { mac0, mac1, mac2, mac3, mac4, mac5 });
-
-        /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
-        /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>
         /// <param name="macAddress">The MAC address of the designated client.</param>
         /// <exception cref="ArgumentNullException">target is null.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="macAddress"/> is null.</exception>
@@ -79,19 +67,6 @@ namespace System.Net
 
         #endregion
         #region TAP
-
-        /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
-        /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>
-        /// <param name="mac0">First MAC Address byte.</param>
-        /// <param name="mac1">Second MAC Address byte.</param>
-        /// <param name="mac2">Third MAC Address byte.</param>
-        /// <param name="mac3">Fourth MAC Address byte.</param>
-        /// <param name="mac4">Fifth MAC Address byte.</param>
-        /// <param name="mac5">Sixth MAC Address byte.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="target"/> is null.</exception>
-        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
-        [Obsolete("Use an other overload of this method.")]
-        public static Task SendAsync(IPEndPoint target, byte mac0, byte mac1, byte mac2, byte mac3, byte mac4, byte mac5) => SendAsync(target, new[] { mac0, mac1, mac2, mac3, mac4, mac5 });
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a client.</summary>
         /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>

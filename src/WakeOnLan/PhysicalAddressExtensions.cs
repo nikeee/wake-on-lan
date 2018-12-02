@@ -13,13 +13,6 @@ namespace System.Net
         /// <exception cref="ArgumentNullException"><paramref name="address"/> is null.</exception>
         public static void SendWol(this PhysicalAddress address) => address.SendWol(IPAddress.Broadcast, null);
 
-        /// <summary>Sends a Wake On LAN signal (magic packet) to the broadcast IP address using the physical address.</summary>
-        /// <param name="address">The instance of the physical address that should be used in the magic packet.</param>
-        /// <param name="password">The SecureOn password of the client.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="address"/> is null.</exception>
-        [Obsolete("Use SendWol(PhysicalAddress, IPAddress, SecureOnPassword) instead.")]
-        public static void SendWol(this PhysicalAddress address, SecureOnPassword password) => address.SendWol(IPAddress.Broadcast, password);
-
         /// <summary>Sends a Wake On LAN signal (magic packet) to a specific IP address with the physical address.</summary>
         /// <param name="address">The instance of the physical address that should be used in the magic packet.</param>
         /// <param name="target">Destination <see cref="IPEndPoint"/>.</param>
@@ -72,20 +65,6 @@ namespace System.Net
                 throw new ArgumentNullException(nameof(address));
 
             return IPAddress.Broadcast.SendWolAsync(address.GetAddressBytes());
-        }
-
-        /// <summary>Sends a Wake On LAN signal (magic packet) to the broadcast IP address with the physical address.</summary>
-        /// <param name="address">The instance of the physical address that should be used in the magic packet.</param>
-        /// <param name="password">The SecureOn password of the client.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="address"/> is null.</exception>
-        /// <returns>An asynchronous <see cref="Task"/> which sends a Wake On LAN signal (magic packet) to a client.</returns>
-        [Obsolete("Use SendWolAsync(PhysicalAddress, IPAddress, SecureOnPassword) instead.")]
-        public static Task SendWolAsync(this PhysicalAddress address, SecureOnPassword password)
-        {
-            if (address == null)
-                throw new ArgumentNullException(nameof(address));
-
-            return IPAddress.Broadcast.SendWolAsync(address.GetAddressBytes(), password);
         }
 
         /// <summary>Sends a Wake On LAN signal (magic packet) to a specific IP address with the physical address.</summary>
