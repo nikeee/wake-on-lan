@@ -3,19 +3,8 @@ namespace WakeOnLan.Testing
 {
     public abstract class TestHelper
     {
-        protected byte[] Ba(params byte[] bytes)
-        {
-            return bytes;
-        }
-
-        protected string[] Sa(params string[] strings)
-        {
-            return strings;
-        }
-
-        protected char[] Ca(params char[] chars)
-        {
-            return chars;
-        }
+        protected byte[] Ba(params byte[] bytes) => bytes;
+        protected string[] Sa(params string[] strings) => strings;
+        protected char[] Ca(params char[] chars) => chars;
     }
 }

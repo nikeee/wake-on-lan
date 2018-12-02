@@ -5,18 +5,12 @@ namespace WakeOnLan.Testing
 {
     internal class TestingCollection<T, U> : List<TestItem<T, U>>
     {
-        public void Add(T toTest, U expected)
-        {
-            Add(new TestItem<T, U>(toTest, expected));
-        }
+        public void Add(T toTest, U expected) => Add(new TestItem<T, U>(toTest, expected));
     }
 
     internal class TestingCollection<T, U, V> : List<TestItem<T, U, V>>
     {
-        public void Add(T toTest1, U toTest2, V expected)
-        {
-            Add(new TestItem<T, U, V>(toTest1, toTest2, expected));
-        }
+        public void Add(T toTest1, U toTest2, V expected) => Add(new TestItem<T, U, V>(toTest1, toTest2, expected));
     }
 
     internal class TestItem<T, U>
