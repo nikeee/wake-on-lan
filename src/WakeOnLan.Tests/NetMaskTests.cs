@@ -36,11 +36,13 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentException))]
         [Category("ArgumentException Tests")]
         public void ConstructorEx()
         {
-            var m3 = new NetMask(Ba(255, 255, 248, 0, 0));
+            Assert.Throws<ArgumentException>(() =>
+            {
+                var m3 = new NetMask(Ba(255, 255, 248, 0, 0));
+            });
         }
 
         [Test]

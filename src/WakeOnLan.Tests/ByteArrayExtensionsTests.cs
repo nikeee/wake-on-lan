@@ -46,15 +46,13 @@ namespace WakeOnLan.Testing
 
             bitsTrueFromLeft = mask.CountFromLeft(true);
             Assert.AreEqual(9, bitsTrueFromLeft);
-
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void CounFromLeftEx()
         {
-            ByteArrayExtensions.CountFromLeft(null, true);
+            Assert.Throws<ArgumentNullException>(() => ByteArrayExtensions.CountFromLeft(null, true));
         }
 
         [Test]
@@ -98,11 +96,10 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void CountFromRightEx()
         {
-            ByteArrayExtensions.CountFromRight(null, true);
+            Assert.Throws<ArgumentNullException>(() => ByteArrayExtensions.CountFromRight(null, true));
         }
 
         [Test]
@@ -164,15 +161,17 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void BitStreamFromRightEx()
         {
-            var res = ByteArrayExtensions.ToBitStream(null, false);
-            foreach (var item in res)
+            Assert.Throws<ArgumentNullException>(() =>
             {
-                // lolexception
-            }
+                var res = ByteArrayExtensions.ToBitStream(null, false);
+                foreach (var item in res)
+                {
+                    // lolexception
+                }
+            });
         }
 
         [Test]
@@ -202,11 +201,10 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void RepresentsValidNetMaskEx()
         {
-            ByteArrayExtensions.RepresentsValidNetMask(null);
+            Assert.Throws<ArgumentNullException>(() => ByteArrayExtensions.RepresentsValidNetMask(null));
         }
 
         [Test]
@@ -232,18 +230,16 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void ToBinaryStringEx()
         {
-            ByteArrayExtensions.ToBinaryString(null, '.');
+            Assert.Throws<ArgumentNullException>(() => ByteArrayExtensions.ToBinaryString(null, '.'));
         }
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void ToBinaryStringEx1()
         {
-            ByteArrayExtensions.ToBinaryString(null);
+            Assert.Throws<ArgumentNullException>(() => ByteArrayExtensions.ToBinaryString(null));
         }
 
         [Test]
@@ -279,11 +275,13 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void NotEx()
         {
-            var re = ByteArrayExtensions.Not(null);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                var re = ByteArrayExtensions.Not(null);
+            });
         }
 
         [Test]
@@ -322,23 +320,27 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void OrEx()
         {
-            byte[] b1 = null;
-            byte[] b2 = new byte[0];
-            byte[] re = ByteArrayExtensions.Or(b1, b2);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                byte[] b1 = null;
+                byte[] b2 = new byte[0];
+                byte[] re = ByteArrayExtensions.Or(b1, b2);
+            });
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void OrEx1()
         {
-            byte[] b1 = new byte[0];
-            byte[] b2 = null;
-            byte[] re = ByteArrayExtensions.Or(b1, b2);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                byte[] b1 = new byte[0];
+                byte[] b2 = null;
+                byte[] re = ByteArrayExtensions.Or(b1, b2);
+            });
         }
 
         [Test]
@@ -379,23 +381,27 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void AndEx()
         {
-            byte[] b1 = null;
-            byte[] b2 = new byte[0];
-            byte[] re = ByteArrayExtensions.And(b1, b2);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                byte[] b1 = null;
+                byte[] b2 = new byte[0];
+                byte[] re = ByteArrayExtensions.And(b1, b2);
+            });
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void AndEx1()
         {
-            byte[] b1 = new byte[0];
-            byte[] b2 = null;
-            byte[] re = ByteArrayExtensions.And(b1, b2);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                byte[] b1 = new byte[0];
+                byte[] b2 = null;
+                byte[] re = ByteArrayExtensions.And(b1, b2);
+            });
         }
 
         [Test]
@@ -434,23 +440,27 @@ namespace WakeOnLan.Testing
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void XorEx()
         {
-            byte[] b1 = null;
-            byte[] b2 = new byte[0];
-            byte[] re = ByteArrayExtensions.Xor(b1, b2);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                byte[] b1 = null;
+                byte[] b2 = new byte[0];
+                byte[] re = ByteArrayExtensions.Xor(b1, b2);
+            });
         }
 
         [Test]
-        [ExpectedException(typeof(ArgumentNullException))]
         [Category("ArgumentNullException Tests")]
         public void XorEx1()
         {
-            byte[] b1 = new byte[0];
-            byte[] b2 = null;
-            byte[] re = ByteArrayExtensions.Xor(b1, b2);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                byte[] b1 = new byte[0];
+                byte[] b2 = null;
+                byte[] re = ByteArrayExtensions.Xor(b1, b2);
+            });
         }
     }
 }
