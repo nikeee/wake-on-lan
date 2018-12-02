@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan40", "src\WakeOnLa
 		{E875CB92-FA9B-43CD-B415-57A1DC12C4C9} = {E875CB92-FA9B-43CD-B415-57A1DC12C4C9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan.Tests", "WakeOnLan.Tests\WakeOnLan.Tests.csproj", "{3AEC412E-3F49-4632-8DCA-2B929AE33438}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan.Tests", "src\WakeOnLan.Tests\WakeOnLan.Tests.csproj", "{3AEC412E-3F49-4632-8DCA-2B929AE33438}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WakeOnLan451", "src\WakeOnLan\WakeOnLan451.csproj", "{49DDF71A-F533-431E-AD73-A4678B8A218B}"
 	ProjectSection(ProjectDependencies) = postProject
