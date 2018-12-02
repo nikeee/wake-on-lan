@@ -14,6 +14,8 @@ namespace System.Net.Topology
 
         #region byte-wise fields
 
+        // We are assuming here, that the byte-ordering is like on a normal x86 system
+
         [FieldOffset(3)]
         private readonly byte _maskB0;
         [FieldOffset(2)]
