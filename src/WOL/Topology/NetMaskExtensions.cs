@@ -1,4 +1,4 @@
-﻿
+
 namespace System.Net.Topology
 {
     /// <summary>Provides extension methods for the <see cref="T:System.Net.Topology.NetMask"/>.</summary>

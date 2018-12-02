@@ -1,4 +1,4 @@
-﻿
+
 namespace System.Net.Topology
 {
     /// <summary>Provides an interface for IP net masks.</summary>

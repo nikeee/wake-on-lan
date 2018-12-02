@@ -1,4 +1,4 @@
-﻿namespace System.Net
+namespace System.Net
 {
     /// <summary>
     /// Der Administrator der physikalischen Adresse gibt an, ob die Adresse globally unique oder local administrated ist.

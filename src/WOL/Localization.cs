@@ -1,4 +1,4 @@
-﻿#define GERMAN
+#define GERMAN
 
 namespace System.Net
 {
