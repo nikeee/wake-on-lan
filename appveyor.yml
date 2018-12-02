@@ -4,7 +4,7 @@ environment:
   op_build_user: "Docs Publisher"
   op_build_user_email: "nikeee@users.noreply.github.com"
   access_token:
-    secure: FinXsIDAgF1MXSP2tN/e8V2LSSEC4XgSnKI7+Dn2ZV5ae0sh0pke8d9s18RS9a5M
+    secure: AMdZo9MA9Tvpn4jFFgTVUaUzFaEDtRLNELslc2d9RLB8lBBd53HziKEII/Brqdlo
 
 before_build:
   - dotnet restore
