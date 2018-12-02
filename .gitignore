@@ -102,13 +102,6 @@ Thumbs.db
 *.csproj.user
 *.vbproj.user
 
-
-!build/lib/net20/*.dll
-!build/lib/net35/*.dll
-!build/lib/net40/*.dll
-!build/lib/net45/*.dll
-!build/lib/net451/*.dll
-
 *.sln.DotSettings.user
 .gitattributes
 build/*.nupkg
