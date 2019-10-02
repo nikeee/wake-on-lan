@@ -1,6 +1,6 @@
 # Wake-On-LAN [![Travis Build Status](https://travis-ci.org/nikeee/wake-on-lan.svg?branch=master)](https://travis-ci.org/nikeee/wake-on-lan) [![Windows Build Status](https://ci.appveyor.com/api/projects/status/2t6mkn484amt0j4o?svg=true)](https://ci.appveyor.com/project/nikeee/wake-on-lan) [![NuGet version](https://img.shields.io/nuget/v/WakeOnLan.svg)](https://nuget.org/packages/WakeOnLan)
 
-A simple library for sending magic packets and performing IP address operations. The default namespace is `System.Net`. There is an online documentation available [here](https://nikeee.github.io/wake-on-lan).
+A simple library for sending magic packets and performing IP address operations. The default namespace is `System.Net`. There is an online documentation available [here](https://nikeee.github.io/wake-on-lan/README.html).
 
 ## Samples
 ### Sending a Magic Packet
