@@ -3,7 +3,7 @@ dist: trusty
 sudo: false
 
 mono: none
-dotnet: 3.0.0
+dotnet: 3.0.100
 
 install:
   - dotnet restore
