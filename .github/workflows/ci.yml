@@ -32,7 +32,9 @@ jobs:
            dotnet-version: '3.0.100'
        - run: dotnet build -c Release
        - name: 'Publish to NuGet'
-         run: dotnet nuget push -k $NUGET_KEY -s https://api.nuget.org/v3/index.json src/WakeOnLan/bin/Release/*.nupkg
+         run: dotnet nuget push -k "$NUGET_KEY" -s https://api.nuget.org/v3/index.json src/WakeOnLan/bin/Release/*.nupkg
+         env:
+           NUGET_KEY: ${{ secrets.NUGET_KEY }}
        - name: 'Publish as GitHub Release'
          uses: softprops/action-gh-release@v1
          with:
