@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Wake-On-LAN   | wake-on-lan </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Wake-On-LAN   | wake-on-lan ">
+    <meta name="generator" content="docfx 2.45.1.0">
+    
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="styles/docfx.vendor.css">
+    <link rel="stylesheet" href="styles/docfx.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <meta property="docfx:navrel" content="toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+    
+    <meta property="docfx:rel" content="">
+    
+  </head>
+  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+        
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              
+              <a class="navbar-brand" href="index.html">
+                <img id="logo" class="svg" src="logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+        
+        <div class="subnav navbar navbar-default">
+          <div class="container hide-when-search" id="breadcrumb">
+            <ul class="breadcrumb">
+              <li></li>
+            </ul>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+        
+        <div id="search-results">
+          <div class="search-list"></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+        <div class="article row grid">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wake-on-lan-matrix-build-statushttpsgithubcomnikeeewake-on-lanworkflowsmatrix20buildbadgesvg-nuget-versionhttpsimgshieldsionugetvwakeonlansvghttpsnugetorgpackageswakeonlan">Wake-On-LAN <img src="https://github.com/nikeee/wake-on-lan/workflows/Matrix%20Build/badge.svg" alt="Matrix Build Status"> <a href="https://nuget.org/packages/WakeOnLan"><img src="https://img.shields.io/nuget/v/WakeOnLan.svg" alt="NuGet version"></a></h1>
+
+<p>A simple library for sending magic packets and performing IP address operations. The default namespace is <code>System.Net</code>. There is an online documentation available <a href="https://nikeee.github.io/wake-on-lan/README.html">here</a>.</p>
+<h2 id="samples">Samples</h2>
+<h3 id="sending-a-magic-packet">Sending a Magic Packet</h3>
+<p>This sample uses <code>00:11:22:33:44:55</code> as MAC address.</p>
+<pre><code class="lang-C#">using System.Net;
+// ...
+
+// Using the IPAddess extension
+IPAddress.Broadcast.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
+
+// via core MagicPacket class
+var endPoint = new IPEndPoint(IPAddress.Broadcast, 7); // You don&#39;t have to use Broadcast.
+                                                       // Every IP/port-combination is possible.
+MagicPacket.Send(endPoint, 0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
+
+// via IPEndPoint extension
+endPoint.SendWol(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
+
+// ...
+using System.Net.NetworkInformation;
+PhysicalAddress.Parse(&quot;00-11-22-33-44-55&quot;).SendWol();
+</code></pre><h3 id="getting-subnet-information">Getting Subnet Information</h3>
+<p>You can also retrieve information about a subnet.</p>
+<pre><code class="lang-C#">using System.Net;
+using System.Net.Topology;
+// ...
+
+var someIp = new IPAddress(new byte[] { 192, 168, 1, 23 }); // Some IP address in the subnet
+var mask = new NetMask(255, 255, 255, 0); // the network mask of the subnet
+
+// CIDR-notation number of the network mask
+int cidr = mask.Cidr;
+
+var networkPrefix = someIp &amp; mask; // bitwise operation to get the network address (192.168.1.0)
+networkPrefix = someIp.GetNetworkPrefix(mask); // using the extension method for IPAddress
+
+// retrieve broadcast address of the subnet (192.168.1.255)
+var broadcastAddress = someIp.GetBroadcastAddress(mask);
+
+IEnumerable&lt;IPAddress&gt; siblings = someIp.GetSiblings(mask, SiblingOptions.ExcludeUnusable);
+// Enumerate through all IP addresses in the subnet, except network prefix and broadcast (RFC 950, 2^n-2)
+foreach (IPAddress someIpInNetwork in siblings)
+{
+    Console.WriteLine(someIpInNetwork.ToString());
+}
+
+// Get number of possible siblings without someIp, broadcast and network prefix
+int siblingCount = mask.GetSiblingCount(SiblingOptions.ExcludeAll);
+</code></pre><h3 id="arp-requests">ARP Requests</h3>
+<p>To retrieve the MAC address of a host, there is a functionality for ARP-request built-in. It uses the Windows API method <a href="http://msdn.microsoft.com/en-us/library/windows/desktop/aa366358(v=vs.85).aspx">SendArp</a>.</p>
+<pre><code class="lang-C#">ArpRequestResult res = ArpRequest.Send(someIp);
+if(res.Exception != null)
+{
+    Console.WriteLine(&quot;ARP error occurred: &quot; + res.Exception.Message);
+}
+else
+{
+    Console.WriteLine($&quot;Host MAC address: {res.Address}&quot;);
+}
+</code></pre><p>Note that there isn&#39;t always an MAC address available although there is a host. The reason for this could be the host is offline and/or the physical address is not cached somewhere.
+Also, this function uses a p/invoke. This might cause problems when used on platforms other than Windows.</p>
+<h3 id="asyncawait">Async/Await</h3>
+<p>This library also supports the Task-based Asynchronous Pattern (TAP). Every method that can send a magic packet synchronously is available as a TAP method returning a <code>Task</code>.</p>
+<pre><code class="lang-C#">await IPAddress.Broadcast.SendWolAsync(0x00, 0x11, 0x22, 0x33, 0x44, 0x55);
+</code></pre><h3 id="further-samples">Further Samples</h3>
+<p>The <a href="http://msdn.microsoft.com/en-us/library/system.net.networkinformation.physicaladdress(v=vs.110).aspx">System.Net.NetworkInformation.PhysicalAddress</a> class is also supported as it represents a MAC address.</p>
+<pre><code class="lang-C#">var mac = new PhysicalAddress(new byte[] {0x00, 0x11, 0x22, 0x33, 0x44, 0x55});
+mac.SendWol(); // via extension method
+</code></pre><h3 id="install">Install</h3>
+<p>Install the <a href="https://nuget.org/packages/WakeOnLan">NuGet package</a> of this library:</p>
+<pre><code class="lang-Shell"># NuGet CLI
+Install-Package WakeOnLan
+# dotnet CLI
+dotnet add package WakeOnLAN
+</code></pre><h3 id="compatibility">Compatibility</h3>
+<p>Version <code>2+</code> will be available for .NET Standard only. Version 1 supports the following platforms:</p>
+<ul>
+<li>.NET 2.0 (does not include extension methods and async features)</li>
+<li>.NET 3.5 Client Profile (does not include async features)</li>
+<li>.NET 4.0 Client Profile (does not include async features)</li>
+<li>.NET 4.5</li>
+<li>.NET 4.5.1</li>
+</ul>
+<p>To install a version <code>&lt;2</code>, have a look at all the available versions of <a href="https://www.nuget.org/packages/WakeOnLan">the NuGet package</a> and install a specific version. For example:</p>
+<pre><code class="lang-Shell"># NuGet CLI
+Install-Package WakeOnLAN -Version 1.6.0
+# dotnet CLI
+dotnet add package --version 1.6.0 WakeOnLAN
+</code></pre></article>
+          </div>
+          
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+              <div class="contribution">
+                <ul class="nav">
+                </ul>
+              </div>
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            
+            <span>Generated by <strong>DocFX</strong></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <script type="text/javascript" src="styles/docfx.vendor.js"></script>
+    <script type="text/javascript" src="styles/docfx.js"></script>
+    <script type="text/javascript" src="styles/main.js"></script>
+  </body>
+</html>
