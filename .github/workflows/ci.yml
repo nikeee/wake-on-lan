@@ -20,14 +20,6 @@ jobs:
       - run: dotnet build -c Release
       - run: dotnet test -c Release src/WakeOnLan.Tests/WakeOnLan.Tests.csproj
 
-      - if: matrix.os == 'ubuntu-latest'
-        run: dotnet pack -c Release
-      - if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@master
-        with:
-          name: NuGet-Package
-          path: src/WakeOnLan/bin/Release/*.nupkg
-
   publish:
     name: 'Publish to NuGet and GitHub Releases'
     needs: build
@@ -35,9 +27,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
        - uses: actions/checkout@master
-       - uses: actions/download-artifact@master
+       - uses: actions/setup-dotnet@v1
          with:
-           name: NuGet-Package
+           dotnet-version: '3.0.100'
+       - run: dotnet build -c Release
        - name: 'Publish to NuGet'
          run: dotnet nuget push -k "$NUGET_KEY" -s https://api.nuget.org/v3/index.json src/WakeOnLan/bin/Release/*.nupkg
          env:
