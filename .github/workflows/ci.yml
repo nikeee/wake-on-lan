@@ -1,0 +1,22 @@
+name: Matrix Build
+
+on: push
+
+jobs:
+  build:
+    name: '.NET ${{ matrix.dotnet }} on ${{ matrix.os }}'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ['ubuntu-latest', 'windows-latest', 'macOS-latest']
+        dotnet: ['3.0.100']
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: ${{ matrix.dotnet }}
+      - run:
+          - dotnet restore
+          - dotnet build -c Release
+          - dotnet test -c Release src/WakeOnLan.Tests/WakeOnLan.Tests.csproj
