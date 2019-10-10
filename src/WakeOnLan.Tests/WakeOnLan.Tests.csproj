@@ -16,12 +16,12 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <Version>2.0.1</Version>
+    <Version>2.0.2</Version>
     <Authors>Niklas Mollenhauer</Authors>
     <Product>WakeOnLan.Tests</Product>
     <PackageId>WakeOnLan.Tests</PackageId>
-    <AssemblyVersion>2.0.1.0</AssemblyVersion>
-    <FileVersion>2.0.1</FileVersion>
+    <AssemblyVersion>2.0.2.0</AssemblyVersion>
+    <FileVersion>2.0.2</FileVersion>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Library for Sending magic packets and performing IP address operations.</Description>
     <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
