@@ -1,6 +1,7 @@
 configuration: Release
 
 before_build:
+  - choco install dotnetcore-sdk
   - dotnet restore
 build_script:
   - dotnet build
