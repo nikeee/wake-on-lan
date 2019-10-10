@@ -16,7 +16,6 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: ${{ matrix.dotnet }}
-      - run:
-          - dotnet restore
-          - dotnet build -c Release
-          - dotnet test -c Release src/WakeOnLan.Tests/WakeOnLan.Tests.csproj
+      - run: dotnet restore
+      - run: dotnet build -c Release
+      - run: dotnet test -c Release src/WakeOnLan.Tests/WakeOnLan.Tests.csproj
